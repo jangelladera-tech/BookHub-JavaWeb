@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="60%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="420" rx="8" fill="url(#bg3)"/>
+  <rect x="0" y="0" width="16" height="420" fill="#060b19" opacity="0.6"/>
+  <!-- Estrellas y planeta B-612 -->
+  <circle cx="85" cy="70" r="2.5" fill="#fde047"/>
+  <circle cx="220" cy="60" r="3" fill="#fde047"/>
+  <circle cx="240" cy="120" r="2" fill="#fde047"/>
+  <circle cx="70" cy="145" r="2" fill="#fde047"/>
+  <circle cx="154" cy="150" r="46" fill="#fbbf24" opacity="0.9"/>
+  <path d="M112 162 Q154 135 196 162" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <text x="154" y="55" font-family="Arial, sans-serif" font-size="10" fill="#fde047" text-anchor="middle" letter-spacing="3">FÁBULA UNIVERSAL</text>
+  <text x="154" y="252" font-family="Georgia, serif" font-size="25" font-weight="bold" fill="#ffffff" text-anchor="middle">EL PRINCIPITO</text>
+  <line x1="104" y1="278" x2="204" y2="278" stroke="#fde047" stroke-width="1.5"/>
+  <text x="154" y="312" font-family="Arial, sans-serif" font-size="13" fill="#e2e8f0" text-anchor="middle">Antoine de Saint-Exupéry</text>
+  <text x="154" y="378" font-family="Arial, sans-serif" font-size="10" fill="#bfdbfe" text-anchor="middle">COLECCIÓN NARRATIVA · 1943</text>
+</svg>
