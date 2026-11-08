@@ -6,6 +6,7 @@
     <title>BookHub | Biblioteca Universitaria</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         :root {
@@ -359,76 +360,222 @@
             margin-bottom: 8px;
             margin-top: 14px;
         }
+
+        /* EFECTO DE DESVANECIMIENTO AL HACER SCROLL */
+        .navbar-scroll-fade {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .navbar-scroll-fade.navbar-hidden {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: translateY(-10px);
+        }
+
+        /* BOTÓN DE 3 LÍNEAS (HAMBURGUESA) */
+        .btn-sidebar-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-sidebar-toggle:hover, .btn-sidebar-toggle:focus {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: #ffffff;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* VENTANA LATERAL (OFFCANVAS) */
+        .offcanvas-bookhub {
+            width: 320px !important;
+            background: #0f172a !important;
+            color: #f8fafc;
+            border-right: 1px solid #334155 !important;
+        }
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .sidebar-menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+        .sidebar-menu-item.active {
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+        .sidebar-menu-item .menu-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-subtitle {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* BOTÓN DE AUDIO ULTRA DETALLADO */
+        .btn-audio-detailed {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-audio-detailed:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
+            transform: translateY(-2px);
+            color: #ffffff !important;
+        }
+        .btn-audio-detailed:active {
+            transform: translateY(0);
+        }
+        .btn-audio-detailed i {
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
-        <div class="container">
+    <!-- VENTANA A LA MANO IZQUIERDA (SIDEBAR OFFCANVAS) -->
+    <div class="offcanvas offcanvas-start offcanvas-bookhub shadow-lg"
+         tabindex="-1"
+         id="sidebarBookHub"
+         aria-labelledby="sidebarBookHubLabel">
 
-            <a class="navbar-brand fw-bold" href="index.html">
-                BookHub
-            </a>
-
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">
-                            Inicio
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="CatalogoServlet">
-                            Catálogo
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="InnovacionServlet">
-                            ODS 9: Accesibilidad
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="MisPrestamosServlet">
-                            Mis préstamos
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <button class="btn btn-primary btn-sm ms-lg-2 my-2 my-lg-0"
-                                type="button"
-                                onclick="toggleA11yPanel()">
-                            Accesibilidad
-                        </button>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light ms-lg-2 mt-2 mt-lg-0 btn-sm" href="registro.jsp">
-                            Registrarse
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="btn btn-light ms-lg-2 mt-2 mt-lg-0 btn-sm" href="login.jsp">
-                            Iniciar sesión
-                        </a>
-                    </li>
-
-                </ul>
-
+        <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-3">📚</span>
+                <div>
+                    <h5 class="offcanvas-title fw-bold text-white mb-0" id="sidebarBookHubLabel">BookHub</h5>
+                    <small class="text-white-50" style="font-size: 0.72rem;">Biblioteca Universitaria</small>
+                </div>
             </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
+            <div>
+                <!-- APARTADOS PRINCIPALES -->
+                <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
+                <div class="d-flex flex-column gap-1 mb-4">
+                    <a href="index.html" class="sidebar-menu-item active">
+                        <i class="bi bi-house-door-fill menu-icon text-warning"></i>
+                        <div class="flex-grow-1">
+                            <div>Inicio</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Portal principal y novedades</small>
+                        </div>
+                    </a>
+
+                    <a href="CatalogoServlet" class="sidebar-menu-item">
+                        <i class="bi bi-journal-bookmark-fill menu-icon text-info"></i>
+                        <div class="flex-grow-1">
+                            <div>Catálogo</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Explorar libros y categorías</small>
+                        </div>
+                    </a>
+
+                    <a href="InnovacionServlet" class="sidebar-menu-item">
+                        <i class="bi bi-universal-access-circle menu-icon text-success"></i>
+                        <div class="flex-grow-1">
+                            <div>ODS 09: Accesibilidad</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Inclusión asistiva WCAG</small>
+                        </div>
+                    </a>
+
+                    <a href="MisPrestamosServlet" class="sidebar-menu-item">
+                        <i class="bi bi-clock-history menu-icon text-warning"></i>
+                        <div class="flex-grow-1">
+                            <div>Mis Préstamos</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- HERRAMIENTAS Y ACCESIBILIDAD -->
+                <p class="sidebar-subtitle mb-2 px-2">Herramientas & Inclusión</p>
+                <div class="d-flex flex-column gap-2 mb-3">
+                    <button class="btn btn-outline-info text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3"
+                            type="button"
+                            onclick="toggleA11yPanel()">
+                        <i class="bi bi-eye"></i> Panel Accesibilidad (WCAG)
+                    </button>
+                    <a href="CatalogoServlet" class="btn btn-outline-light text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3">
+                        <i class="bi bi-mic"></i> Búsqueda por Voz
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-3 border-top border-secondary border-opacity-25 text-center text-white-50 small">
+                <span>BookHub v2.0 • Inclusión Digital</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN PRINCIPAL (SE DESVANECE AL HACER SCROLL) -->
+    <nav class="navbar navbar-dark bg-dark sticky-top shadow-sm py-2 navbar-scroll-fade" id="mainNavbar">
+        <div class="container-fluid px-3 px-lg-4">
+
+            <!-- Lado izquierdo: Botón de tres líneas + Logo -->
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn-sidebar-toggle"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#sidebarBookHub"
+                        aria-controls="sidebarBookHub"
+                        title="Abrir menú de apartados (Inicio, Catálogo, ODS 09, Mis préstamos)"
+                        aria-label="Menú principal de 3 líneas">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
+
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
+                    <span>BookHub</span>
+                </a>
+            </div>
+
+            <!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión y Registrarse -->
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <a href="login.jsp" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                </a>
+                <a href="registro.jsp" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                </a>
+            </div>
+
         </div>
     </nav>
 
@@ -543,7 +690,9 @@
                         </p>
                         <div class="mt-auto d-flex gap-2">
                             <a href="DetalleLibroServlet?id=1" class="btn btn-outline-primary btn-sm flex-grow-1">Ver detalles</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="reproducirAudio('Cien años de soledad. De Gabriel García Márquez. Novela cumbre del realismo mágico.')">Escuchar</button>
+                            <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Cien años de soledad. De Gabriel García Márquez. Novela cumbre del realismo mágico.')">
+                                <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -567,7 +716,9 @@
                         </p>
                         <div class="mt-auto d-flex gap-2">
                             <a href="DetalleLibroServlet?id=2" class="btn btn-outline-primary btn-sm flex-grow-1">Ver detalles</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="reproducirAudio('Don Quijote de la Mancha. De Miguel de Cervantes. Obra clásica universal de la literatura española.')">Escuchar</button>
+                            <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Don Quijote de la Mancha. De Miguel de Cervantes. Obra clásica universal de la literatura española.')">
+                                <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -591,7 +742,9 @@
                         </p>
                         <div class="mt-auto d-flex gap-2">
                             <a href="DetalleLibroServlet?id=3" class="btn btn-outline-primary btn-sm flex-grow-1">Ver detalles</a>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="reproducirAudio('El Principito. De Antoine de Saint-Exupéry. Obra sobre la amistad y el sentido de la vida.')">Escuchar</button>
+                            <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El Principito. De Antoine de Saint-Exupéry. Obra sobre la amistad y el sentido de la vida.')">
+                                <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -946,6 +1099,18 @@
                 ruler.style.top = e.clientY + 'px';
             }
         });
+
+        // DESVANECIMIENTO SUAVE DE LA BARRA SUPERIOR AL HACER SCROLL
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNavbar');
+            if (!navbar) return;
+            const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScrollY > 70) {
+                navbar.classList.add('navbar-hidden');
+            } else {
+                navbar.classList.remove('navbar-hidden');
+            }
+        }, { passive: true });
 
         document.addEventListener('DOMContentLoaded', cargarA11yPrefs);
     </script>

@@ -8,11 +8,32 @@
 
         <title>BOOKHUB | Iniciar sesión</title>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-              rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <style>
+            body {
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                min-height: 100vh;
+            }
+            .login-card {
+                border-radius: 16px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: #ffffff;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            }
+            .form-control {
+                border-radius: 8px;
+                padding: 10px 14px;
+            }
+            .btn-primary {
+                border-radius: 8px;
+                padding: 10px;
+                font-weight: 600;
+            }
+        </style>
     </head>
 
-    <body class="bg-light">
+    <body>
 
         <div class="container py-4">
 
@@ -21,7 +42,7 @@
 
                 <div class="col-md-5">
 
-                    <div class="card shadow">
+                    <div class="card login-card">
 
                         <div class="card-body p-4 p-md-5">
 
@@ -114,8 +135,9 @@
                                                required>
                                         <button class="btn btn-outline-secondary"
                                                 type="button"
-                                                onclick="togglePassword()">
-                                            👁️
+                                                onclick="togglePassword()"
+                                                aria-label="Mostrar u ocultar contraseña">
+                                            <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
 

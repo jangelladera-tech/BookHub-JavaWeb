@@ -37,6 +37,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
+        /* EFECTO DE DESVANECIMIENTO AL HACER SCROLL */
+        .navbar-scroll-fade {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .navbar-scroll-fade.navbar-hidden {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: translateY(-10px);
+        }
+
         /* ESTILOS DE LA VENTANA LATERAL (OFFCANVAS) Y BOTÓN HAMBURGUESA */
         .btn-sidebar-toggle {
             width: 42px;
@@ -182,23 +192,15 @@
             </div>
         </div>
 
-        <!-- PIE DE VENTANA: ACCIONES DE SESIÓN -->
-        <div class="pt-3 border-top border-secondary border-opacity-25">
-            <div class="d-grid gap-2">
-                <a href="usuario.jsp" class="btn btn-primary fw-semibold d-flex align-items-center justify-content-center gap-2 py-2">
-                    <i class="bi bi-person-gear"></i> Mi Cuenta
-                </a>
-                <a href="LogoutServlet" class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-1">
-                    <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
-                </a>
-            </div>
+        <div class="pt-3 border-top border-secondary border-opacity-25 text-center text-white-50 small">
+            <span>BookHub v2.0 • Inclusión Digital</span>
         </div>
     </div>
 </div>
 
 
-<!-- NAVBAR CON BOTÓN DE TRES LÍNEAS -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-2">
+<!-- NAVBAR CON BOTÓN DE TRES LÍNEAS (SE DESVANECE AL HACER SCROLL) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-2 navbar-scroll-fade" id="mainNavbar">
     <div class="container-fluid px-3 px-lg-4">
 
         <div class="d-flex align-items-center gap-2">
@@ -208,7 +210,7 @@
                     data-bs-toggle="offcanvas"
                     data-bs-target="#sidebarBookHub"
                     aria-controls="sidebarBookHub"
-                    title="Abrir menú lateral (Inicio, Catálogo, ODS 09, Mis préstamos)"
+                    title="Abrir menú de apartados (Inicio, Catálogo, ODS 09, Mis préstamos)"
                     aria-label="Abrir menú de navegación">
                 <i class="bi bi-list fs-3"></i>
             </button>
@@ -218,25 +220,14 @@
             </a>
         </div>
 
-        <div class="d-flex align-items-center flex-wrap gap-2 ms-auto">
-            <a href="index.html" class="btn btn-outline-light btn-sm d-none d-md-inline-flex align-items-center gap-1">
-                <i class="bi bi-house-door"></i> Inicio
-            </a>
-
-            <a href="CatalogoServlet" class="btn btn-outline-light btn-sm d-none d-sm-inline-flex align-items-center gap-1">
-                <i class="bi bi-journal-bookmark"></i> Catálogo
-            </a>
-
-            <a href="InnovacionServlet" class="btn btn-outline-info btn-sm d-none d-sm-inline-flex align-items-center gap-1">
-                <i class="bi bi-universal-access"></i> ODS 09
-            </a>
-
-            <a href="usuario.jsp" class="btn btn-light btn-sm d-none d-sm-inline-flex align-items-center gap-1">
-                <i class="bi bi-person"></i> Mi cuenta
+        <!-- Lado derecho: Exclusivamente sesión -->
+        <div class="d-flex align-items-center gap-2 ms-auto">
+            <a href="usuario.jsp" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                <i class="bi bi-person-circle"></i> <span>Mi cuenta</span>
             </a>
 
             <a href="LogoutServlet" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
-                <i class="bi bi-box-arrow-left"></i> Salir
+                <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
             </a>
         </div>
 
@@ -408,6 +399,18 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('mainNavbar');
+        if (!navbar) return;
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScrollY > 70) {
+            navbar.classList.add('navbar-hidden');
+        } else {
+            navbar.classList.remove('navbar-hidden');
+        }
+    }, { passive: true });
+</script>
 
 </body>
 
