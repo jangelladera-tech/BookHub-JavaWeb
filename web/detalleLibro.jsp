@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="beans.Libro"%>
+<%@page import="beans.Usuario"%>
 
 <%
     Libro libro = (Libro) request.getAttribute("libro");
@@ -8,6 +9,7 @@
         return;
     }
 
+    Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
     String error = request.getParameter("error");
     String exito = request.getParameter("exito");
     String descLimpia = (libro.getDescripcion() != null) ? libro.getDescripcion().replace("\"", "&quot;").replace("'", "") : "";
@@ -30,6 +32,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         :root {
@@ -196,33 +199,221 @@
             color: #64748b;
             margin-bottom: 6px;
         }
+
+        /* ESTILOS DE LA VENTANA LATERAL (OFFCANVAS) Y BOTÓN HAMBURGUESA */
+        .btn-sidebar-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-sidebar-toggle:hover, .btn-sidebar-toggle:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+        .offcanvas-bookhub {
+            width: 320px !important;
+            background: #0f172a !important;
+            color: #f8fafc;
+            border-right: 1px solid #334155 !important;
+        }
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .sidebar-menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+        .sidebar-menu-item.active {
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+        .sidebar-menu-item .menu-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-subtitle {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
     </style>
 
 </head>
 
 <body class="bg-light">
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-dark bg-dark sticky-top">
+    <!-- VENTANA A LA MANO IZQUIERDA (SIDEBAR OFFCANVAS) -->
+    <div class="offcanvas offcanvas-start offcanvas-bookhub shadow-lg"
+         tabindex="-1"
+         id="sidebarBookHub"
+         aria-labelledby="sidebarBookHubLabel">
 
-        <div class="container">
+        <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-3">📚</span>
+                <div>
+                    <h5 class="offcanvas-title fw-bold text-white mb-0" id="sidebarBookHubLabel">BookHub</h5>
+                    <small class="text-white-50" style="font-size: 0.72rem;">Biblioteca Universitaria</small>
+                </div>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
 
-            <a class="navbar-brand fw-bold" href="index.html">
-                BookHub
-            </a>
+        <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
+            <div>
+                <% if (usuarioSesion != null) { %>
+                    <div class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-person-circle fs-3 text-info"></i>
+                            <div class="overflow-hidden">
+                                <div class="fw-semibold text-white text-truncate"><%= usuarioSesion.getNombre() %></div>
+                                <span class="badge <%= "ADMIN".equals(usuarioSesion.getRol()) ? "bg-danger" : "bg-primary" %>" style="font-size: 0.68rem;">
+                                    <%= usuarioSesion.getRol() %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+
+                <!-- APARTADOS PRINCIPALES -->
+                <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
+                <div class="d-flex flex-column gap-1 mb-4">
+                    <a href="index.html" class="sidebar-menu-item">
+                        <i class="bi bi-house-door-fill menu-icon text-warning"></i>
+                        <div class="flex-grow-1">
+                            <div>Inicio</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Portal principal y novedades</small>
+                        </div>
+                    </a>
+
+                    <a href="CatalogoServlet" class="sidebar-menu-item active">
+                        <i class="bi bi-journal-bookmark-fill menu-icon text-info"></i>
+                        <div class="flex-grow-1">
+                            <div>Catálogo</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Explorar libros y categorías</small>
+                        </div>
+                    </a>
+
+                    <a href="InnovacionServlet" class="sidebar-menu-item">
+                        <i class="bi bi-universal-access-circle menu-icon text-success"></i>
+                        <div class="flex-grow-1">
+                            <div>ODS 09: Accesibilidad</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Inclusión asistiva WCAG</small>
+                        </div>
+                    </a>
+
+                    <a href="MisPrestamosServlet" class="sidebar-menu-item">
+                        <i class="bi bi-clock-history menu-icon text-warning"></i>
+                        <div class="flex-grow-1">
+                            <div>Mis Préstamos</div>
+                            <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- HERRAMIENTAS Y ACCESIBILIDAD -->
+                <p class="sidebar-subtitle mb-2 px-2">Herramientas & Inclusión</p>
+                <div class="d-flex flex-column gap-2 mb-3">
+                    <button class="btn btn-outline-info text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3"
+                            type="button"
+                            onclick="toggleA11yPanel()">
+                        <i class="bi bi-eye"></i> Panel Accesibilidad (WCAG)
+                    </button>
+                    <a href="CatalogoServlet" class="btn btn-outline-light text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3">
+                        <i class="bi bi-mic"></i> Búsqueda por Voz
+                    </a>
+                </div>
+            </div>
+
+            <!-- PIE DE VENTANA: ACCESO A CUENTA -->
+            <div class="pt-3 border-top border-secondary border-opacity-25">
+                <% if (usuarioSesion != null) { %>
+                    <div class="d-grid gap-2">
+                        <% if ("ADMIN".equals(usuarioSesion.getRol())) { %>
+                            <a href="dashboard.jsp" class="btn btn-warning fw-semibold d-flex align-items-center justify-content-center gap-2 py-2">
+                                <i class="bi bi-speedometer2"></i> Panel de Administración
+                            </a>
+                        <% } else { %>
+                            <a href="usuario.jsp" class="btn btn-primary fw-semibold d-flex align-items-center justify-content-center gap-2 py-2">
+                                <i class="bi bi-person-gear"></i> Mi Cuenta
+                            </a>
+                        <% } %>
+                        <a href="LogoutServlet" class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-1">
+                            <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
+                        </a>
+                    </div>
+                <% } else { %>
+                    <div class="d-grid gap-2">
+                        <a href="login.jsp" class="btn btn-primary fw-semibold d-flex align-items-center justify-content-center gap-2 py-2">
+                            <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                        </a>
+                        <a href="registro.jsp" class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center gap-1">
+                            <i class="bi bi-person-plus"></i> Registrarse como Lector
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR CON BOTÓN DE TRES LÍNEAS -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-2">
+
+        <div class="container-fluid px-3 px-lg-4">
 
             <div class="d-flex align-items-center gap-2">
-                <a href="InnovacionServlet" class="btn btn-outline-light btn-sm">
-                    ODS 9: Accesibilidad
-                </a>
-                <button type="button" class="btn btn-primary btn-sm" onclick="toggleA11yPanel()">
-                    Accesibilidad
+                <!-- Botón de tres líneas (Hamburguesa) que abre la ventana a la izquierda -->
+                <button class="btn-sidebar-toggle"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#sidebarBookHub"
+                        aria-controls="sidebarBookHub"
+                        title="Abrir menú lateral (Inicio, Catálogo, ODS 09, Mis préstamos)"
+                        aria-label="Abrir menú de navegación">
+                    <i class="bi bi-list fs-3"></i>
                 </button>
-                <a href="MisPrestamosServlet" class="btn btn-outline-light btn-sm">
+
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
+                    <span>BookHub</span>
+                </a>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <a href="InnovacionServlet" class="btn btn-outline-info btn-sm d-none d-sm-inline-flex align-items-center gap-1">
+                    <i class="bi bi-universal-access"></i> ODS 9
+                </a>
+                <button type="button" class="btn btn-primary btn-sm d-flex align-items-center gap-1" onclick="toggleA11yPanel()">
+                    <i class="bi bi-eye"></i> <span class="d-none d-sm-inline">Accesibilidad</span>
+                </button>
+                <a href="MisPrestamosServlet" class="btn btn-outline-light btn-sm d-none d-md-inline-flex">
                     Mis préstamos
                 </a>
-                <a href="CatalogoServlet" class="btn btn-light btn-sm">
-                    Volver al catálogo
+                <a href="CatalogoServlet" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-arrow-left"></i> Catálogo
                 </a>
             </div>
 
