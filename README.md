@@ -4,32 +4,32 @@ Aplicación web desarrollada en **Java (Jakarta EE / Servlets / JSP / MVC / DAO 
 
 ---
 
-## ♿ ODS 09: Innovación Tecnológica para Personas con Discapacidad
+## ODS 09: Innovación Tecnológica para Personas con Discapacidad
 
-En cumplimiento con el **ODS 09 (Industria, Innovación e Infraestructura - Metas 9.c y 9.1)** y las pautas internacionales de accesibilidad web **WCAG 2.1 (Nivel AAA)**, **BOOKHUB** integra un ecosistema de **tecnologías de asistencia e inclusión digital**, garantizando que estudiantes y lectores con discapacidad visual, auditiva, física/motriz o neurodivergencia accedan a los recursos bibliográficos en igualdad de condiciones:
+En cumplimiento con el **ODS 09 (Industria, Innovación e Infraestructura - Metas 9.c y 9.1)** y las directrices internacionales de accesibilidad web **WCAG 2.1 (Nivel AAA)**, **BOOKHUB** integra una suite de **tecnologías de asistencia e inclusión digital**, diseñada para que estudiantes e investigadores con discapacidad visual, motriz o cognitiva accedan al catálogo y contenidos en igualdad de condiciones:
 
-1. **🔊 Síntesis de Voz y Audiolibro Asistido (Text-to-Speech):**
-   - Cobertura del **100% de los libros** del catálogo y fichas de detalle con lectura en voz alta en español mediante la **Web Speech Synthesis API**.
-   - Control interactivo de reproducción (Iniciar, Pausar, Reanudar, Detener) y selector de velocidad (0.8x lenta, 1.0x normal, 1.2x rápida) para personas con baja visión, debilidad visual o ceguera.
+1. **Visualización Directa de Portadas y Carátulas:**
+   - Visualización directa de las portadas de los libros en la vista de catálogo (`160px x 224px`) con soporte de texto alternativo (`alt`) estructurado, optimizando la identificación visual inmediata sin depender exclusivamente del modal de vista rápida.
 
-2. **🎙️ Búsqueda Manos Libres por Reconocimiento de Voz (Speech-to-Text):**
-   - Sistema de búsqueda integrado en la barra de navegación y catálogo mediante la **Web Speech Recognition API**.
-   - Permite consultar libros y autores simplemente dictando la consulta al micrófono, ideal para usuarios con discapacidad motriz en extremidades superiores o artritis.
+2. **Modos de Contraste Calibrados (Sin pérdida de legibilidad):**
+   - **Modo Sepia (Lectura Cálida):** Fondo tono papel (`#fbf0d9`) y texto café oscuro (`#2c221e`), ideal para evitar la fatiga visual en sesiones prolongadas.
+   - **Modo Pizarra Oscura:** Fondo gris pizarra (`#0f172a`), tarjetas (`#1e293b`) y tipografía clara (`#cbd5e1`), reduciendo el deslumbramiento.
+   - **Modo Alto Contraste (WCAG AAA):** Fondo negro absoluto (`#000000`) con tipografía en blanco puro (`#ffffff`), acentos en amarillo accesible (`#ffff00`) y bordes cian (`#00e5ff`). Todas las clases de texto secundario y atenuado están calibradas para garantizar 100% de visibilidad.
 
-3. **🌓 Modos de Visión y Alto Contraste Adaptativo (Baja Visión & Daltonismo):**
-   - **Modo Alto Contraste (WCAG AAA):** Fondo negro (`#000000`) con tipografía en amarillo de alto contraste (`#ffff00`) y bordes cian.
-   - **Modo Monocromático:** Escala de grises pura para personas con acromatopsia o daltonismo extremo.
-   - **Modo Oscuro Suave:** Reducción de fatiga visual y fotofobia.
-   - **Escalador Dinámico de Fuente (A- / A / A+):** Ajuste del tamaño de texto sin romper la interfaz responsive.
+3. **Escala Tipográfica Progresiva (100% a 145%):**
+   - Selector escalonado de 4 niveles (`100%`, `115%`, `130%` y `145%`) que redimensiona proporcionalmente la interfaz sin desbordamientos de maquetación, con persistencia en `localStorage`.
 
-4. **🧠 Accesibilidad Cognitiva, Dislexia y TDAH:**
-   - **Modo Tipografía para Dislexia:** Aplica pesos basales reforzados, interletrado (`letter-spacing: 0.06em`), interpalabra (`word-spacing: 0.12em`) e interlineado amplio (`line-height: 1.8`).
-   - **Regla Visual de Lectura Guiada:** Línea guía horizontal translúcida que sigue el cursor del mouse para evitar la pérdida de renglón en lectores con TDAH o dificultades de fijación ocular.
-   - **Navegación Asistida por Teclado:** Foco visual de alta visibilidad para navegación 100% mediante tecla Tabulador.
+4. **Apoyo de Lectura y Neurodivergencia:**
+   - **Modo Dislexia:** Aplica pesos basales equilibrados, espaciado entre letras (`letter-spacing: 0.05em`) e interlineado ampliado (`line-height: 1.85`).
+   - **Máscara de Foco de Lectura:** Guía visual de lectura que atenúa el fondo y proyecta una franja iluminada siguiendo el cursor del ratón, facilitando la concentración en lectores con TDAH o dificultades de fijación ocular.
+   - **Subrayado de Enlaces:** Resaltado explícito con subrayado de alto contraste para identificar elementos accionables sin depender únicamente del color.
 
-5. **🧪 Centro de Innovación y Laboratorio ODS 09 (`innovacion.jsp`):**
-   - Apartado interactivo donde cualquier usuario o evaluador puede experimentar en tiempo real con el simulador de síntesis de voz, dictado manos libres, pruebas de daltonismo y monitoreo de recursos bibliográficos adaptados.
-   - **Widget Flotante Universal (♿ ODS 09):** Presente en todas las vistas con memoria persistente (`localStorage`) que preserva las preferencias de accesibilidad entre sesiones.
+5. **Síntesis de Voz y Búsqueda por Reconocimiento de Voz:**
+   - **Audiolibro Asistido (Text-to-Speech):** Síntesis de voz en español para títulos, fichas bibliográficas y selección de fragmentos de texto en pantalla mediante la Web Speech Synthesis API, con control de velocidad (0.8x, 1.0x, 1.2x).
+   - **Búsqueda Manos Libres:** Integración de la Web Speech Recognition API en la barra de navegación para búsqueda bibliográfica por voz.
+
+6. **Laboratorio de Accesibilidad ODS 09 (`innovacion.jsp`):**
+   - Panel de evaluación interactivo donde se comprueba el funcionamiento de las herramientas de asistencia, monitor de recursos adaptados y documentación técnica de cumplimiento.
 
 ---
 

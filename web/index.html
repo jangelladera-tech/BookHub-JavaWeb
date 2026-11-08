@@ -6,17 +6,18 @@
     <title>BookHub | Biblioteca Universitaria</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         :root {
             --a11y-font-scale: 1;
+            --a11y-line-height: 1.5;
         }
 
         body {
             background-color: #f8fafc;
             color: #1e293b;
             font-size: calc(1rem * var(--a11y-font-scale));
+            line-height: var(--a11y-line-height);
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
@@ -65,79 +66,240 @@
             border-radius: 8px;
         }
 
-        /* ACCESIBILIDAD */
-        body.a11y-high-contrast {
-            background-color: #000000 !important;
-            color: #ffff00 !important;
+        /* ========================================================
+           SISTEMA DE CONTRASTE CALIBRADO WCAG AAA (SIN TEXTO PERDIDO)
+           ======================================================== */
+
+        /* 1. MODO SEPIA */
+        body.a11y-theme-sepia {
+            background-color: #fbf0d9 !important;
+            color: #3d2b1f !important;
         }
-        body.a11y-high-contrast .card,
-        body.a11y-high-contrast .navbar,
-        body.a11y-high-contrast footer {
-            background-color: #121212 !important;
+        body.a11y-theme-sepia .card,
+        body.a11y-theme-sepia .navbar,
+        body.a11y-theme-sepia footer,
+        body.a11y-theme-sepia .home-cover-wrapper,
+        body.a11y-theme-sepia .hero {
+            background: #f4e6c0 !important;
+            background-color: #f4e6c0 !important;
+            color: #3d2b1f !important;
+            border-color: #dfcca4 !important;
+        }
+        body.a11y-theme-sepia h1,
+        body.a11y-theme-sepia h2,
+        body.a11y-theme-sepia h3,
+        body.a11y-theme-sepia h4,
+        body.a11y-theme-sepia h5,
+        body.a11y-theme-sepia h6,
+        body.a11y-theme-sepia strong {
+            color: #261a12 !important;
+        }
+        body.a11y-theme-sepia .text-muted,
+        body.a11y-theme-sepia .text-secondary,
+        body.a11y-theme-sepia .text-dark,
+        body.a11y-theme-sepia .text-white-50 {
+            color: #5c4331 !important;
+        }
+        body.a11y-theme-sepia .form-control {
+            background-color: #fbf0d9 !important;
+            color: #3d2b1f !important;
+            border-color: #bfa67c !important;
+        }
+        body.a11y-theme-sepia a {
+            color: #8b3a00 !important;
+        }
+        body.a11y-theme-sepia .btn-primary {
+            background-color: #8b3a00 !important;
+            border-color: #8b3a00 !important;
             color: #ffffff !important;
-            border-color: #ffff00 !important;
         }
-        body.a11y-high-contrast a,
-        body.a11y-high-contrast h1,
-        body.a11y-high-contrast h2,
-        body.a11y-high-contrast h3,
-        body.a11y-high-contrast strong {
-            color: #ffff00 !important;
+        body.a11y-theme-sepia .btn-outline-primary,
+        body.a11y-theme-sepia .btn-outline-secondary {
+            border-color: #8b3a00 !important;
+            color: #8b3a00 !important;
+            background-color: transparent !important;
         }
-        body.a11y-high-contrast .btn-primary {
-            background-color: #ffff00 !important;
-            color: #000000 !important;
-            border-color: #ffff00 !important;
-            font-weight: bold;
-        }
-        body.a11y-monochrome {
-            filter: grayscale(100%) !important;
-        }
-        body.a11y-dark-mode {
-            background-color: #0f172a !important;
-            color: #e2e8f0 !important;
-        }
-        body.a11y-dark-mode .card {
-            background-color: #1e293b !important;
-            color: #e2e8f0 !important;
-            border-color: #334155 !important;
-        }
-        body.a11y-dark-mode .hero,
-        body.a11y-dark-mode .home-cover-wrapper {
-            background: #0f172a !important;
-            border-color: #334155 !important;
-        }
-        body.a11y-dyslexia {
-            font-family: 'OpenDyslexic', 'Segoe UI', Arial, sans-serif !important;
-            letter-spacing: 0.05em !important;
-            word-spacing: 0.1em !important;
-            line-height: 1.75 !important;
-        }
-        body.a11y-highlight-focus *:focus {
-            outline: 3px solid #2563eb !important;
-            outline-offset: 2px !important;
+        body.a11y-theme-sepia .badge {
+            background-color: #dfcca4 !important;
+            color: #3d2b1f !important;
+            border: 1px solid #bfa67c !important;
         }
 
+        /* 2. MODO NOCHE / PIZARRA */
+        body.a11y-theme-dark {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
+        }
+        body.a11y-theme-dark .card,
+        body.a11y-theme-dark .navbar,
+        body.a11y-theme-dark footer,
+        body.a11y-theme-dark .home-cover-wrapper,
+        body.a11y-theme-dark .hero {
+            background: #1e293b !important;
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+            border-color: #334155 !important;
+        }
+        body.a11y-theme-dark h1,
+        body.a11y-theme-dark h2,
+        body.a11y-theme-dark h3,
+        body.a11y-theme-dark h4,
+        body.a11y-theme-dark h5,
+        body.a11y-theme-dark h6,
+        body.a11y-theme-dark strong {
+            color: #ffffff !important;
+        }
+        body.a11y-theme-dark .text-muted,
+        body.a11y-theme-dark .text-secondary,
+        body.a11y-theme-dark .text-dark,
+        body.a11y-theme-dark .text-white-50 {
+            color: #cbd5e1 !important;
+        }
+        body.a11y-theme-dark .form-control {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
+            border-color: #475569 !important;
+        }
+        body.a11y-theme-dark a {
+            color: #60a5fa !important;
+        }
+        body.a11y-theme-dark .btn-primary {
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+        body.a11y-theme-dark .btn-outline-primary,
+        body.a11y-theme-dark .btn-outline-secondary {
+            border-color: #94a3b8 !important;
+            color: #f1f5f9 !important;
+            background-color: transparent !important;
+        }
+        body.a11y-theme-dark .badge {
+            background-color: #334155 !important;
+            color: #f8fafc !important;
+            border: 1px solid #475569 !important;
+        }
+
+        /* 3. ALTO CONTRASTE PURO WCAG AAA */
+        body.a11y-theme-contrast {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        body.a11y-theme-contrast .card,
+        body.a11y-theme-contrast .navbar,
+        body.a11y-theme-contrast footer,
+        body.a11y-theme-contrast .home-cover-wrapper,
+        body.a11y-theme-contrast .hero {
+            background: #0a0a0a !important;
+            background-color: #0a0a0a !important;
+            color: #ffffff !important;
+            border: 2px solid #facc15 !important;
+        }
+        body.a11y-theme-contrast h1,
+        body.a11y-theme-contrast h2,
+        body.a11y-theme-contrast h3,
+        body.a11y-theme-contrast h4,
+        body.a11y-theme-contrast h5,
+        body.a11y-theme-contrast h6,
+        body.a11y-theme-contrast strong {
+            color: #facc15 !important;
+        }
+        body.a11y-theme-contrast p,
+        body.a11y-theme-contrast span,
+        body.a11y-theme-contrast div {
+            color: #ffffff !important;
+        }
+        body.a11y-theme-contrast .text-muted,
+        body.a11y-theme-contrast .text-secondary,
+        body.a11y-theme-contrast .text-dark,
+        body.a11y-theme-contrast .text-white-50 {
+            color: #ffffff !important;
+            font-weight: 500 !important;
+        }
+        body.a11y-theme-contrast .form-control {
+            background-color: #000000 !important;
+            color: #facc15 !important;
+            border: 2px solid #facc15 !important;
+        }
+        body.a11y-theme-contrast a {
+            color: #38bdf8 !important;
+            text-decoration: underline !important;
+        }
+        body.a11y-theme-contrast .btn-primary {
+            background-color: #facc15 !important;
+            border-color: #facc15 !important;
+            color: #000000 !important;
+            font-weight: bold !important;
+        }
+        body.a11y-theme-contrast .btn-outline-primary,
+        body.a11y-theme-contrast .btn-outline-secondary {
+            border: 2px solid #facc15 !important;
+            color: #facc15 !important;
+            background-color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        body.a11y-theme-contrast .badge {
+            background-color: #000000 !important;
+            color: #facc15 !important;
+            border: 1px solid #facc15 !important;
+        }
+
+        /* DISLEXIA Y SUBRAYADO */
+        body.a11y-dyslexia {
+            font-family: 'OpenDyslexic', 'Segoe UI', Arial, sans-serif !important;
+            letter-spacing: 0.08em !important;
+            word-spacing: 0.15em !important;
+            line-height: 1.8 !important;
+        }
+
+        body.a11y-underline-links a,
+        body.a11y-underline-links button {
+            text-decoration: underline !important;
+            text-underline-offset: 3px !important;
+        }
+
+        /* MÁSCARA GUÍA DE LECTURA (TDAH / ENFOQUE) */
         #a11yReadingRuler {
             display: none;
             position: fixed;
             left: 0;
             width: 100vw;
-            height: 36px;
-            background: rgba(37, 99, 235, 0.12);
-            border-top: 1px solid #2563eb;
-            border-bottom: 1px solid #2563eb;
+            height: 48px;
+            background: rgba(37, 99, 235, 0.15);
+            border-top: 2px solid #2563eb;
+            border-bottom: 2px solid #2563eb;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
             pointer-events: none;
             z-index: 99999;
             transform: translateY(-50%);
         }
 
+        /* BOTÓN FLOTANTE PARA ESCUCHAR TEXTO SELECCIONADO */
+        #a11yBtnAudioSel {
+            display: none;
+            position: absolute;
+            z-index: 100000;
+            background: #1e3a8a;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+        #a11yBtnAudioSel:hover {
+            background: #2563eb;
+        }
+
+        /* BOTÓN Y PANEL LATERAL */
         .a11y-float-btn {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: #1e3a8a;
             color: #ffffff;
@@ -148,250 +310,125 @@
             justify-content: center;
             cursor: pointer;
             z-index: 9999;
-            font-size: 1.25rem;
+            font-weight: bold;
+            font-size: 1.15rem;
             transition: transform 0.2s ease, background 0.2s ease;
         }
         .a11y-float-btn:hover {
             transform: scale(1.08);
             background: #2563eb;
         }
+
         .a11y-panel {
             position: fixed;
-            bottom: 84px;
-            right: 24px;
-            width: 320px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 340px;
             max-width: 90vw;
             background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-            z-index: 9999;
-            overflow: hidden;
+            border-left: 1px solid #cbd5e1;
+            box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            overflow-y: auto;
             display: none;
+            animation: slideInRight 0.25s ease-out;
         }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
         .a11y-panel-header {
             background: #1e3a8a;
             color: #ffffff;
-            padding: 12px 16px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         .a11y-panel-body {
-            padding: 14px;
-            max-height: 440px;
-            overflow-y: auto;
+            padding: 18px 20px;
         }
-        .a11y-opt-title {
+        .a11y-section-title {
             font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #64748b;
-            margin-bottom: 6px;
-        }
-
-        /* ESTILOS DE LA VENTANA LATERAL (OFFCANVAS) Y BOTÓN HAMBURGUESA */
-        .btn-sidebar-toggle {
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .btn-sidebar-toggle:hover, .btn-sidebar-toggle:focus {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #ffffff;
-            color: #ffffff;
-            transform: scale(1.05);
-        }
-        .offcanvas-bookhub {
-            width: 320px !important;
-            background: #0f172a !important;
-            color: #f8fafc;
-            border-right: 1px solid #334155 !important;
-        }
-        .sidebar-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            border-radius: 10px;
-            color: #e2e8f0;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-        .sidebar-menu-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            transform: translateX(4px);
-        }
-        .sidebar-menu-item.active {
-            background: #2563eb;
-            color: #ffffff;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
-        }
-        .sidebar-menu-item .menu-icon {
-            font-size: 1.25rem;
-            width: 24px;
-            text-align: center;
-        }
-        .sidebar-subtitle {
-            font-size: 0.72rem;
-            letter-spacing: 0.08em;
-            color: #94a3b8;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #64748b;
+            margin-bottom: 8px;
+            margin-top: 14px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- VENTANA A LA MANO IZQUIERDA (SIDEBAR OFFCANVAS) -->
-    <div class="offcanvas offcanvas-start offcanvas-bookhub shadow-lg"
-         tabindex="-1"
-         id="sidebarBookHub"
-         aria-labelledby="sidebarBookHubLabel">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+        <div class="container">
 
-        <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
-            <div class="d-flex align-items-center gap-2">
-                <span class="fs-3">📚</span>
-                <div>
-                    <h5 class="offcanvas-title fw-bold text-white mb-0" id="sidebarBookHubLabel">BookHub</h5>
-                    <small class="text-white-50" style="font-size: 0.72rem;">Biblioteca Universitaria</small>
-                </div>
-            </div>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
-        </div>
+            <a class="navbar-brand fw-bold" href="index.html">
+                BookHub
+            </a>
 
-        <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
-            <div>
-                <!-- APARTADOS PRINCIPALES -->
-                <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
-                <div class="d-flex flex-column gap-1 mb-4">
-                    <a href="index.html" class="sidebar-menu-item active">
-                        <i class="bi bi-house-door-fill menu-icon text-warning"></i>
-                        <div class="flex-grow-1">
-                            <div>Inicio</div>
-                            <small class="text-white-50" style="font-size: 0.72rem;">Portal principal y novedades</small>
-                        </div>
-                    </a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <a href="CatalogoServlet" class="sidebar-menu-item">
-                        <i class="bi bi-journal-bookmark-fill menu-icon text-info"></i>
-                        <div class="flex-grow-1">
-                            <div>Catálogo</div>
-                            <small class="text-white-50" style="font-size: 0.72rem;">Explorar libros y categorías</small>
-                        </div>
-                    </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-                    <a href="InnovacionServlet" class="sidebar-menu-item">
-                        <i class="bi bi-universal-access-circle menu-icon text-success"></i>
-                        <div class="flex-grow-1">
-                            <div>ODS 09: Accesibilidad</div>
-                            <small class="text-white-50" style="font-size: 0.72rem;">Inclusión asistiva WCAG</small>
-                        </div>
-                    </a>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
 
-                    <a href="MisPrestamosServlet" class="sidebar-menu-item">
-                        <i class="bi bi-clock-history menu-icon text-warning"></i>
-                        <div class="flex-grow-1">
-                            <div>Mis Préstamos</div>
-                            <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- HERRAMIENTAS Y ACCESIBILIDAD -->
-                <p class="sidebar-subtitle mb-2 px-2">Herramientas & Inclusión</p>
-                <div class="d-flex flex-column gap-2 mb-3">
-                    <button class="btn btn-outline-info text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3"
-                            type="button"
-                            onclick="toggleA11yPanel()">
-                        <i class="bi bi-eye"></i> Panel Accesibilidad (WCAG)
-                    </button>
-                    <a href="CatalogoServlet" class="btn btn-outline-light text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3">
-                        <i class="bi bi-mic"></i> Búsqueda por Voz
-                    </a>
-                </div>
-            </div>
-
-            <!-- PIE DE VENTANA: ACCESO A CUENTA -->
-            <div class="pt-3 border-top border-secondary border-opacity-25">
-                <div class="d-grid gap-2">
-                    <a href="login.jsp" class="btn btn-primary fw-semibold d-flex align-items-center justify-content-center gap-2 py-2">
-                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
-                    </a>
-                    <a href="registro.jsp" class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center gap-1">
-                        <i class="bi bi-person-plus"></i> Registrarse como Lector
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- NAVBAR CON BOTÓN DE TRES LÍNEAS -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top shadow-sm py-2">
-        <div class="container-fluid px-3 px-lg-4">
-
-            <div class="d-flex align-items-center gap-2">
-                <!-- Botón de tres líneas (Hamburguesa) que abre la ventana izquierda -->
-                <button class="btn-sidebar-toggle"
-                        type="button"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#sidebarBookHub"
-                        aria-controls="sidebarBookHub"
-                        title="Abrir menú lateral (Inicio, Catálogo, ODS 09, Mis préstamos)"
-                        aria-label="Abrir menú de navegación">
-                    <i class="bi bi-list fs-3"></i>
-                </button>
-
-                <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
-                    <span>BookHub</span>
-                </a>
-            </div>
-
-            <!-- Menú superior en pantallas grandes y accesos rápidos -->
-            <div class="d-flex align-items-center gap-2 ms-auto">
-                <ul class="navbar-nav d-none d-lg-flex flex-row gap-3 me-2">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Inicio</a>
+                        <a class="nav-link active" href="index.html">
+                            Inicio
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="CatalogoServlet">Catálogo</a>
+                        <a class="nav-link" href="CatalogoServlet">
+                            Catálogo
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="InnovacionServlet">ODS 9: Accesibilidad</a>
+                        <a class="nav-link" href="InnovacionServlet">
+                            ODS 9: Accesibilidad
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="MisPrestamosServlet">Mis préstamos</a>
+                        <a class="nav-link" href="MisPrestamosServlet">
+                            Mis préstamos
+                        </a>
                     </li>
+
+                    <li class="nav-item">
+                        <button class="btn btn-primary btn-sm ms-lg-2 my-2 my-lg-0"
+                                type="button"
+                                onclick="toggleA11yPanel()">
+                            Accesibilidad
+                        </button>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-lg-2 mt-2 mt-lg-0 btn-sm" href="registro.jsp">
+                            Registrarse
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-light ms-lg-2 mt-2 mt-lg-0 btn-sm" href="login.jsp">
+                            Iniciar sesión
+                        </a>
+                    </li>
+
                 </ul>
 
-                <button class="btn btn-primary btn-sm d-flex align-items-center gap-1"
-                        type="button"
-                        onclick="toggleA11yPanel()">
-                    <i class="bi bi-eye"></i> <span class="d-none d-sm-inline">Accesibilidad</span>
-                </button>
-
-                <a class="btn btn-outline-light btn-sm d-none d-sm-inline-flex" href="registro.jsp">
-                    Registrarse
-                </a>
-
-                <a class="btn btn-light btn-sm d-flex align-items-center gap-1" href="login.jsp">
-                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
-                </a>
             </div>
-
         </div>
     </nav>
 
@@ -586,75 +623,79 @@
     </section>
 
 
-    <!-- REGLA DE LECTURA VISUAL -->
+    <!-- MÁSCARA GUÍA DE LECTURA VISUAL (TDAH / ENFOQUE) -->
     <div id="a11yReadingRuler"></div>
 
+    <!-- MINI BOTÓN FLOTANTE PARA ESCUCHAR TEXTO SELECCIONADO -->
+    <button id="a11yBtnAudioSel" type="button" onclick="leerTextoSeleccionado()">
+        Escuchar selección
+    </button>
 
-    <!-- PANEL FLOTANTE DE ACCESIBILIDAD -->
-    <div id="bookhubA11yWidget">
-        <button class="a11y-float-btn"
-                id="btnA11yToggle"
-                type="button"
-                onclick="toggleA11yPanel()"
-                aria-label="Abrir panel de accesibilidad"
-                title="Herramientas de accesibilidad">
-            A
-        </button>
 
-        <div class="a11y-panel shadow-sm" id="a11yPanel">
-            <div class="a11y-panel-header">
-                <div>
-                    <h6 class="mb-0 fw-bold">Accesibilidad</h6>
-                    <small class="text-white-50">Ajustes visuales y de lectura</small>
-                </div>
-                <button type="button" class="btn-close btn-close-white" onclick="toggleA11yPanel()" aria-label="Cerrar"></button>
+    <!-- BOTÓN Y PANEL LATERAL DE ACCESIBILIDAD -->
+    <button class="a11y-float-btn"
+            id="btnA11yToggle"
+            type="button"
+            onclick="toggleA11yPanel()"
+            aria-label="Abrir opciones de accesibilidad"
+            title="Opciones de accesibilidad">
+        A
+    </button>
+
+    <div class="a11y-panel" id="a11yPanel">
+        <div class="a11y-panel-header">
+            <div>
+                <h6 class="mb-0 fw-bold">Accesibilidad y Lectura</h6>
+                <small class="text-white-50">Configuración personalizada (ODS 9)</small>
+            </div>
+            <button type="button" class="btn-close btn-close-white" onclick="toggleA11yPanel()" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="a11y-panel-body">
+            <!-- 1. TAMAÑO DE TEXTO GRADUAL -->
+            <div class="a11y-section-title">Tamaño de Texto</div>
+            <div class="btn-group w-100" role="group">
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont100" onclick="setEscalaFuente(1.0)">100%</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont115" onclick="setEscalaFuente(1.15)">115%</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont130" onclick="setEscalaFuente(1.30)">130%</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont145" onclick="setEscalaFuente(1.45)">145%</button>
             </div>
 
-            <div class="a11y-panel-body">
-                <div class="mb-3">
-                    <div class="a11y-opt-title">Tamaño de letra</div>
-                    <div class="btn-group w-100">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(-0.1)">Reducir</button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0)">Normal</button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0.15)">Aumentar</button>
-                    </div>
-                </div>
+            <!-- 2. CONTRASTE VISUAL CALIBRADO (SIN TEXTO PERDIDO) -->
+            <div class="a11y-section-title">Contraste Visual</div>
+            <div class="d-grid gap-1">
+                <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeDefault" onclick="setTemaContraste('default')">
+                    Estándar (Fondo blanco)
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeSepia" onclick="setTemaContraste('sepia')">
+                    Sepia (Papel cálido / Menor fatiga)
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeDark" onclick="setTemaContraste('dark')">
+                    Modo Noche (Pizarra oscura)
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeContrast" onclick="setTemaContraste('contrast')">
+                    Alto Contraste (Amarillo / Negro WCAG AAA)
+                </button>
+            </div>
 
-                <div class="mb-3">
-                    <div class="a11y-opt-title">Contraste visual</div>
-                    <div class="d-grid gap-1">
-                        <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleHighContrast()">
-                            Alto contraste (Fondo negro)
-                        </button>
-                        <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleDarkMode()">
-                            Modo oscuro suave
-                        </button>
-                        <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleMonochrome()">
-                            Escala de grises
-                        </button>
-                    </div>
-                </div>
+            <!-- 3. HERRAMIENTAS DE APOYO -->
+            <div class="a11y-section-title">Apoyo de Lectura</div>
+            <div class="d-grid gap-1">
+                <button type="button" class="btn btn-outline-primary btn-sm text-start" id="btnToggleDyslexia" onclick="toggleDyslexia()">
+                    Tipografía de fácil lectura (Dislexia)
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-sm text-start" id="btnToggleRuler" onclick="toggleRuler()">
+                    Máscara guía de lectura (TDAH)
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-sm text-start" id="btnToggleUnderline" onclick="toggleUnderlineLinks()">
+                    Subrayar enlaces interactivos
+                </button>
+            </div>
 
-                <div class="mb-3">
-                    <div class="a11y-opt-title">Apoyo de lectura</div>
-                    <div class="d-grid gap-1">
-                        <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleDyslexiaMode()">
-                            Fuente de lectura accesible
-                        </button>
-                        <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleReadingRuler()">
-                            Regla guía de lectura
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm text-start" onclick="toggleFocusHighlight()">
-                            Resaltar navegación por teclado
-                        </button>
-                    </div>
-                </div>
-
-                <div class="pt-2 text-center border-top">
-                    <button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" onclick="restablecerA11y()">
-                        Restablecer ajustes
-                    </button>
-                </div>
+            <div class="pt-3 mt-3 border-top text-center">
+                <button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" onclick="restablecerA11y()">
+                    Restablecer ajustes por defecto
+                </button>
             </div>
         </div>
     </div>
@@ -683,6 +724,33 @@
             utterance.lang = 'es-ES';
             utterance.rate = 1.0;
             window.speechSynthesis.speak(utterance);
+        }
+
+        // ESCUCHAR TEXTO SELECCIONADO
+        document.addEventListener('mouseup', function(e) {
+            const sel = window.getSelection().toString().trim();
+            const btn = document.getElementById('a11yBtnAudioSel');
+            if (btn) {
+                if (sel.length >= 3) {
+                    btn.style.display = 'block';
+                    btn.style.top = (e.pageY + 12) + 'px';
+                    btn.style.left = Math.min(window.innerWidth - 180, e.pageX) + 'px';
+                    btn.setAttribute('data-texto', sel);
+                } else {
+                    btn.style.display = 'none';
+                }
+            }
+        });
+
+        function leerTextoSeleccionado() {
+            const btn = document.getElementById('a11yBtnAudioSel');
+            if (btn) {
+                const texto = btn.getAttribute('data-texto');
+                if (texto) {
+                    reproducirAudio(texto);
+                    btn.style.display = 'none';
+                }
+            }
         }
 
         function iniciarVozHome() {
@@ -732,45 +800,137 @@
             try { rec.start(); } catch (err) {}
         }
 
-        // ACCESIBILIDAD
+        // ACCESIBILIDAD SUITE
         let a11yState = {
-            fontScale: 1,
-            highContrast: false,
-            darkMode: false,
-            monochrome: false,
+            scale: 1.0,
+            theme: 'default',
             dyslexia: false,
-            readingRuler: false,
-            focusHighlight: false
+            ruler: false,
+            underline: false
         };
 
         function cargarA11yPrefs() {
             try {
-                const guardado = localStorage.getItem('bookhub_a11y_prefs');
+                const guardado = localStorage.getItem('bookhub_a11y_suite');
                 if (guardado) {
                     a11yState = Object.assign(a11yState, JSON.parse(guardado));
-                    aplicarA11yState();
                 }
             } catch (e) {}
+            aplicarA11yState();
         }
 
         function guardarA11yPrefs() {
             try {
-                localStorage.setItem('bookhub_a11y_prefs', JSON.stringify(a11yState));
+                localStorage.setItem('bookhub_a11y_suite', JSON.stringify(a11yState));
             } catch (e) {}
         }
 
         function aplicarA11yState() {
-            document.documentElement.style.setProperty('--a11y-font-scale', a11yState.fontScale);
-            document.body.classList.toggle('a11y-high-contrast', !!a11yState.highContrast);
-            document.body.classList.toggle('a11y-dark-mode', !!a11yState.darkMode);
-            document.body.classList.toggle('a11y-monochrome', !!a11yState.monochrome);
+            document.documentElement.style.setProperty('--a11y-font-scale', a11yState.scale);
+            const lh = a11yState.scale >= 1.3 ? 1.75 : (a11yState.scale >= 1.15 ? 1.65 : 1.5);
+            document.documentElement.style.setProperty('--a11y-line-height', lh);
+
+            document.body.classList.remove('a11y-theme-sepia', 'a11y-theme-dark', 'a11y-theme-contrast');
+            if (a11yState.theme === 'sepia') document.body.classList.add('a11y-theme-sepia');
+            else if (a11yState.theme === 'dark') document.body.classList.add('a11y-theme-dark');
+            else if (a11yState.theme === 'contrast') document.body.classList.add('a11y-theme-contrast');
+
             document.body.classList.toggle('a11y-dyslexia', !!a11yState.dyslexia);
-            document.body.classList.toggle('a11y-highlight-focus', !!a11yState.focusHighlight);
+            document.body.classList.toggle('a11y-underline-links', !!a11yState.underline);
 
             const ruler = document.getElementById('a11yReadingRuler');
             if (ruler) {
-                ruler.style.display = a11yState.readingRuler ? 'block' : 'none';
+                ruler.style.display = a11yState.ruler ? 'block' : 'none';
             }
+
+            actualizarUIBotonesPanel();
+        }
+
+        function actualizarUIBotonesPanel() {
+            [1.0, 1.15, 1.30, 1.45].forEach(s => {
+                const id = 'btnFont' + Math.round(s * 100);
+                const btn = document.getElementById(id);
+                if (btn) {
+                    if (Math.abs(a11yState.scale - s) < 0.05) {
+                        btn.classList.add('btn-primary');
+                        btn.classList.remove('btn-outline-secondary');
+                    } else {
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-outline-secondary');
+                    }
+                }
+            });
+
+            const temas = {
+                'default': 'btnThemeDefault',
+                'sepia': 'btnThemeSepia',
+                'dark': 'btnThemeDark',
+                'contrast': 'btnThemeContrast'
+            };
+            for (const [key, id] of Object.entries(temas)) {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    if (a11yState.theme === key) {
+                        btn.classList.add('btn-dark');
+                        btn.classList.remove('btn-outline-secondary');
+                    } else {
+                        btn.classList.remove('btn-dark');
+                        btn.classList.add('btn-outline-secondary');
+                    }
+                }
+            }
+
+            const btnDys = document.getElementById('btnToggleDyslexia');
+            if (btnDys) btnDys.classList.toggle('active', !!a11yState.dyslexia);
+
+            const btnRul = document.getElementById('btnToggleRuler');
+            if (btnRul) btnRul.classList.toggle('active', !!a11yState.ruler);
+
+            const btnUnd = document.getElementById('btnToggleUnderline');
+            if (btnUnd) btnUnd.classList.toggle('active', !!a11yState.underline);
+        }
+
+        function setEscalaFuente(escala) {
+            a11yState.scale = escala;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function setTemaContraste(tema) {
+            a11yState.theme = tema;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleDyslexia() {
+            a11yState.dyslexia = !a11yState.dyslexia;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleRuler() {
+            a11yState.ruler = !a11yState.ruler;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleUnderlineLinks() {
+            a11yState.underline = !a11yState.underline;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function restablecerA11y() {
+            a11yState = {
+                scale: 1.0,
+                theme: 'default',
+                dyslexia: false,
+                ruler: false,
+                underline: false
+            };
+            aplicarA11yState();
+            guardarA11yPrefs();
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
         function toggleA11yPanel() {
@@ -780,72 +940,9 @@
             }
         }
 
-        function ajustarFuente(delta) {
-            if (delta === 0) {
-                a11yState.fontScale = 1;
-            } else {
-                a11yState.fontScale = Math.min(1.3, Math.max(0.85, a11yState.fontScale + delta));
-            }
-            aplicarA11yState();
-            guardarA11yPrefs();
-        }
-
-        function toggleHighContrast() {
-            a11yState.highContrast = !a11yState.highContrast;
-            if (a11yState.highContrast) a11yState.darkMode = false;
-            aplicarA11yState();
-            guardarA11yPrefs();
-        }
-
-        function toggleDarkMode() {
-            a11yState.darkMode = !a11yState.darkMode;
-            if (a11yState.darkMode) a11yState.highContrast = false;
-            aplicarA11yState();
-            guardarA11yPrefs();
-        }
-
-        function toggleMonochrome() {
-            a11yState.monochrome = !a11yState.monochrome;
-            aplicarA11yState();
-            guardarA11yPrefs();
-        }
-
-        function toggleDyslexiaMode() {
-            a11yState.dyslexia = !a11yState.dyslexia;
-            aplicarA11yState();
-            guardarA11yPrefs();
-        }
-
-        function toggleReadingRuler() {
-            a11yState.readingRuler = !a11yState.readingRuler;
-            aplicarA11yState();
-            guardarA11yPrefs();
-        }
-
-        function toggleFocusHighlight() {
-            a11yState.focusHighlight = !a11yState.focusHighlight;
-            aplicarA11yState();
-            guardarA11yPrefs();
-        }
-
-        function restablecerA11y() {
-            a11yState = {
-                fontScale: 1,
-                highContrast: false,
-                darkMode: false,
-                monochrome: false,
-                dyslexia: false,
-                readingRuler: false,
-                focusHighlight: false
-            };
-            aplicarA11yState();
-            guardarA11yPrefs();
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-        }
-
         document.addEventListener('mousemove', function(e) {
             const ruler = document.getElementById('a11yReadingRuler');
-            if (ruler && a11yState.readingRuler) {
+            if (ruler && a11yState.ruler) {
                 ruler.style.top = e.clientY + 'px';
             }
         });
