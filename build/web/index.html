@@ -1,805 +1,702 @@
 <!DOCTYPE html>
-
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>BOOKHUB | Biblioteca Universitaria Inclusiva (ODS 09)</title>
-
-        <!-- Bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-              rel="stylesheet">
-
-        <style>
-            :root {
-                --a11y-font-scale: 1;
-            }
-
-            body {
-                background-color: #f5f7fa;
-                font-size: calc(1rem * var(--a11y-font-scale));
-                transition: background-color 0.25s ease, color 0.25s ease;
-            }
-
-            .hero {
-                padding: 70px 20px;
-                background: linear-gradient(135deg, #ffffff 0%, #eef3fb 100%);
-            }
-
-            .book-card {
-                transition: transform 0.2s, box-shadow 0.2s;
-                background: #ffffff;
-            }
-
-            .book-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
-            }
-
-            .ods-card {
-                border-left: 5px solid #fd6925;
-            }
-
-            .badge-ods {
-                background-color: #fd6925;
-                color: #ffffff;
-            }
-
-            .card-ods-inclusivo {
-                background: linear-gradient(135deg, #1a237e 0%, #0d6efd 50%, #fd6925 100%);
-                color: #ffffff;
-                border: none;
-                border-radius: 16px;
-                overflow: hidden;
-            }
-
-            /* ACCESIBILIDAD UNIVERSAL (ODS 09) */
-            body.a11y-high-contrast {
-                background-color: #000000 !important;
-                color: #ffff00 !important;
-            }
-            body.a11y-high-contrast .card,
-            body.a11y-high-contrast .navbar,
-            body.a11y-high-contrast footer {
-                background-color: #121212 !important;
-                color: #ffffff !important;
-                border-color: #ffff00 !important;
-            }
-            body.a11y-high-contrast a,
-            body.a11y-high-contrast h1,
-            body.a11y-high-contrast h2,
-            body.a11y-high-contrast h3,
-            body.a11y-high-contrast strong {
-                color: #ffff00 !important;
-            }
-            body.a11y-high-contrast .btn-primary {
-                background-color: #ffff00 !important;
-                color: #000000 !important;
-                border-color: #ffff00 !important;
-                font-weight: bold;
-            }
-            body.a11y-monochrome {
-                filter: grayscale(100%) !important;
-            }
-            body.a11y-dark-mode {
-                background-color: #1a1e24 !important;
-                color: #e4e7eb !important;
-            }
-            body.a11y-dark-mode .card {
-                background-color: #242a33 !important;
-                color: #e4e7eb !important;
-                border-color: #343d4a !important;
-            }
-            body.a11y-dyslexia {
-                font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
-                letter-spacing: 0.06em !important;
-                word-spacing: 0.12em !important;
-                line-height: 1.8 !important;
-            }
-            body.a11y-highlight-focus *:focus {
-                outline: 3px solid #ff9800 !important;
-                outline-offset: 3px !important;
-            }
-
-            #a11yReadingRuler {
-                display: none;
-                position: fixed;
-                left: 0;
-                width: 100vw;
-                height: 38px;
-                background: rgba(253, 105, 37, 0.18);
-                border-top: 2px dashed #fd6925;
-                border-bottom: 2px dashed #fd6925;
-                pointer-events: none;
-                z-index: 99999;
-                transform: translateY(-50%);
-            }
-
-            .a11y-float-btn {
-                position: fixed;
-                bottom: 25px;
-                right: 25px;
-                width: 58px;
-                height: 58px;
-                border-radius: 50%;
-                background: #fd6925;
-                color: #ffffff;
-                border: 3px solid #ffffff;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-                font-size: 1.6rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                z-index: 9999;
-                transition: transform 0.2s ease;
-            }
-            .a11y-float-btn:hover {
-                transform: scale(1.1);
-            }
-            .a11y-float-badge {
-                position: absolute;
-                top: -4px;
-                right: -4px;
-                background: #0d6efd;
-                color: #ffffff;
-                font-size: 0.65rem;
-                font-weight: bold;
-                padding: 2px 6px;
-                border-radius: 10px;
-                border: 1px solid #ffffff;
-            }
-            .a11y-panel {
-                position: fixed;
-                bottom: 95px;
-                right: 25px;
-                width: 340px;
-                max-width: 90vw;
-                background: #ffffff;
-                border-radius: 16px;
-                border: 1px solid rgba(0, 0, 0, 0.12);
-                box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
-                z-index: 9999;
-                overflow: hidden;
-                display: none;
-            }
-            .a11y-panel-header {
-                background: linear-gradient(135deg, #fd6925, #0d6efd);
-                color: #ffffff;
-                padding: 14px 18px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-            .a11y-panel-body {
-                padding: 16px;
-                max-height: 480px;
-                overflow-y: auto;
-            }
-            .a11y-opt-title {
-                font-size: 0.78rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                color: #6c757d;
-                margin-bottom: 6px;
-            }
-        </style>
-    </head>
-
-    <body>
-
-        <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
-            <div class="container">
-
-                <a class="navbar-brand fw-bold" href="index.html">
-                    📚 BOOKHUB
-                </a>
-
-                <button class="navbar-toggler" type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-
-                    <ul class="navbar-nav ms-auto align-items-lg-center">
-
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.html">
-                                Inicio
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="CatalogoServlet">
-                                Catálogo
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-warning fw-bold" href="InnovacionServlet">
-                                ♿ ODS 09: Inclusión
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="MisPrestamosServlet">
-                                Mis préstamos
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <button class="btn btn-outline-warning btn-sm ms-lg-2 my-2 my-lg-0 fw-semibold"
-                                    type="button"
-                                    onclick="toggleA11yPanel()"
-                                    title="Panel de accesibilidad para personas con discapacidad">
-                                ♿ Accesibilidad
-                            </button>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="btn btn-outline-light ms-lg-2 mt-2 mt-lg-0 btn-sm" href="registro.jsp">
-                                Registrarse
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="btn btn-primary ms-lg-2 mt-2 mt-lg-0 btn-sm" href="login.jsp">
-                                Iniciar sesión
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
-
-
-        <!-- HERO -->
-        <section class="hero border-bottom">
-            <div class="container">
-
-                <div class="row align-items-center">
-
-                    <div class="col-md-7">
-
-                        <div class="d-inline-flex align-items-center gap-2 bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-pill mb-3 small fw-bold">
-                            ♿ Innovación ODS 09 · Lectura Accesible para Todos
-                        </div>
-
-                        <h1 class="display-4 fw-bold">
-                            Tu biblioteca universitaria,
-                            <span class="text-primary">inclusiva y digital.</span>
-                        </h1>
-
-                        <p class="lead mt-3 text-secondary">
-                            Consulta libros en tiempo real, escúchalos en voz alta con narración asistida, dicta búsquedas con tu voz y gestiona préstamos con accesibilidad universal.
-                        </p>
-
-                        <div class="d-flex flex-wrap gap-2 mt-4">
-                            <a href="CatalogoServlet"
-                               class="btn btn-primary btn-lg px-4">
-                                📚 Explorar catálogo
-                            </a>
-
-                            <a href="InnovacionServlet"
-                               class="btn btn-outline-warning text-dark btn-lg px-4 fw-bold">
-                                ♿ Conoce el ODS 09
-                            </a>
-
-                            <button type="button"
-                                    class="btn btn-light btn-lg border"
-                                    onclick="probarVozTexto('Bienvenido a BookHub. Tu biblioteca universitaria con tecnologías de asistencia para personas con discapacidad.')">
-                                🔊 Escuchar Bienvenida
-                            </button>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-5 text-center mt-4 mt-md-0">
-                        <div class="p-4 bg-white rounded-4 shadow-sm border text-start">
-                            <div class="d-flex align-items-center gap-2 mb-3">
-                                <span class="fs-2">♿</span>
-                                <div>
-                                    <h5 class="fw-bold mb-0">Accesibilidad Integrada</h5>
-                                    <small class="text-muted">Cumplimiento estándares WCAG 2.1</small>
-                                </div>
-                            </div>
-                            <div class="mb-2 small">
-                                🎧 <strong>Audiolibro sintético (TTS):</strong> Escucha cualquier libro al instante.
-                            </div>
-                            <div class="mb-2 small">
-                                🎙️ <strong>Búsqueda por voz (STT):</strong> Dictado manos libres para movilidad reducida.
-                            </div>
-                            <div class="mb-2 small">
-                                🌓 <strong>Alto contraste & Daltonismo:</strong> Adaptación visual completa.
-                            </div>
-                            <div class="small">
-                                🧠 <strong>Fuente Dislexia & Regla:</strong> Soporte para neurodivergencia.
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- BÚSQUEDA CON DICTADO POR VOZ -->
-        <section class="container my-5">
-
-            <div class="card shadow-sm border-0">
-                <div class="card-body p-4">
-
-                    <h4 class="mb-2 fw-bold">
-                        🔎 Buscar un libro en el catálogo
-                    </h4>
-                    <p class="text-muted small mb-3">
-                        Puedes escribir el texto o usar el botón de micrófono para buscar mediante dictado por voz (ODS 09).
-                    </p>
-
-                    <form action="CatalogoServlet" method="get">
-
-                        <div class="input-group input-group-lg">
-
-                            <input type="text"
-                                   id="inputBusquedaHome"
-                                   name="busqueda"
-                                   class="form-control"
-                                   placeholder="Título, autor, ISBN o presiona el micrófono..."
-                                   required>
-
-                            <button type="button"
-                                    id="btnMicHome"
-                                    class="btn btn-outline-warning text-dark fw-bold"
-                                    onclick="iniciarVozHome()"
-                                    title="Dictar búsqueda por voz para personas con discapacidad motriz">
-                                🎤 Dictar
-                            </button>
-
-                            <button type="submit"
-                                    class="btn btn-primary px-4">
-                                Buscar
-                            </button>
-
-                        </div>
-
-                        <div id="statusVozHome" class="small text-danger fw-semibold mt-2" style="display: none;"></div>
-
-                    </form>
-
-                </div>
-            </div>
-
-        </section>
-
-
-        <!-- SECCIÓN DESTACADA: INNOVACIÓN ODS 09 INCLUSIVA -->
-        <section class="container mb-5">
-            <div class="card card-ods-inclusivo shadow p-4 p-md-5">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <span class="badge bg-warning text-dark fw-bold px-3 py-2 mb-3">
-                            🎯 ODS 09 · INNOVACIÓN & INFRAESTRUCTURA INCLUSIVA
-                        </span>
-                        <h2 class="display-6 fw-bold mb-3">
-                            Tecnología aplicada a la discapacidad
-                        </h2>
-                        <p class="lead mb-4 opacity-90">
-                            BookHub moderniza la infraestructura universitaria para que estudiantes con debilidad visual, ceguera, movilidad reducida o dislexia accedan a los libros en igualdad de condiciones.
-                        </p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="InnovacionServlet" class="btn btn-warning fw-bold px-4 py-2 text-dark">
-                                🧪 Abrir Laboratorio ODS 09
-                            </a>
-                            <button type="button" class="btn btn-outline-light px-3 py-2" onclick="toggleA11yPanel()">
-                                ⚙️ Personalizar Accesibilidad
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 text-center mt-4 mt-lg-0">
-                        <div class="display-1">
-                            ♿
-                        </div>
-                        <div class="fw-bold mt-2">
-                            WCAG 2.1 AAA · Web Speech
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- LIBROS DESTACADOS -->
-        <section class="container mb-5">
-
-            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-
-                <div>
-                    <h2 class="fw-bold mb-0">Libros destacados</h2>
-                    <small class="text-muted">Todos equipados con narración sintética por voz</small>
-                </div>
-
-                <a href="CatalogoServlet"
-                   class="text-decoration-none fw-semibold">
-                    Ver catálogo completo con audio →
-                </a>
-
-            </div>
-
-
-            <div class="row g-4">
-
-                <!-- LIBRO 1 -->
-                <div class="col-md-4">
-
-                    <div class="card book-card shadow-sm h-100 border">
-
-                        <div class="card-body d-flex flex-column">
-
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div>
-                                    <span class="badge bg-success">Disponible</span>
-                                    <span class="badge bg-secondary ms-1">Novela</span>
-                                </div>
-                                <span class="badge bg-success bg-opacity-10 text-success border">🎧 Audio TTS</span>
-                            </div>
-
-                            <h5 class="card-title fw-bold">
-                                Cien años de soledad
-                            </h5>
-
-                            <p class="card-text text-muted small">
-                                Novela cumbre del realismo mágico escrita por Gabriel García Márquez.
-                            </p>
-
-                            <p class="mb-3 mt-auto small">
-                                <strong>Autor:</strong>
-                                Gabriel García Márquez
-                            </p>
-
-                            <div class="d-grid gap-2">
-                                <button type="button"
-                                        class="btn btn-outline-success btn-sm"
-                                        onclick="probarVozTexto('Cien años de soledad. De Gabriel García Márquez. Novela cumbre del realismo mágico.')">
-                                    🔊 Escuchar libro
-                                </button>
-                                <a href="DetalleLibroServlet?id=1"
-                                   class="btn btn-outline-primary btn-sm">
-                                    Ver detalles
-                                </a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- LIBRO 2 -->
-                <div class="col-md-4">
-
-                    <div class="card book-card shadow-sm h-100 border">
-
-                        <div class="card-body d-flex flex-column">
-
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div>
-                                    <span class="badge bg-success">Disponible</span>
-                                    <span class="badge bg-secondary ms-1">Novela</span>
-                                </div>
-                                <span class="badge bg-success bg-opacity-10 text-success border">🎧 Audio TTS</span>
-                            </div>
-
-                            <h5 class="card-title fw-bold">
-                                Don Quijote de la Mancha
-                            </h5>
-
-                            <p class="card-text text-muted small">
-                                Obra clásica universal de la literatura española escrita por Miguel de Cervantes.
-                            </p>
-
-                            <p class="mb-3 mt-auto small">
-                                <strong>Autor:</strong>
-                                Miguel de Cervantes
-                            </p>
-
-                            <div class="d-grid gap-2">
-                                <button type="button"
-                                        class="btn btn-outline-success btn-sm"
-                                        onclick="probarVozTexto('Don Quijote de la Mancha. De Miguel de Cervantes. Obra clásica universal de la literatura española.')">
-                                    🔊 Escuchar libro
-                                </button>
-                                <a href="DetalleLibroServlet?id=2"
-                                   class="btn btn-outline-primary btn-sm">
-                                    Ver detalles
-                                </a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- LIBRO 3 -->
-                <div class="col-md-4">
-
-                    <div class="card book-card shadow-sm h-100 border">
-
-                        <div class="card-body d-flex flex-column">
-
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div>
-                                    <span class="badge bg-success">Disponible</span>
-                                    <span class="badge bg-secondary ms-1">Novela</span>
-                                </div>
-                                <span class="badge bg-success bg-opacity-10 text-success border">🎧 Audio TTS</span>
-                            </div>
-
-                            <h5 class="card-title fw-bold">
-                                El Principito
-                            </h5>
-
-                            <p class="card-text text-muted small">
-                                Obra literaria y filosófica de Antoine de Saint-Exupéry sobre la amistad y el sentido de la vida.
-                            </p>
-
-                            <p class="mb-3 mt-auto small">
-                                <strong>Autor:</strong>
-                                Antoine de Saint-Exupéry
-                            </p>
-
-                            <div class="d-grid gap-2">
-                                <button type="button"
-                                        class="btn btn-outline-success btn-sm"
-                                        onclick="probarVozTexto('El Principito. De Antoine de Saint-Exupéry. Obra sobre la amistad y el sentido de la vida.')">
-                                    🔊 Escuchar libro
-                                </button>
-                                <a href="DetalleLibroServlet?id=3"
-                                   class="btn btn-outline-primary btn-sm">
-                                    Ver detalles
-                                </a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- INFORMACIÓN -->
-        <section class="container mb-5">
-
-            <div class="card shadow-sm border-0">
-
-                <div class="card-body text-center p-5">
-
-                    <h3 class="fw-bold">
-                        ¿Qué puedes hacer en BOOKHUB?
-                    </h3>
-
-                    <p class="text-muted mt-3 mb-4 max-w-600 mx-auto">
-                        Consulta nuestro catálogo inclusivo, escucha las sinopsis por voz, regístrate como lector, solicita préstamos y personaliza la página con herramientas de accesibilidad.
-                    </p>
-
-                    <div class="d-flex justify-content-center flex-wrap gap-2">
-                        <a href="CatalogoServlet"
-                           class="btn btn-primary px-4">
-                            Ver catálogo
-                        </a>
-
-                        <a href="InnovacionServlet"
-                           class="btn btn-outline-warning text-dark px-4 fw-bold">
-                            ♿ Centro ODS 09
-                        </a>
-
-                        <a href="registro.jsp"
-                           class="btn btn-outline-primary px-4">
-                            Registrarse
-                        </a>
-
-                        <a href="login.jsp"
-                           class="btn btn-outline-secondary px-4">
-                            Iniciar sesión
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- REGLA DE LECTURA VISUAL (TDAH / DISLEXIA) -->
-        <div id="a11yReadingRuler"></div>
-
-
-        <!-- WIDGET FLOTANTE DE ACCESIBILIDAD UNIVERSAL (ODS 09) -->
-        <div id="bookhubA11yWidget">
-            <button class="a11y-float-btn"
-                    id="btnA11yToggle"
-                    type="button"
-                    onclick="toggleA11yPanel()"
-                    aria-label="Abrir panel de accesibilidad ODS 09"
-                    title="Herramientas de Accesibilidad Universal ODS 09">
-                ♿
-                <span class="a11y-float-badge">ODS 9</span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub | Biblioteca Universitaria</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --a11y-font-scale: 1;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-size: calc(1rem * var(--a11y-font-scale));
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .hero {
+            padding: 55px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .book-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #ffffff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        .home-cover-wrapper {
+            background-color: #f1f5f9;
+            height: 230px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .home-cover-img {
+            width: 145px;
+            height: 205px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            display: block;
+        }
+
+        .ods-card {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #1e3a8a;
+            border-radius: 8px;
+        }
+
+        /* ACCESIBILIDAD */
+        body.a11y-high-contrast {
+            background-color: #000000 !important;
+            color: #ffff00 !important;
+        }
+        body.a11y-high-contrast .card,
+        body.a11y-high-contrast .navbar,
+        body.a11y-high-contrast footer {
+            background-color: #121212 !important;
+            color: #ffffff !important;
+            border-color: #ffff00 !important;
+        }
+        body.a11y-high-contrast a,
+        body.a11y-high-contrast h1,
+        body.a11y-high-contrast h2,
+        body.a11y-high-contrast h3,
+        body.a11y-high-contrast strong {
+            color: #ffff00 !important;
+        }
+        body.a11y-high-contrast .btn-primary {
+            background-color: #ffff00 !important;
+            color: #000000 !important;
+            border-color: #ffff00 !important;
+            font-weight: bold;
+        }
+        body.a11y-monochrome {
+            filter: grayscale(100%) !important;
+        }
+        body.a11y-dark-mode {
+            background-color: #0f172a !important;
+            color: #e2e8f0 !important;
+        }
+        body.a11y-dark-mode .card {
+            background-color: #1e293b !important;
+            color: #e2e8f0 !important;
+            border-color: #334155 !important;
+        }
+        body.a11y-dark-mode .hero,
+        body.a11y-dark-mode .home-cover-wrapper {
+            background: #0f172a !important;
+            border-color: #334155 !important;
+        }
+        body.a11y-dyslexia {
+            font-family: 'OpenDyslexic', 'Segoe UI', Arial, sans-serif !important;
+            letter-spacing: 0.05em !important;
+            word-spacing: 0.1em !important;
+            line-height: 1.75 !important;
+        }
+        body.a11y-highlight-focus *:focus {
+            outline: 3px solid #2563eb !important;
+            outline-offset: 2px !important;
+        }
+
+        #a11yReadingRuler {
+            display: none;
+            position: fixed;
+            left: 0;
+            width: 100vw;
+            height: 36px;
+            background: rgba(37, 99, 235, 0.12);
+            border-top: 1px solid #2563eb;
+            border-bottom: 1px solid #2563eb;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translateY(-50%);
+        }
+
+        .a11y-float-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #1e3a8a;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            font-size: 1.25rem;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .a11y-float-btn:hover {
+            transform: scale(1.08);
+            background: #2563eb;
+        }
+        .a11y-panel {
+            position: fixed;
+            bottom: 84px;
+            right: 24px;
+            width: 320px;
+            max-width: 90vw;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            overflow: hidden;
+            display: none;
+        }
+        .a11y-panel-header {
+            background: #1e3a8a;
+            color: #ffffff;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .a11y-panel-body {
+            padding: 14px;
+            max-height: 440px;
+            overflow-y: auto;
+        }
+        .a11y-opt-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="index.html">
+                BookHub
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="a11y-panel shadow-lg" id="a11yPanel">
-                <div class="a11y-panel-header">
-                    <div class="d-flex align-items-center gap-2">
-                        <span class="fs-5">♿</span>
-                        <div>
-                            <h6 class="mb-0 fw-bold">Inclusión & Accesibilidad</h6>
-                            <small class="opacity-75">ODS 09 · BookHub</small>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close btn-close-white" onclick="toggleA11yPanel()" aria-label="Cerrar"></button>
-                </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-                <div class="a11y-panel-body">
-                    <div class="mb-3">
-                        <div class="a11y-opt-title">🔠 Tamaño de texto</div>
-                        <div class="btn-group w-100">
-                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(-0.1)">A -</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0)">Normal</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0.15)">A +</button>
-                        </div>
-                    </div>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
 
-                    <div class="mb-3">
-                        <div class="a11y-opt-title">🌓 Visión y Contraste</div>
-                        <div class="d-grid gap-1">
-                            <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleHighContrast()">
-                                🟡 <strong>Alto contraste</strong> (Baja visión)
-                            </button>
-                            <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleDarkMode()">
-                                🌑 <strong>Modo Oscuro suave</strong> (Fotofobia)
-                            </button>
-                            <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleMonochrome()">
-                                ⚪ <strong>Monocromático</strong> (Daltonismo)
-                            </button>
-                        </div>
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            Inicio
+                        </a>
+                    </li>
 
-                    <div class="mb-3">
-                        <div class="a11y-opt-title">🧠 Neurodivergencia & Lectura</div>
-                        <div class="d-grid gap-1">
-                            <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleDyslexiaMode()">
-                                📖 <strong>Fuente para Dislexia</strong>
-                            </button>
-                            <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleReadingRuler()">
-                                📏 <strong>Regla guía de lectura</strong>
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm text-start" onclick="toggleFocusHighlight()">
-                                🎯 <strong>Resaltar foco del teclado (Tab)</strong>
-                            </button>
-                        </div>
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="CatalogoServlet">
+                            Catálogo
+                        </a>
+                    </li>
 
-                    <div class="pt-2 text-center border-top">
-                        <button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" onclick="restablecerA11y()">
-                            ↺ Restablecer valores por defecto
+                    <li class="nav-item">
+                        <a class="nav-link" href="InnovacionServlet">
+                            ODS 9: Accesibilidad
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="MisPrestamosServlet">
+                            Mis préstamos
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="btn btn-primary btn-sm ms-lg-2 my-2 my-lg-0"
+                                type="button"
+                                onclick="toggleA11yPanel()">
+                            Accesibilidad
+                        </button>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-lg-2 mt-2 mt-lg-0 btn-sm" href="registro.jsp">
+                            Registrarse
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-light ms-lg-2 mt-2 mt-lg-0 btn-sm" href="login.jsp">
+                            Iniciar sesión
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-md-7">
+                    <span class="badge bg-light text-primary border mb-2 px-2 py-1 small">
+                        Biblioteca Universitaria · ODS 9 Accesibilidad
+                    </span>
+
+                    <h1 class="display-5 fw-bold mb-3">
+                        Tu biblioteca universitaria, digital y accesible
+                    </h1>
+
+                    <p class="lead text-secondary mb-4">
+                        Consulta el catálogo en tiempo real, utiliza la síntesis de voz asistida y gestiona tus préstamos con autonomía.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="CatalogoServlet" class="btn btn-primary px-3">
+                            Explorar catálogo
+                        </a>
+
+                        <a href="InnovacionServlet" class="btn btn-outline-secondary px-3">
+                            Herramientas ODS 9
+                        </a>
+
+                        <button type="button" class="btn btn-link text-decoration-none" onclick="reproducirAudio('Bienvenido a BookHub, sistema web de gestión de biblioteca universitaria con herramientas de accesibilidad.')">
+                            Escuchar bienvenida
                         </button>
                     </div>
                 </div>
+
+                <div class="col-md-5 text-center mt-4 mt-md-0">
+                    <div class="card p-3 shadow-sm border text-start small">
+                        <h6 class="fw-bold mb-2">Herramientas de asistencia incluidas:</h6>
+                        <p class="text-muted mb-2">Diseñadas para facilitar el acceso a estudiantes con discapacidad o fatiga de lectura:</p>
+                        <ul class="list-unstyled mb-0 text-secondary">
+                            <li class="mb-1">• <strong>Lector por voz:</strong> Síntesis vocal de títulos y resúmenes.</li>
+                            <li class="mb-1">• <strong>Búsqueda por voz:</strong> Dictado para movilidad reducida.</li>
+                            <li class="mb-1">• <strong>Contraste adaptativo:</strong> Alto contraste y modo nocturno.</li>
+                            <li class="mb-0">• <strong>Apoyo a la lectura:</strong> Tipografía para dislexia y regla guía.</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
+    </section>
 
 
-        <!-- FOOTER -->
-        <footer class="bg-dark text-white py-4">
+    <!-- BUSCADOR -->
+    <section class="container my-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-3">
+                <form action="CatalogoServlet" method="get">
+                    <div class="input-group">
+                        <input type="text"
+                               id="inputBusquedaHome"
+                               name="busqueda"
+                               class="form-control"
+                               placeholder="Buscar por título, autor o ISBN..."
+                               required>
 
-            <div class="container text-center">
+                        <button type="button"
+                                id="btnMicHome"
+                                class="btn btn-outline-secondary"
+                                onclick="iniciarVozHome()"
+                                title="Dictar búsqueda">
+                            Dictar
+                        </button>
 
-                <p class="mb-1">
-                    <strong>BOOKHUB</strong>
-                </p>
+                        <button type="submit" class="btn btn-primary px-4">
+                            Buscar
+                        </button>
+                    </div>
+                    <div id="statusVozHome" class="small text-muted mt-1" style="display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </section>
 
-                <p class="mb-0 small text-secondary">
-                    Sistema Web de Gestión de Biblioteca Universitaria Inclusiva · ODS 09 Tecnologías para la Discapacidad
-                </p>
 
+    <!-- DESTACADOS DEL CATÁLOGO -->
+    <section class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">Libros destacados</h5>
+            <a href="CatalogoServlet" class="small text-decoration-none">Ver catálogo completo →</a>
+        </div>
+
+        <div class="row g-3">
+
+            <!-- LIBRO 1 -->
+            <div class="col-md-4">
+                <div class="card book-card h-100">
+                    <div class="home-cover-wrapper">
+                        <img src="img/portadas/libro1.svg" alt="Cien años de soledad" class="home-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                    </div>
+                    <div class="card-body p-3 d-flex flex-column">
+                        <div class="mb-1">
+                            <span class="badge bg-light text-dark border">Novela</span>
+                            <span class="badge bg-success ms-1">Disponible</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">Cien años de soledad</h6>
+                        <p class="text-muted small mb-2">Gabriel García Márquez</p>
+                        <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            Novela cumbre del realismo mágico sobre la familia Buendía.
+                        </p>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="DetalleLibroServlet?id=1" class="btn btn-outline-primary btn-sm flex-grow-1">Ver detalles</a>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="reproducirAudio('Cien años de soledad. De Gabriel García Márquez. Novela cumbre del realismo mágico.')">Escuchar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-        </footer>
+            <!-- LIBRO 2 -->
+            <div class="col-md-4">
+                <div class="card book-card h-100">
+                    <div class="home-cover-wrapper">
+                        <img src="img/portadas/libro2.svg" alt="Don Quijote de la Mancha" class="home-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                    </div>
+                    <div class="card-body p-3 d-flex flex-column">
+                        <div class="mb-1">
+                            <span class="badge bg-light text-dark border">Novela</span>
+                            <span class="badge bg-success ms-1">Disponible</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">Don Quijote de la Mancha</h6>
+                        <p class="text-muted small mb-2">Miguel de Cervantes</p>
+                        <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            Obra clásica universal de la literatura española.
+                        </p>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="DetalleLibroServlet?id=2" class="btn btn-outline-primary btn-sm flex-grow-1">Ver detalles</a>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="reproducirAudio('Don Quijote de la Mancha. De Miguel de Cervantes. Obra clásica universal de la literatura española.')">Escuchar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIBRO 3 -->
+            <div class="col-md-4">
+                <div class="card book-card h-100">
+                    <div class="home-cover-wrapper">
+                        <img src="img/portadas/libro3.svg" alt="El Principito" class="home-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                    </div>
+                    <div class="card-body p-3 d-flex flex-column">
+                        <div class="mb-1">
+                            <span class="badge bg-light text-dark border">Novela</span>
+                            <span class="badge bg-success ms-1">Disponible</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">El Principito</h6>
+                        <p class="text-muted small mb-2">Antoine de Saint-Exupéry</p>
+                        <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            Obra filosófica sobre la amistad y el sentido de la vida.
+                        </p>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="DetalleLibroServlet?id=3" class="btn btn-outline-primary btn-sm flex-grow-1">Ver detalles</a>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="reproducirAudio('El Principito. De Antoine de Saint-Exupéry. Obra sobre la amistad y el sentido de la vida.')">Escuchar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-        </script>
+    <!-- COMPROMISO ODS 9 -->
+    <section class="container mb-5">
+        <div class="card ods-card p-4">
+            <div class="row align-items-center">
+                <div class="col-md-9">
+                    <h6 class="fw-bold mb-1 text-primary">ODS 9: Innovación e Infraestructura Inclusiva</h6>
+                    <p class="text-secondary small mb-2">
+                        El proyecto integra pautas de diseño accesible para asegurar que cualquier estudiante consulte los recursos bibliográficos de forma equitativa.
+                    </p>
+                    <div class="d-flex gap-2">
+                        <a href="InnovacionServlet" class="btn btn-primary btn-sm">Ver Centro ODS 9</a>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="toggleA11yPanel()">Configurar accesibilidad</button>
+                    </div>
+                </div>
+                <div class="col-md-3 text-md-end mt-3 mt-md-0">
+                    <span class="badge bg-light text-dark border p-2">HTML5 Web Speech API</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <script>
-            // SÍNTESIS DE VOZ
-            function probarVozTexto(texto) {
-                if (!('speechSynthesis' in window)) {
-                    alert('Tu navegador no cuenta con síntesis de voz nativa.');
-                    return;
+
+    <!-- REGLA DE LECTURA VISUAL -->
+    <div id="a11yReadingRuler"></div>
+
+
+    <!-- PANEL FLOTANTE DE ACCESIBILIDAD -->
+    <div id="bookhubA11yWidget">
+        <button class="a11y-float-btn"
+                id="btnA11yToggle"
+                type="button"
+                onclick="toggleA11yPanel()"
+                aria-label="Abrir panel de accesibilidad"
+                title="Herramientas de accesibilidad">
+            A
+        </button>
+
+        <div class="a11y-panel shadow-sm" id="a11yPanel">
+            <div class="a11y-panel-header">
+                <div>
+                    <h6 class="mb-0 fw-bold">Accesibilidad</h6>
+                    <small class="text-white-50">Ajustes visuales y de lectura</small>
+                </div>
+                <button type="button" class="btn-close btn-close-white" onclick="toggleA11yPanel()" aria-label="Cerrar"></button>
+            </div>
+
+            <div class="a11y-panel-body">
+                <div class="mb-3">
+                    <div class="a11y-opt-title">Tamaño de letra</div>
+                    <div class="btn-group w-100">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(-0.1)">Reducir</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0)">Normal</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0.15)">Aumentar</button>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="a11y-opt-title">Contraste visual</div>
+                    <div class="d-grid gap-1">
+                        <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleHighContrast()">
+                            Alto contraste (Fondo negro)
+                        </button>
+                        <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleDarkMode()">
+                            Modo oscuro suave
+                        </button>
+                        <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleMonochrome()">
+                            Escala de grises
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="a11y-opt-title">Apoyo de lectura</div>
+                    <div class="d-grid gap-1">
+                        <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleDyslexiaMode()">
+                            Fuente de lectura accesible
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleReadingRuler()">
+                            Regla guía de lectura
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm text-start" onclick="toggleFocusHighlight()">
+                            Resaltar navegación por teclado
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2 text-center border-top">
+                    <button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" onclick="restablecerA11y()">
+                        Restablecer ajustes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-1 fw-bold">BookHub</p>
+            <p class="mb-0 small text-secondary">
+                Sistema de Gestión de Biblioteca Universitaria
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function reproducirAudio(texto) {
+            if (!('speechSynthesis' in window)) {
+                alert('Tu navegador no cuenta con síntesis de voz.');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'es-ES';
+            utterance.rate = 1.0;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function iniciarVozHome() {
+            const statusBox = document.getElementById("statusVozHome");
+            const input = document.getElementById("inputBusquedaHome");
+            const btn = document.getElementById("btnMicHome");
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                if (statusBox) {
+                    statusBox.style.display = "block";
+                    statusBox.textContent = "Navegador sin soporte de reconocimiento de voz.";
                 }
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(texto);
-                utterance.lang = 'es-ES';
-                utterance.rate = 1.0;
-                window.speechSynthesis.speak(utterance);
+                return;
             }
 
-            // DICTADO POR VOZ
-            function iniciarVozHome() {
-                const statusBox = document.getElementById("statusVozHome");
-                const input = document.getElementById("inputBusquedaHome");
-                const btn = document.getElementById("btnMicHome");
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const rec = new SpeechRecognition();
+            rec.lang = 'es-ES';
+            rec.continuous = false;
+            rec.interimResults = false;
 
-                if (!SpeechRecognition) {
-                    if (statusBox) {
-                        statusBox.style.display = "block";
-                        statusBox.textContent = "Tu navegador no soporta búsqueda por voz (prueba en Chrome o Edge).";
-                    }
-                    return;
+            rec.onstart = function () {
+                if (statusBox) {
+                    statusBox.style.display = "block";
+                    statusBox.textContent = "Escuchando... Di el título o autor.";
                 }
+                if (btn) btn.textContent = "Escuchando...";
+            };
 
-                const rec = new SpeechRecognition();
-                rec.lang = 'es-ES';
-                rec.continuous = false;
-                rec.interimResults = false;
+            rec.onresult = function (e) {
+                const text = e.results[0][0].transcript;
+                if (input) input.value = text;
+                window.location.href = 'CatalogoServlet?busqueda=' + encodeURIComponent(text);
+            };
 
-                rec.onstart = function () {
-                    if (statusBox) {
-                        statusBox.style.display = "block";
-                        statusBox.textContent = "🔴 Escuchando... Di el título o autor a buscar.";
-                    }
-                    if (btn) {
-                        btn.classList.add("btn-danger");
-                        btn.classList.remove("btn-outline-warning");
-                    }
-                };
+            rec.onerror = function (e) {
+                if (statusBox) {
+                    statusBox.style.display = "block";
+                    statusBox.textContent = "No se detectó audio.";
+                }
+            };
 
-                rec.onresult = function (e) {
-                    const text = e.results[0][0].transcript;
-                    if (input) input.value = text;
-                    if (statusBox) {
-                        statusBox.className = "small text-success fw-semibold mt-2";
-                        statusBox.textContent = '✅ Reconocido: "' + text + '"';
-                    }
-                    window.location.href = 'CatalogoServlet?busqueda=' + encodeURIComponent(text);
-                };
+            rec.onend = function () {
+                if (btn) btn.textContent = "Dictar";
+            };
 
-                rec.onerror = function (e) {
-                    if (statusBox) {
-                        statusBox.style.display = "block";
-                        statusBox.className = "small text-danger fw-semibold mt-2";
-                        statusBox.textContent = "⚠️ No se detectó audio (" + e.error + "). Intenta nuevamente.";
-                    }
-                };
+            try { rec.start(); } catch (err) {}
+        }
 
-                rec.onend = function () {
-                    if (btn) {
-                        btn.classList.remove("btn-danger");
-                        btn.classList.add("btn-outline-warning");
-                    }
-                };
+        // ACCESIBILIDAD
+        let a11yState = {
+            fontScale: 1,
+            highContrast: false,
+            darkMode: false,
+            monochrome: false,
+            dyslexia: false,
+            readingRuler: false,
+            focusHighlight: false
+        };
 
-                try { rec.start(); } catch (err) {}
+        function cargarA11yPrefs() {
+            try {
+                const guardado = localStorage.getItem('bookhub_a11y_prefs');
+                if (guardado) {
+                    a11yState = Object.assign(a11yState, JSON.parse(guardado));
+                    aplicarA11yState();
+                }
+            } catch (e) {}
+        }
+
+        function guardarA11yPrefs() {
+            try {
+                localStorage.setItem('bookhub_a11y_prefs', JSON.stringify(a11yState));
+            } catch (e) {}
+        }
+
+        function aplicarA11yState() {
+            document.documentElement.style.setProperty('--a11y-font-scale', a11yState.fontScale);
+            document.body.classList.toggle('a11y-high-contrast', !!a11yState.highContrast);
+            document.body.classList.toggle('a11y-dark-mode', !!a11yState.darkMode);
+            document.body.classList.toggle('a11y-monochrome', !!a11yState.monochrome);
+            document.body.classList.toggle('a11y-dyslexia', !!a11yState.dyslexia);
+            document.body.classList.toggle('a11y-highlight-focus', !!a11yState.focusHighlight);
+
+            const ruler = document.getElementById('a11yReadingRuler');
+            if (ruler) {
+                ruler.style.display = a11yState.readingRuler ? 'block' : 'none';
             }
+        }
 
-            // ACCESIBILIDAD GLOBAL
-            let a11yState = {
+        function toggleA11yPanel() {
+            const panel = document.getElementById('a11yPanel');
+            if (panel) {
+                panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+            }
+        }
+
+        function ajustarFuente(delta) {
+            if (delta === 0) {
+                a11yState.fontScale = 1;
+            } else {
+                a11yState.fontScale = Math.min(1.3, Math.max(0.85, a11yState.fontScale + delta));
+            }
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleHighContrast() {
+            a11yState.highContrast = !a11yState.highContrast;
+            if (a11yState.highContrast) a11yState.darkMode = false;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleDarkMode() {
+            a11yState.darkMode = !a11yState.darkMode;
+            if (a11yState.darkMode) a11yState.highContrast = false;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleMonochrome() {
+            a11yState.monochrome = !a11yState.monochrome;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleDyslexiaMode() {
+            a11yState.dyslexia = !a11yState.dyslexia;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleReadingRuler() {
+            a11yState.readingRuler = !a11yState.readingRuler;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function toggleFocusHighlight() {
+            a11yState.focusHighlight = !a11yState.focusHighlight;
+            aplicarA11yState();
+            guardarA11yPrefs();
+        }
+
+        function restablecerA11y() {
+            a11yState = {
                 fontScale: 1,
                 highContrast: false,
                 darkMode: false,
@@ -808,117 +705,19 @@
                 readingRuler: false,
                 focusHighlight: false
             };
+            aplicarA11yState();
+            guardarA11yPrefs();
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        }
 
-            function cargarA11yPrefs() {
-                try {
-                    const guardado = localStorage.getItem('bookhub_a11y_prefs');
-                    if (guardado) {
-                        a11yState = Object.assign(a11yState, JSON.parse(guardado));
-                        aplicarA11yState();
-                    }
-                } catch (e) {}
+        document.addEventListener('mousemove', function(e) {
+            const ruler = document.getElementById('a11yReadingRuler');
+            if (ruler && a11yState.readingRuler) {
+                ruler.style.top = e.clientY + 'px';
             }
+        });
 
-            function guardarA11yPrefs() {
-                try {
-                    localStorage.setItem('bookhub_a11y_prefs', JSON.stringify(a11yState));
-                } catch (e) {}
-            }
-
-            function aplicarA11yState() {
-                document.documentElement.style.setProperty('--a11y-font-scale', a11yState.fontScale);
-                document.body.classList.toggle('a11y-high-contrast', !!a11yState.highContrast);
-                document.body.classList.toggle('a11y-dark-mode', !!a11yState.darkMode);
-                document.body.classList.toggle('a11y-monochrome', !!a11yState.monochrome);
-                document.body.classList.toggle('a11y-dyslexia', !!a11yState.dyslexia);
-                document.body.classList.toggle('a11y-highlight-focus', !!a11yState.focusHighlight);
-
-                const ruler = document.getElementById('a11yReadingRuler');
-                if (ruler) {
-                    ruler.style.display = a11yState.readingRuler ? 'block' : 'none';
-                }
-            }
-
-            function toggleA11yPanel() {
-                const panel = document.getElementById('a11yPanel');
-                if (panel) {
-                    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-                }
-            }
-
-            function ajustarFuente(delta) {
-                if (delta === 0) {
-                    a11yState.fontScale = 1;
-                } else {
-                    a11yState.fontScale = Math.min(1.4, Math.max(0.85, a11yState.fontScale + delta));
-                }
-                aplicarA11yState();
-                guardarA11yPrefs();
-            }
-
-            function toggleHighContrast() {
-                a11yState.highContrast = !a11yState.highContrast;
-                if (a11yState.highContrast) a11yState.darkMode = false;
-                aplicarA11yState();
-                guardarA11yPrefs();
-            }
-
-            function toggleDarkMode() {
-                a11yState.darkMode = !a11yState.darkMode;
-                if (a11yState.darkMode) a11yState.highContrast = false;
-                aplicarA11yState();
-                guardarA11yPrefs();
-            }
-
-            function toggleMonochrome() {
-                a11yState.monochrome = !a11yState.monochrome;
-                aplicarA11yState();
-                guardarA11yPrefs();
-            }
-
-            function toggleDyslexiaMode() {
-                a11yState.dyslexia = !a11yState.dyslexia;
-                aplicarA11yState();
-                guardarA11yPrefs();
-            }
-
-            function toggleReadingRuler() {
-                a11yState.readingRuler = !a11yState.readingRuler;
-                aplicarA11yState();
-                guardarA11yPrefs();
-            }
-
-            function toggleFocusHighlight() {
-                a11yState.focusHighlight = !a11yState.focusHighlight;
-                aplicarA11yState();
-                guardarA11yPrefs();
-            }
-
-            function restablecerA11y() {
-                a11yState = {
-                    fontScale: 1,
-                    highContrast: false,
-                    darkMode: false,
-                    monochrome: false,
-                    dyslexia: false,
-                    readingRuler: false,
-                    focusHighlight: false
-                };
-                aplicarA11yState();
-                guardarA11yPrefs();
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-            }
-
-            document.addEventListener('mousemove', function(e) {
-                const ruler = document.getElementById('a11yReadingRuler');
-                if (ruler && a11yState.readingRuler) {
-                    ruler.style.top = e.clientY + 'px';
-                }
-            });
-
-            document.addEventListener('DOMContentLoaded', cargarA11yPrefs);
-        </script>
-
-    </body>
-
+        document.addEventListener('DOMContentLoaded', cargarA11yPrefs);
+    </script>
+</body>
 </html>

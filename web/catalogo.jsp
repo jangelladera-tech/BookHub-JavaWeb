@@ -35,11 +35,8 @@
 <head>
 
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Catálogo Inclusivo - BOOKHUB (ODS 09)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Libros - BookHub</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
@@ -50,53 +47,69 @@
         }
 
         body {
-            background-color: #f8f9fa;
+            background-color: #f8fafc;
+            color: #1e293b;
             font-size: calc(1rem * var(--a11y-font-scale));
-            transition: background-color 0.25s ease, color 0.25s ease;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .navbar-brand {
+            letter-spacing: 0.5px;
         }
 
         .hero {
-            background: linear-gradient(135deg, #0d6efd, #084298);
-            color: white;
-            padding: 45px 0;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff;
+            padding: 40px 0;
         }
 
         .book-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
             overflow: hidden;
             background: #ffffff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .book-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(13, 110, 253, 0.12) !important;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
         }
 
+        /* CONTENEDOR Y VISUALIZACIÓN DE PORTADA EN EL CATÁLOGO */
         .book-cover-wrapper {
             position: relative;
-            background: linear-gradient(180deg, #e9ecef 0%, #dee2e6 100%);
+            background-color: #f1f5f9;
             height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 14px;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .book-cover-wrapper a.cover-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 160px;
+            height: 224px;
+            text-decoration: none;
         }
 
         .book-cover-img {
-            max-height: 222px;
-            width: auto;
+            width: 160px;
+            height: 224px;
             max-width: 100%;
-            object-fit: contain;
+            object-fit: cover;
             border-radius: 6px;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: block;
+            transition: transform 0.25s ease;
         }
 
         .book-card:hover .book-cover-img {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .stock-floating-badge {
@@ -104,6 +117,8 @@
             top: 10px;
             right: 10px;
             z-index: 2;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         .quick-view-btn {
@@ -111,27 +126,24 @@
             bottom: 10px;
             right: 10px;
             z-index: 2;
-            opacity: 0.92;
-            font-size: 0.78rem;
-        }
-
-        .badge-ods {
-            background-color: #fd6925;
-            color: #ffffff;
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #cbd5e1;
         }
 
         .chip-filtro {
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .chip-filtro.active {
-            background-color: #0d6efd !important;
+            background-color: #2563eb !important;
             color: #ffffff !important;
-            border-color: #0d6efd !important;
+            border-color: #2563eb !important;
         }
 
-        /* ACCESIBILIDAD UNIVERSAL (ODS 09) */
+        /* ESTILOS DE ACCESIBILIDAD */
         body.a11y-high-contrast {
             background-color: #000000 !important;
             color: #ffff00 !important;
@@ -163,24 +175,28 @@
             filter: grayscale(100%) !important;
         }
         body.a11y-dark-mode {
-            background-color: #1a1e24 !important;
-            color: #e4e7eb !important;
+            background-color: #0f172a !important;
+            color: #e2e8f0 !important;
         }
         body.a11y-dark-mode .card,
         body.a11y-dark-mode .modal-content {
-            background-color: #242a33 !important;
-            color: #e4e7eb !important;
-            border-color: #343d4a !important;
+            background-color: #1e293b !important;
+            color: #e2e8f0 !important;
+            border-color: #334155 !important;
+        }
+        body.a11y-dark-mode .book-cover-wrapper {
+            background-color: #0f172a !important;
+            border-bottom-color: #334155 !important;
         }
         body.a11y-dyslexia {
-            font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
-            letter-spacing: 0.06em !important;
-            word-spacing: 0.12em !important;
-            line-height: 1.8 !important;
+            font-family: 'OpenDyslexic', 'Segoe UI', Arial, sans-serif !important;
+            letter-spacing: 0.05em !important;
+            word-spacing: 0.1em !important;
+            line-height: 1.75 !important;
         }
         body.a11y-highlight-focus *:focus {
-            outline: 3px solid #ff9800 !important;
-            outline-offset: 3px !important;
+            outline: 3px solid #2563eb !important;
+            outline-offset: 2px !important;
         }
 
         #a11yReadingRuler {
@@ -188,10 +204,10 @@
             position: fixed;
             left: 0;
             width: 100vw;
-            height: 38px;
-            background: rgba(253, 105, 37, 0.18);
-            border-top: 2px dashed #fd6925;
-            border-bottom: 2px dashed #fd6925;
+            height: 36px;
+            background: rgba(37, 99, 235, 0.12);
+            border-top: 1px solid #2563eb;
+            border-bottom: 1px solid #2563eb;
             pointer-events: none;
             z-index: 99999;
             transform: translateY(-50%);
@@ -199,71 +215,60 @@
 
         .a11y-float-btn {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 58px;
-            height: 58px;
+            bottom: 24px;
+            right: 24px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: #fd6925;
+            background: #1e3a8a;
             color: #ffffff;
-            border: 3px solid #ffffff;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-            font-size: 1.6rem;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 9999;
-            transition: transform 0.2s ease;
+            font-size: 1.25rem;
+            transition: transform 0.2s ease, background 0.2s ease;
         }
         .a11y-float-btn:hover {
-            transform: scale(1.1);
-        }
-        .a11y-float-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #0d6efd;
-            color: #ffffff;
-            font-size: 0.65rem;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 10px;
-            border: 1px solid #ffffff;
+            transform: scale(1.08);
+            background: #2563eb;
         }
         .a11y-panel {
             position: fixed;
-            bottom: 95px;
-            right: 25px;
-            width: 340px;
+            bottom: 84px;
+            right: 24px;
+            width: 320px;
             max-width: 90vw;
             background: #ffffff;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 0, 0, 0.12);
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
             z-index: 9999;
             overflow: hidden;
             display: none;
         }
         .a11y-panel-header {
-            background: linear-gradient(135deg, #fd6925, #0d6efd);
+            background: #1e3a8a;
             color: #ffffff;
-            padding: 14px 18px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         .a11y-panel-body {
-            padding: 16px;
-            max-height: 480px;
+            padding: 14px;
+            max-height: 440px;
             overflow-y: auto;
         }
         .a11y-opt-title {
-            font-size: 0.78rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #6c757d;
+            color: #64748b;
             margin-bottom: 6px;
         }
     </style>
@@ -272,68 +277,58 @@
 
 <body>
 
-
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+<!-- NAVEGACIÓN -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 
     <div class="container">
 
-        <a class="navbar-brand fw-bold"
-           href="index.html">
-            📚 BOOKHUB
+        <a class="navbar-brand fw-bold" href="index.html">
+            BookHub
         </a>
 
         <div class="d-flex align-items-center flex-wrap gap-2">
 
-            <a href="index.html"
-               class="btn btn-outline-light btn-sm">
+            <a href="index.html" class="btn btn-outline-light btn-sm">
                 Inicio
             </a>
 
-            <a href="InnovacionServlet"
-               class="btn btn-outline-warning text-white fw-bold btn-sm">
-                ♿ ODS 09: Inclusión
+            <a href="InnovacionServlet" class="btn btn-outline-light btn-sm">
+                ODS 9: Accesibilidad
             </a>
 
             <button type="button"
-                    class="btn btn-warning btn-sm fw-bold text-dark"
+                    class="btn btn-primary btn-sm"
                     onclick="toggleA11yPanel()"
-                    title="Herramientas de Accesibilidad Universal (ODS 09)">
-                ♿ Accesibilidad
+                    title="Opciones de accesibilidad visual y de lectura">
+                Accesibilidad
             </button>
 
             <% if (usuarioSesion != null) { %>
 
                 <% if ("ADMIN".equals(usuarioSesion.getRol())) { %>
-                    <a href="dashboard.jsp"
-                       class="btn btn-light btn-sm">
+                    <a href="dashboard.jsp" class="btn btn-light btn-sm">
                         Panel Admin
                     </a>
                 <% } else { %>
-                    <a href="usuario.jsp"
-                       class="btn btn-light btn-sm">
+                    <a href="usuario.jsp" class="btn btn-light btn-sm">
                         Mi cuenta (<%= usuarioSesion.getNombre() %>)
                     </a>
-                    <a href="MisPrestamosServlet"
-                       class="btn btn-outline-light btn-sm">
+                    <a href="MisPrestamosServlet" class="btn btn-outline-light btn-sm">
                         Mis préstamos
                     </a>
                 <% } %>
 
-                <a href="LogoutServlet"
-                   class="btn btn-dark btn-sm">
+                <a href="LogoutServlet" class="btn btn-outline-danger btn-sm">
                     Cerrar sesión
                 </a>
 
             <% } else { %>
 
-                <a href="registro.jsp"
-                   class="btn btn-outline-light btn-sm">
+                <a href="registro.jsp" class="btn btn-outline-light btn-sm">
                     Registrarse
                 </a>
 
-                <a href="login.jsp"
-                   class="btn btn-light btn-sm">
+                <a href="login.jsp" class="btn btn-light btn-sm">
                     Iniciar sesión
                 </a>
 
@@ -346,22 +341,17 @@
 </nav>
 
 
-<!-- HERO -->
+<!-- ENCABEZADO -->
 <section class="hero">
 
     <div class="container text-center">
 
-        <div class="d-inline-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-1 rounded-pill mb-2">
-            <span class="badge bg-warning text-dark fw-bold">ODS 09</span>
-            <small class="text-white">Catálogo equipado con audiolibro sintético y búsqueda por voz</small>
-        </div>
-
-        <h1 class="fw-bold">
-            Catálogo de Libros Accesible
+        <h1 class="fw-bold mb-2">
+            Catálogo de Libros
         </h1>
 
-        <p class="lead mb-0">
-            Explora títulos con narración por voz, consulta su disponibilidad y gestiona tus préstamos con autonomía.
+        <p class="lead mb-0 text-white-50">
+            Consulta los títulos disponibles, escucha la síntesis de cada libro o solicita un préstamo.
         </p>
 
     </div>
@@ -370,7 +360,7 @@
 
 
 <!-- CONTENIDO -->
-<div class="container py-5">
+<div class="container py-4">
 
     <!-- BUSCADOR CON DICTADO POR VOZ Y FILTROS -->
     <div class="card shadow-sm mb-4">
@@ -378,43 +368,39 @@
         <div class="card-body">
 
             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold mb-0">
-                    🔎 Buscar y filtrar libros
-                </h5>
+                <h6 class="fw-bold mb-0 text-secondary">
+                    Búsqueda y Filtros
+                </h6>
                 <span class="badge bg-light text-dark border" id="contadorResultados">
-                    Mostrando <%= totalLibros %> ejemplar(es)
+                    <%= totalLibros %> ejemplares
                 </span>
             </div>
 
-            <form action="CatalogoServlet" method="get" class="row g-3">
+            <form action="CatalogoServlet" method="get" class="row g-2 align-items-end">
 
                 <div class="col-md-5">
-                    <label class="form-label small text-muted mb-1">
-                        Búsqueda por texto o voz (ODS 09)
-                    </label>
+                    <label class="form-label small text-muted mb-1">Título, autor o ISBN</label>
                     <div class="input-group">
                         <input type="text"
                                id="buscador"
                                name="busqueda"
                                value="<%= busqueda %>"
                                class="form-control"
-                               placeholder="Escribe o presiona el micrófono...">
-                        <button class="btn btn-outline-warning text-dark fw-bold"
+                               placeholder="Escribe para buscar...">
+                        <button class="btn btn-outline-secondary"
                                 type="button"
                                 id="btnVoiceSearch"
                                 onclick="iniciarBusquedaPorVoz()"
-                                title="Búsqueda manos libres por voz para personas con discapacidad motriz">
-                            🎤 Dictar
+                                title="Dictar búsqueda por voz">
+                            Dictar
                         </button>
                     </div>
-                    <div id="voiceSearchStatus" class="small text-danger fw-semibold mt-1" style="display:none;"></div>
+                    <div id="voiceSearchStatus" class="small text-muted mt-1" style="display:none;"></div>
                 </div>
 
                 <div class="col-md-4">
                     <label class="form-label small text-muted mb-1">Categoría</label>
-                    <select name="categoria"
-                            id="filtroCategoria"
-                            class="form-select">
+                    <select name="categoria" id="filtroCategoria" class="form-select">
                         <option value="">Todas las categorías</option>
                         <% if (categorias != null) {
                                 for (Categoria cat : categorias) {
@@ -428,39 +414,36 @@
                     </select>
                 </div>
 
-                <div class="col-md-3 d-flex align-items-end gap-2">
-                    <button type="submit" class="btn btn-primary w-100">
-                        Aplicar filtro
+                <div class="col-md-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        Buscar
                     </button>
                     <a href="CatalogoServlet" class="btn btn-outline-secondary">
-                        Limpiar
+                        Restablecer
                     </a>
                 </div>
 
             </form>
 
-            <!-- ETIQUETAS RÁPIDAS INTERACTIVAS -->
+            <!-- FILTROS RÁPIDOS -->
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3 pt-3 border-top">
-                <div class="d-flex flex-wrap align-items-center gap-2">
-                    <span class="small text-muted me-1">Filtros rápidos:</span>
+                <div class="d-flex flex-wrap align-items-center gap-1">
+                    <span class="small text-muted me-1">Filtrar:</span>
                     <button type="button" class="btn btn-sm btn-outline-primary chip-filtro active" onclick="filtrarPorChip('', this)">
                         Todos
                     </button>
-                    <button type="button" class="btn btn-sm btn-outline-success chip-filtro" onclick="filtrarPorChip('', this); probarVozTexto('Filtrando catálogo inclusivo con audiolibro activado')">
-                        🎧 100% Con Audio
+                    <button type="button" class="btn btn-sm btn-outline-secondary chip-filtro" onclick="filtrarPorChip('novela', this)">
+                        Novela
                     </button>
-                    <button type="button" class="btn btn-sm btn-outline-primary chip-filtro" onclick="filtrarPorChip('novela', this)">
-                        📖 Novela
-                    </button>
-                    <button type="button" class="btn btn-sm btn-outline-primary chip-filtro" onclick="filtrarPorChip('programación', this)">
-                        💻 Programación
+                    <button type="button" class="btn btn-sm btn-outline-secondary chip-filtro" onclick="filtrarPorChip('programación', this)">
+                        Programación
                     </button>
                 </div>
 
                 <div class="form-check form-switch mb-0">
                     <input class="form-check-input" type="checkbox" id="soloDisponibles" onchange="aplicarFiltrosInteractivos()">
                     <label class="form-check-label small text-muted" for="soloDisponibles">
-                        Solo con stock disponible
+                        Solo con ejemplares disponibles
                     </label>
                 </div>
             </div>
@@ -476,9 +459,10 @@
         <% if (libros != null && !libros.isEmpty()) { %>
 
             <% for (Libro libro : libros) {
-                   boolean esOds = libro.getNombreCategoria() != null
-                           && libro.getNombreCategoria().toUpperCase().contains("ODS 09");
                    String portadaUrl = libro.getImagenPortada();
+                   if (portadaUrl == null || portadaUrl.trim().isEmpty()) {
+                       portadaUrl = "img/portadas/default.svg";
+                   }
                    String tituloEsc = libro.getTitulo() != null ? libro.getTitulo().replace("\"", "&quot;").replace("'", "") : "";
                    String autorEsc = libro.getNombreAutor() != null ? libro.getNombreAutor().replace("\"", "&quot;").replace("'", "") : "";
                    String catEsc = libro.getNombreCategoria() != null ? libro.getNombreCategoria().replace("\"", "&quot;").replace("'", "") : "";
@@ -489,21 +473,21 @@
                      data-stock="<%= libro.getStock() %>"
                      data-categoria="<%= catEsc.toLowerCase() %>">
 
-                    <div class="card book-card shadow-sm h-100">
+                    <div class="card book-card h-100 shadow-sm">
 
-                        <!-- PORTADA DEL LIBRO -->
+                        <!-- PORTADA VISIBLE DEL LIBRO -->
                         <div class="book-cover-wrapper">
                             <% if (libro.getStock() > 0) { %>
                                 <span class="badge bg-success stock-floating-badge shadow-sm">
                                     Disponible (<%= libro.getStock() %>)
                                 </span>
                             <% } else { %>
-                                <span class="badge bg-danger stock-floating-badge shadow-sm">
-                                    No disponible
+                                <span class="badge bg-secondary stock-floating-badge shadow-sm">
+                                    Agotado
                                 </span>
                             <% } %>
 
-                            <a href="DetalleLibroServlet?id=<%= libro.getIdLibro() %>">
+                            <a href="DetalleLibroServlet?id=<%= libro.getIdLibro() %>" class="cover-link" title="Ver ficha de <%= tituloEsc %>">
                                 <img src="<%= portadaUrl %>"
                                      alt="Portada de <%= tituloEsc %>"
                                      class="book-cover-img"
@@ -511,7 +495,7 @@
                             </a>
 
                             <button type="button"
-                                    class="btn btn-light btn-sm shadow-sm quick-view-btn"
+                                    class="btn btn-sm quick-view-btn shadow-sm"
                                     data-id="<%= libro.getIdLibro() %>"
                                     data-titulo="<%= tituloEsc %>"
                                     data-autor="<%= autorEsc %>"
@@ -522,62 +506,52 @@
                                     data-descripcion="<%= descEsc %>"
                                     data-portada="<%= portadaUrl %>"
                                     onclick="abrirVistaRapida(this)">
-                                👁️ Vista rápida
+                                Vista rápida
                             </button>
                         </div>
 
-                        <div class="card-body d-flex flex-column">
+                        <div class="card-body d-flex flex-column p-3">
 
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div>
-                                    <span class="badge <%= esOds ? "badge-ods" : "bg-primary" %>">
-                                        <%= libro.getNombreCategoria() %>
-                                    </span>
-                                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" title="Recurso con audiolibro asistido (ODS 09)">
-                                        🎧 Audio
-                                    </span>
-                                </div>
+                                <span class="badge bg-light text-dark border">
+                                    <%= libro.getNombreCategoria() %>
+                                </span>
                                 <span class="text-muted small">
-                                    Año: <%= libro.getAnio() %>
+                                    <%= libro.getAnio() %>
                                 </span>
                             </div>
 
-                            <h5 class="card-title fw-bold">
+                            <h6 class="card-title fw-bold mb-1">
                                 <%= libro.getTitulo() %>
-                            </h5>
+                            </h6>
 
-                            <p class="mb-1 small">
-                                <strong>Autor:</strong>
+                            <p class="text-muted small mb-1">
                                 <%= libro.getNombreAutor() %>
                             </p>
 
-                            <p class="text-muted small mb-2">
-                                ISBN: <%= libro.getIsbn() %>
-                            </p>
-
-                            <p class="card-text text-muted small">
+                            <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                 <%= libro.getDescripcion() %>
                             </p>
 
-                            <div class="mt-auto pt-3">
+                            <div class="mt-auto pt-2 border-top">
                                 <div class="d-grid gap-2">
                                     <button type="button"
-                                            class="btn btn-outline-success btn-sm fw-semibold"
+                                            class="btn btn-outline-secondary btn-sm"
                                             onclick="leerLibroAudio('<%= tituloEsc %>', '<%= autorEsc %>', '<%= descEsc %>')"
-                                            title="Escuchar descripción en voz alta para personas con discapacidad visual">
-                                        🔊 Escuchar Libro (Audio)
+                                            title="Escuchar descripción en voz alta">
+                                        Escuchar descripción
                                     </button>
 
                                     <div class="d-flex gap-2">
                                         <a href="DetalleLibroServlet?id=<%= libro.getIdLibro() %>"
                                            class="btn btn-primary btn-sm flex-grow-1">
-                                            Ver detalles
+                                            Detalles
                                         </a>
 
                                         <% if (libro.getStock() > 0) { %>
                                             <a href="SolicitarPrestamoServlet?idLibro=<%= libro.getIdLibro() %>"
                                                class="btn btn-outline-primary btn-sm">
-                                                Solicitar
+                                                Préstamo
                                             </a>
                                         <% } %>
                                     </div>
@@ -595,9 +569,9 @@
         <% } else { %>
 
             <div class="col-12">
-                <div class="alert alert-info text-center">
+                <div class="alert alert-light border text-center py-4">
                     No se encontraron libros con los criterios seleccionados.
-                    <a href="CatalogoServlet" class="alert-link ms-2">Ver todo el catálogo</a>
+                    <a href="CatalogoServlet" class="ms-2">Ver todo el catálogo</a>
                 </div>
             </div>
 
@@ -612,9 +586,9 @@
 <div class="modal fade" id="modalVistaRapida" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title fw-bold" id="modalTitulo">Detalle rápido del libro</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <div class="modal-header bg-light">
+                <h6 class="modal-title fw-bold" id="modalTitulo">Vista rápida del libro</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body p-4">
                 <div class="row g-4 align-items-center">
@@ -622,27 +596,24 @@
                         <img id="modalPortada"
                              src="img/portadas/default.svg"
                              alt="Portada"
-                             class="img-fluid rounded shadow"
-                             style="max-height: 260px;"
+                             class="rounded shadow-sm"
+                             style="width: 170px; height: 238px; object-fit: cover;"
                              onerror="this.onerror=null;this.src='img/portadas/default.svg';">
                     </div>
                     <div class="col-md-8">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <span class="badge bg-primary" id="modalCategoria"></span>
-                            <span class="badge bg-success">🎧 Audiolibro ODS 09</span>
-                        </div>
-                        <h4 class="fw-bold mb-2" id="modalNombreLibro"></h4>
-                        <p class="mb-1"><strong>Autor:</strong> <span id="modalAutor"></span></p>
-                        <p class="mb-1 text-muted small"><strong>ISBN:</strong> <span id="modalIsbn"></span> · <strong>Año:</strong> <span id="modalAnio"></span></p>
-                        <hr>
-                        <p class="text-muted" id="modalDescripcion"></p>
+                        <span class="badge bg-secondary mb-2" id="modalCategoria"></span>
+                        <h5 class="fw-bold mb-1" id="modalNombreLibro"></h5>
+                        <p class="mb-1 text-muted">Autor: <span id="modalAutor" class="text-dark"></span></p>
+                        <p class="mb-2 text-muted small">ISBN: <span id="modalIsbn"></span> · Año: <span id="modalAnio"></span></p>
+                        <hr class="my-2">
+                        <p class="text-secondary small mb-3" id="modalDescripcion"></p>
                         <div class="mb-3" id="modalStockBadge"></div>
                         <div class="d-flex flex-wrap gap-2">
-                            <button type="button" class="btn btn-success" id="modalBtnAudio" onclick="escucharModalActual()">
-                                🔊 Escuchar en voz alta
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="modalBtnAudio" onclick="escucharModalActual()">
+                                Escuchar en voz alta
                             </button>
-                            <a id="modalBtnDetalle" href="#" class="btn btn-primary">Ver ficha completa</a>
-                            <a id="modalBtnPrestamo" href="#" class="btn btn-outline-primary">Solicitar préstamo</a>
+                            <a id="modalBtnDetalle" href="#" class="btn btn-primary btn-sm">Ficha completa</a>
+                            <a id="modalBtnPrestamo" href="#" class="btn btn-outline-primary btn-sm">Solicitar préstamo</a>
                         </div>
                     </div>
                 </div>
@@ -652,89 +623,73 @@
 </div>
 
 
-<!-- REGLA DE LECTURA VISUAL (TDAH / DISLEXIA) -->
+<!-- REGLA DE LECTURA VISUAL (DISLEXIA / SEGUIMIENTO) -->
 <div id="a11yReadingRuler"></div>
 
 
-<!-- WIDGET FLOTANTE DE ACCESIBILIDAD UNIVERSAL (ODS 09) -->
+<!-- PANEL FLOTANTE DE ACCESIBILIDAD -->
 <div id="bookhubA11yWidget">
     <button class="a11y-float-btn"
             id="btnA11yToggle"
             type="button"
             onclick="toggleA11yPanel()"
-            aria-label="Abrir panel de accesibilidad ODS 09"
-            title="Herramientas de Accesibilidad Universal ODS 09">
-        ♿
-        <span class="a11y-float-badge">ODS 9</span>
+            aria-label="Abrir panel de accesibilidad"
+            title="Herramientas de accesibilidad">
+        A
     </button>
 
-    <div class="a11y-panel shadow-lg" id="a11yPanel">
+    <div class="a11y-panel shadow-sm" id="a11yPanel">
         <div class="a11y-panel-header">
-            <div class="d-flex align-items-center gap-2">
-                <span class="fs-5">♿</span>
-                <div>
-                    <h6 class="mb-0 fw-bold">Inclusión & Accesibilidad</h6>
-                    <small class="opacity-75">ODS 09 · BookHub</small>
-                </div>
+            <div>
+                <h6 class="mb-0 fw-bold">Accesibilidad</h6>
+                <small class="text-white-50">Ajustes visuales y de lectura</small>
             </div>
             <button type="button" class="btn-close btn-close-white" onclick="toggleA11yPanel()" aria-label="Cerrar"></button>
         </div>
 
         <div class="a11y-panel-body">
             <div class="mb-3">
-                <div class="a11y-opt-title">🔠 Tamaño de texto</div>
+                <div class="a11y-opt-title">Tamaño de letra</div>
                 <div class="btn-group w-100">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(-0.1)">A -</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(-0.1)">Reducir</button>
                     <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0)">Normal</button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0.15)">A +</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="ajustarFuente(0.15)">Aumentar</button>
                 </div>
             </div>
 
             <div class="mb-3">
-                <div class="a11y-opt-title">🌓 Visión y Contraste</div>
+                <div class="a11y-opt-title">Contraste visual</div>
                 <div class="d-grid gap-1">
                     <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleHighContrast()">
-                        🟡 <strong>Alto contraste</strong> (Baja visión)
+                        Alto contraste (Fondo negro)
                     </button>
                     <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleDarkMode()">
-                        🌑 <strong>Modo Oscuro suave</strong> (Fotofobia)
+                        Modo oscuro suave
                     </button>
                     <button type="button" class="btn btn-outline-dark btn-sm text-start" onclick="toggleMonochrome()">
-                        ⚪ <strong>Monocromático</strong> (Daltonismo)
+                        Escala de grises
                     </button>
                 </div>
             </div>
 
             <div class="mb-3">
-                <div class="a11y-opt-title">🧠 Neurodivergencia & Lectura</div>
+                <div class="a11y-opt-title">Apoyo de lectura</div>
                 <div class="d-grid gap-1">
                     <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleDyslexiaMode()">
-                        📖 <strong>Fuente para Dislexia</strong>
+                        Fuente de lectura accesible
                     </button>
                     <button type="button" class="btn btn-outline-primary btn-sm text-start" onclick="toggleReadingRuler()">
-                        📏 <strong>Regla guía de lectura</strong>
+                        Regla guía de lectura
                     </button>
                     <button type="button" class="btn btn-outline-secondary btn-sm text-start" onclick="toggleFocusHighlight()">
-                        🎯 <strong>Resaltar foco del teclado (Tab)</strong>
-                    </button>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <div class="a11y-opt-title">🗣️ Lector por Voz Asistido</div>
-                <div class="d-grid gap-1">
-                    <button type="button" class="btn btn-success btn-sm text-start" onclick="probarVozTexto('Catálogo de libros de BookHub. Tienes ' + librosItems.length + ' títulos disponibles para consultar.')">
-                        🔊 <strong>Leer resumen del catálogo</strong>
-                    </button>
-                    <button type="button" class="btn btn-outline-danger btn-sm text-start" onclick="detenerVoz()">
-                        ⏹️ Detener audio
+                        Resaltar navegación por teclado
                     </button>
                 </div>
             </div>
 
             <div class="pt-2 text-center border-top">
                 <button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" onclick="restablecerA11y()">
-                    ↺ Restablecer valores por defecto
+                    Restablecer ajustes
                 </button>
             </div>
         </div>
@@ -742,17 +697,20 @@
 </div>
 
 
-<!-- FOOTER -->
+<!-- PIE DE PÁGINA -->
 <footer class="bg-dark text-white text-center py-4 mt-5">
-    <p class="mb-0 small">
-        © 2026 BOOKHUB - Biblioteca Universitaria Inclusiva · ODS 09 Tecnologías para la Discapacidad
-    </p>
+    <div class="container">
+        <p class="mb-1 fw-bold">BookHub</p>
+        <p class="mb-0 small text-secondary">
+            Sistema de Gestión de Biblioteca Universitaria · Cumplimiento de accesibilidad digital
+        </p>
+    </div>
 </footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- MOTOR ACCESIBLE: BÚSQUEDA POR VOZ, SÍNTESIS DE AUDIO Y MODOS VISUALES -->
+<!-- SCRIPTS DE BÚSQUEDA, FILTROS Y ACCESIBILIDAD -->
 <script>
     const buscador = document.getElementById("buscador");
     const soloDisponibles = document.getElementById("soloDisponibles");
@@ -768,8 +726,8 @@
     }
 
     function aplicarFiltrosInteractivos() {
-        const texto = buscador.value.toLowerCase().trim();
-        const requiereStock = soloDisponibles.checked;
+        const texto = buscador ? buscador.value.toLowerCase().trim() : "";
+        const requiereStock = soloDisponibles ? soloDisponibles.checked : false;
         let visibles = 0;
 
         librosItems.forEach(function (libro) {
@@ -788,7 +746,7 @@
         });
 
         if (contadorResultados) {
-            contadorResultados.textContent = "Mostrando " + visibles + " ejemplar(es)";
+            contadorResultados.textContent = visibles + " ejemplares";
         }
     }
 
@@ -796,7 +754,7 @@
         buscador.addEventListener("keyup", aplicarFiltrosInteractivos);
     }
 
-    // VISTA RÁPIDA
+    // MODAL VISTA RÁPIDA
     let datosModalActual = { titulo: '', autor: '', desc: '' };
 
     function abrirVistaRapida(btn) {
@@ -829,7 +787,7 @@
             btnPrestamo.style.display = "inline-block";
             btnPrestamo.href = "SolicitarPrestamoServlet?idLibro=" + id;
         } else {
-            stockContainer.innerHTML = '<span class="badge bg-danger">No disponible</span>';
+            stockContainer.innerHTML = '<span class="badge bg-secondary">Agotado</span>';
             btnPrestamo.style.display = "none";
         }
 
@@ -842,7 +800,7 @@
     }
 
     // SÍNTESIS DE VOZ
-    function probarVozTexto(texto, velocidad = 1.0) {
+    function reproducirAudio(texto, velocidad = 1.0) {
         if (!('speechSynthesis' in window)) {
             alert('Tu navegador no cuenta con soporte nativo de síntesis de voz.');
             return;
@@ -856,7 +814,7 @@
 
     function leerLibroAudio(titulo, autor, descripcion) {
         const texto = "Título: " + titulo + ". Autor: " + autor + ". Sinopsis: " + descripcion;
-        probarVozTexto(texto, 1.0);
+        reproducirAudio(texto, 1.0);
     }
 
     function detenerVoz() {
@@ -874,7 +832,7 @@
         if (!SpeechRecognition) {
             if (statusBox) {
                 statusBox.style.display = "block";
-                statusBox.textContent = "Tu navegador no soporta búsqueda por voz (prueba en Chrome o Edge).";
+                statusBox.textContent = "Navegador sin soporte de reconocimiento de voz.";
             }
             return;
         }
@@ -887,11 +845,12 @@
         recognition.onstart = function () {
             if (statusBox) {
                 statusBox.style.display = "block";
-                statusBox.textContent = "🔴 Escuchando... Di el título del libro o autor que deseas buscar.";
+                statusBox.textContent = "Escuchando... Di el título o autor.";
             }
             if (btnMic) {
                 btnMic.classList.add("btn-danger");
-                btnMic.classList.remove("btn-outline-warning");
+                btnMic.classList.remove("btn-outline-secondary");
+                btnMic.textContent = "Escuchando...";
             }
         };
 
@@ -902,24 +861,22 @@
                 aplicarFiltrosInteractivos();
             }
             if (statusBox) {
-                statusBox.className = "small text-success fw-semibold mt-1";
-                statusBox.textContent = '✅ Búsqueda por voz completada: "' + transcripcion + '"';
+                statusBox.textContent = 'Búsqueda: "' + transcripcion + '"';
             }
-            probarVozTexto('Buscando ' + transcripcion);
         };
 
         recognition.onerror = function (event) {
             if (statusBox) {
                 statusBox.style.display = "block";
-                statusBox.className = "small text-danger fw-semibold mt-1";
-                statusBox.textContent = "⚠️ No se detectó audio (" + event.error + "). Intenta de nuevo.";
+                statusBox.textContent = "No se detectó audio (" + event.error + ").";
             }
         };
 
         recognition.onend = function () {
             if (btnMic) {
                 btnMic.classList.remove("btn-danger");
-                btnMic.classList.add("btn-outline-warning");
+                btnMic.classList.add("btn-outline-secondary");
+                btnMic.textContent = "Dictar";
             }
         };
 
@@ -930,7 +887,7 @@
         }
     }
 
-    // PREFERENCIAS DE ACCESIBILIDAD (LOCALSTORAGE)
+    // GESTIÓN DE ACCESIBILIDAD (LOCALSTORAGE)
     let a11yState = {
         fontScale: 1,
         highContrast: false,
@@ -982,7 +939,7 @@
         if (delta === 0) {
             a11yState.fontScale = 1;
         } else {
-            a11yState.fontScale = Math.min(1.4, Math.max(0.85, a11yState.fontScale + delta));
+            a11yState.fontScale = Math.min(1.3, Math.max(0.85, a11yState.fontScale + delta));
         }
         aplicarA11yState();
         guardarA11yPrefs();
