@@ -193,6 +193,23 @@
                     <span>Autores</span>
                 </a>
             </div>
+
+            <!-- NUEVOS MÓDULOS -->
+            <p class="sidebar-subtitle mb-2 px-2">Nuevos Módulos</p>
+            <div class="d-flex flex-column gap-1 mb-3">
+                <a href="DonacionesServlet" class="sidebar-menu-item">
+                    <i class="bi bi-gift-fill menu-icon text-danger"></i>
+                    <span>Donaciones de Libros</span>
+                </a>
+                <a href="ReportesServlet" class="sidebar-menu-item">
+                    <i class="bi bi-graph-up-arrow menu-icon text-info"></i>
+                    <span>Reportes & Métricas</span>
+                </a>
+                <a href="SancionesServlet" class="sidebar-menu-item">
+                    <i class="bi bi-exclamation-octagon-fill menu-icon text-warning"></i>
+                    <span>Sanciones & Mora</span>
+                </a>
+            </div>
         </div>
 
         <div class="pt-3 border-top border-secondary border-opacity-25 text-center text-white-50 small">
@@ -460,6 +477,57 @@
 
             </div>
 
+        </div>
+
+        <!-- 1. DONACIONES DE LIBROS -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100 border-start border-danger border-4">
+                <div class="card-body">
+                    <h4 class="card-title text-danger">
+                        🎁 Donaciones
+                    </h4>
+                    <p class="card-text">
+                        Revisa solicitudes de libros donados e incorpóralos al catálogo con 1 clic.
+                    </p>
+                    <a href="DonacionesServlet" class="btn btn-danger">
+                        Gestionar donaciones
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. REPORTES Y MÉTRICAS -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100 border-start border-info border-4">
+                <div class="card-body">
+                    <h4 class="card-title text-info">
+                        📊 Reportes & KPIs
+                    </h4>
+                    <p class="card-text">
+                        Métricas de acervo, préstamos del mes, categorías y alertas de stock crítico.
+                    </p>
+                    <a href="ReportesServlet" class="btn btn-info text-white">
+                        Ver métricas y reportes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SANCIONES Y MORA -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100 border-start border-warning border-4">
+                <div class="card-body">
+                    <h4 class="card-title text-warning">
+                        ⚠️ Sanciones & Mora
+                    </h4>
+                    <p class="card-text">
+                        Monitorea préstamos con fecha vencida y regulariza devoluciones atrasadas.
+                    </p>
+                    <a href="SancionesServlet" class="btn btn-warning text-dark">
+                        Controlar sanciones
+                    </a>
+                </div>
+            </div>
         </div>
 
 

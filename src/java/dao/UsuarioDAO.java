@@ -188,6 +188,29 @@ public class UsuarioDAO {
         }
     }
 
+    public boolean cambiarEstado(int idUsuario, String nuevoEstado) {
+        String sql = "UPDATE usuarios SET estado = ? WHERE id_usuario = ?";
+        try (Connection con = Conexion.conectar()) {
+            if (con != null) {
+                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                    ps.setString(1, nuevoEstado);
+                    ps.setInt(2, idUsuario);
+                    ps.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error cambiarEstado UsuarioDAO: " + e.getMessage());
+        }
+
+        for (Usuario u : usuarios) {
+            if (u.getIdUsuario() == idUsuario) {
+                u.setEstado(nuevoEstado);
+                return true;
+            }
+        }
+        return false;
+    }
+
     // ============================
     // ELIMINAR
     // ============================

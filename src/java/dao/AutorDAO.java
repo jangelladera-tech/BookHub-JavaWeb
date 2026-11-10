@@ -11,38 +11,48 @@ import java.util.List;
 
 public class AutorDAO {
 
-    private static List<Autor> autores = new ArrayList<>();
+    private static List<Autor> autoresMemoria = new ArrayList<>();
     private static int contadorId = 1;
 
     static {
-        autores.add(new Autor(
-                contadorId++,
-                "Gabriel García Márquez",
-                "Colombiana"
-        ));
+        Object[][] autoresData = new Object[][]{
+            {1, "Gabriel García Márquez", "Colombiana"},
+            {2, "Miguel de Cervantes", "Española"},
+            {3, "Antoine de Saint-Exupéry", "Francesa"},
+            {4, "Robert C. Martin", "Estadounidense"},
+            {5, "Andrew Hunt & David Thomas", "Estadounidense"},
+            {6, "Erich Gamma et al. (GoF)", "Suiza / Internacional"},
+            {7, "Martin Fowler", "Británica"},
+            {8, "Thomas H. Cormen", "Estadounidense"},
+            {9, "Stephen Hawking", "Británica"},
+            {10, "Carl Sagan", "Estadounidense"},
+            {11, "Richard Dawkins", "Británica"},
+            {12, "Francis Sears & Mark Zemansky", "Estadounidense"},
+            {13, "James Stewart", "Canadiense"},
+            {14, "Stuart Russell & Peter Norvig", "Estadounidense"},
+            {15, "Yuval Noah Harari", "Israelí"},
+            {16, "George Orwell", "Británica"},
+            {17, "Aldous Huxley", "Británica"},
+            {18, "Julio Cortázar", "Argentina"},
+            {19, "Jorge Luis Borges", "Argentina"},
+            {20, "James Clear", "Estadounidense"},
+            {21, "Viktor Frankl", "Austríaca"},
+            {22, "Daniel Kahneman", "Israelí / Estadounidense"},
+            {23, "Sun Tzu", "China"},
+            {24, "Marco Aurelio", "Romana"},
+            {25, "Kathy Sierra & Bert Bates", "Estadounidense"},
+            {26, "Abraham Silberschatz & Henry Korth", "Estadounidense"},
+            {27, "Andrew S. Tanenbaum", "Estadounidense"},
+            {28, "Umberto Eco", "Italiana"},
+            {29, "Franz Kafka", "Checa"},
+            {30, "José Saramago", "Portuguesa"}
+        };
 
-        autores.add(new Autor(
-                contadorId++,
-                "Miguel de Cervantes",
-                "Española"
-        ));
-
-        autores.add(new Autor(
-                contadorId++,
-                "Antoine de Saint-Exupéry",
-                "Francesa"
-        ));
-
-        autores.add(new Autor(
-                contadorId++,
-                "Robert C. Martin",
-                "Estadounidense"
-        ));
+        for (Object[] a : autoresData) {
+            autoresMemoria.add(new Autor((Integer) a[0], (String) a[1], (String) a[2]));
+            contadorId = Math.max(contadorId, (Integer) a[0] + 1);
+        }
     }
-
-    // ============================
-    // LISTAR
-    // ============================
 
     public List<Autor> listar() {
         String sql = "SELECT id_autor, nombre, nacionalidad FROM autores ORDER BY id_autor ASC";
@@ -66,45 +76,17 @@ public class AutorDAO {
         } catch (SQLException e) {
             System.out.println("Usando datos en memoria para AutorDAO: " + e.getMessage());
         }
-        return autores;
+        return new ArrayList<>(autoresMemoria);
     }
 
-    // ============================
-    // OBTENER POR ID
-    // ============================
-
     public Autor obtenerPorId(int id) {
-        String sql = "SELECT id_autor, nombre, nacionalidad FROM autores WHERE id_autor = ?";
-        try (Connection con = Conexion.conectar()) {
-            if (con != null) {
-                try (PreparedStatement ps = con.prepareStatement(sql)) {
-                    ps.setInt(1, id);
-                    try (ResultSet rs = ps.executeQuery()) {
-                        if (rs.next()) {
-                            return new Autor(
-                                    rs.getInt("id_autor"),
-                                    rs.getString("nombre"),
-                                    rs.getString("nacionalidad")
-                            );
-                        }
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error obtenerPorId AutorDAO: " + e.getMessage());
-        }
-
-        for (Autor autor : autores) {
-            if (autor.getIdAutor() == id) {
-                return autor;
+        for (Autor a : listar()) {
+            if (a.getIdAutor() == id) {
+                return a;
             }
         }
         return null;
     }
-
-    // ============================
-    // AGREGAR
-    // ============================
 
     public void agregar(Autor autor) {
         String sql = "INSERT INTO autores (nombre, nacionalidad) VALUES (?, ?)";
@@ -121,12 +103,8 @@ public class AutorDAO {
         }
 
         autor.setIdAutor(contadorId++);
-        autores.add(autor);
+        autoresMemoria.add(autor);
     }
-
-    // ============================
-    // ACTUALIZAR
-    // ============================
 
     public void actualizar(Autor autor) {
         String sql = "UPDATE autores SET nombre = ?, nacionalidad = ? WHERE id_autor = ?";
@@ -143,17 +121,13 @@ public class AutorDAO {
             System.out.println("Error actualizar AutorDAO: " + e.getMessage());
         }
 
-        for (int i = 0; i < autores.size(); i++) {
-            if (autores.get(i).getIdAutor() == autor.getIdAutor()) {
-                autores.set(i, autor);
+        for (int i = 0; i < autoresMemoria.size(); i++) {
+            if (autoresMemoria.get(i).getIdAutor() == autor.getIdAutor()) {
+                autoresMemoria.set(i, autor);
                 break;
             }
         }
     }
-
-    // ============================
-    // ELIMINAR
-    // ============================
 
     public void eliminar(int id) {
         String sql = "DELETE FROM autores WHERE id_autor = ?";
@@ -168,6 +142,6 @@ public class AutorDAO {
             System.out.println("Error eliminar AutorDAO: " + e.getMessage());
         }
 
-        autores.removeIf(autor -> autor.getIdAutor() == id);
+        autoresMemoria.removeIf(a -> a.getIdAutor() == id);
     }
 }

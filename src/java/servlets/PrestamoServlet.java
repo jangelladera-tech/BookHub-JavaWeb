@@ -34,6 +34,30 @@ public class PrestamoServlet extends HttpServlet {
             prestamoDAO.eliminar(id);
             response.sendRedirect("PrestamoServlet");
 
+        } else if (accion.equals("devolver")) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            Prestamo p = prestamoDAO.obtenerPorId(id);
+            if (p != null && !"DEVUELTO".equals(p.getEstado())) {
+                p.setEstado("DEVUELTO");
+                prestamoDAO.actualizar(p);
+                libroDAO.ajustarStock(p.getIdLibro(), 1);
+            }
+            response.sendRedirect("PrestamoServlet");
+            return;
+
+        } else if (accion.equals("renovar")) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            Prestamo p = prestamoDAO.obtenerPorId(id);
+            if (p != null) {
+                p.setFechaDevolucion("20/11/2026");
+                p.setEstado("PRESTADO");
+                prestamoDAO.actualizar(p);
+            }
+            response.sendRedirect("PrestamoServlet");
+            return;
+
         } else if (accion.equals("editar")) {
 
             int id = Integer.parseInt(request.getParameter("id"));

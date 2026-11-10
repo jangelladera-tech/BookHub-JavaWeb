@@ -31,6 +31,14 @@ public class UsuarioServlet extends HttpServlet {
             usuarioDAO.eliminar(id);
             response.sendRedirect("UsuarioServlet");
 
+        } else if (accion.equals("cambiarEstado")) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            String nuevoEstado = request.getParameter("estado");
+            usuarioDAO.cambiarEstado(id, nuevoEstado);
+            response.sendRedirect("UsuarioServlet");
+            return;
+
         } else if (accion.equals("editar")) {
 
             int id = Integer.parseInt(request.getParameter("id"));

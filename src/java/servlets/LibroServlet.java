@@ -37,6 +37,13 @@ public class LibroServlet extends HttpServlet {
             libroDAO.eliminar(id);
             response.sendRedirect("LibroServlet");
 
+        } else if (accion.equals("ajustarStock")) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            int delta = Integer.parseInt(request.getParameter("delta"));
+            libroDAO.ajustarStock(id, delta);
+            response.sendRedirect("LibroServlet");
+
         } else if (accion.equals("editar")) {
 
             int id = Integer.parseInt(request.getParameter("id"));

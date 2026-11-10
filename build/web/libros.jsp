@@ -361,12 +361,13 @@
             <div class="card shadow-sm">
 
 
-                <div class="card-header">
-
-                    <h5 class="mb-0">
-                        Libros registrados
+                <div class="card-header bg-white py-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
+                    <h5 class="mb-0 fw-bold">
+                        Libros registrados en el catálogo
                     </h5>
-
+                    <div style="max-width: 380px;" class="w-100">
+                        <input type="text" id="filtroLibros" class="form-control form-control-sm" placeholder="🔍 Buscar por título, autor, categoría..." onkeyup="filtrarLibros()">
+                    </div>
                 </div>
 
 
@@ -498,28 +499,18 @@
 
 
                                     <!-- STOCK -->
-
                                     <td>
-
-                                        <% if (libro.getStock() > 0) {%>
-
-                                        <span class="badge bg-success">
-
-                                            <%= libro.getStock()%>
-                                            disponibles
-
-                                        </span>
-
-                                        <% } else { %>
-
-                                        <span class="badge bg-danger">
-
-                                            Sin stock
-
-                                        </span>
-
-                                        <% }%>
-
+                                        <div class="d-flex align-items-center gap-1">
+                                            <a href="LibroServlet?accion=ajustarStock&id=<%= libro.getIdLibro() %>&delta=-1" class="btn btn-outline-danger btn-sm py-0 px-1" title="Restar 1 ejemplar">-</a>
+                                            <% if (libro.getStock() > 2) { %>
+                                                <span class="badge bg-success" style="min-width: 24px;"><%= libro.getStock() %></span>
+                                            <% } else if (libro.getStock() > 0) { %>
+                                                <span class="badge bg-warning text-dark" style="min-width: 24px;"><%= libro.getStock() %></span>
+                                            <% } else { %>
+                                                <span class="badge bg-danger" style="min-width: 24px;">0</span>
+                                            <% } %>
+                                            <a href="LibroServlet?accion=ajustarStock&id=<%= libro.getIdLibro() %>&delta=1" class="btn btn-outline-success btn-sm py-0 px-1" title="Sumar 1 ejemplar">+</a>
+                                        </div>
                                     </td>
 
 
@@ -650,6 +641,15 @@
                     imgObj.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
+            }
+
+            function filtrarLibros() {
+                const term = document.getElementById('filtroLibros').value.toLowerCase();
+                const filas = document.querySelectorAll('tbody tr');
+                filas.forEach(f => {
+                    const texto = f.textContent.toLowerCase();
+                    f.style.display = texto.includes(term) ? '' : 'none';
+                });
             }
         </script>
 
