@@ -93,7 +93,7 @@ function escapeJs(str) {
 }
 
 function replaceUrls(content) {
-  return content
+  let res = content
     .replace(/href="CatalogoServlet"/g, 'href="catalogo.html"')
     .replace(/action="CatalogoServlet"/g, 'action="catalogo.html"')
     .replace(/href="InnovacionServlet"/g, 'href="innovacion.html"')
@@ -133,6 +133,13 @@ function replaceUrls(content) {
     .replace(/href="sanciones\.jsp"/g, 'href="sanciones.html"')
     .replace(/href="usuarios\.jsp"/g, 'href="usuarios.html"')
     .replace(/href="usuario\.jsp"/g, 'href="usuario.html"');
+
+  if (!res.includes('rel="icon"')) {
+    const fav = `\n    <!-- Favicon / Logo de pestaña del navegador -->\n    <link rel="icon" type="image/svg+xml" href="img/logo.svg">\n    <link rel="alternate icon" type="image/x-icon" href="favicon.ico">\n    <link rel="apple-touch-icon" href="img/logo.svg">\n`;
+    res = res.replace(/<head>/i, '<head>' + fav);
+  }
+
+  return res;
 }
 
 // Sincronizador de sesión basado en sessionStorage (por defecto: nadie ha iniciado sesión)
