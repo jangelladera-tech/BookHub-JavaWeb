@@ -51,15 +51,13 @@
                     <div class="card-body p-4 p-md-5">
 
                         <div class="text-center mb-4">
-
-                            <h2 class="fw-bold">
-                                📚 BOOKHUB
-                            </h2>
-
+                            <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+                                <img src="img/logo.svg" alt="BookHub Logo" width="44" height="44">
+                                <h2 class="fw-bold mb-0">BookHub</h2>
+                            </div>
                             <p class="text-muted mb-0">
                                 Registro de nuevo lector
                             </p>
-
                         </div>
 
 

@@ -90,19 +90,30 @@ public class AutorDAO {
 
     public void agregar(Autor autor) {
         String sql = "INSERT INTO autores (nombre, nacionalidad) VALUES (?, ?)";
+        int idGenerado = -1;
         try (Connection con = Conexion.conectar()) {
             if (con != null) {
-                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                try (PreparedStatement ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
                     ps.setString(1, autor.getNombre());
                     ps.setString(2, autor.getNacionalidad());
                     ps.executeUpdate();
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            idGenerado = rs.getInt(1);
+                            autor.setIdAutor(idGenerado);
+                        }
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Error agregar AutorDAO: " + e.getMessage());
         }
 
-        autor.setIdAutor(contadorId++);
+        if (idGenerado == -1) {
+            autor.setIdAutor(contadorId++);
+        } else {
+            contadorId = Math.max(contadorId, idGenerado + 1);
+        }
         autoresMemoria.add(autor);
     }
 

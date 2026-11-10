@@ -1,5 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="beans.Usuario"%>
+<%@page import="beans.Prestamo"%>
+<%@page import="beans.Libro"%>
+<%@page import="dao.PrestamoDAO"%>
+<%@page import="dao.LibroDAO"%>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuario");
@@ -13,19 +19,39 @@
         response.sendRedirect("dashboard.jsp");
         return;
     }
+
+    PrestamoDAO prestamoDAO = new PrestamoDAO();
+    LibroDAO libroDAO = new LibroDAO();
+    List<Prestamo> misPrestamos = new ArrayList<>();
+    int prestamosActivos = 0;
+    int prestamosDevueltos = 0;
+
+    try {
+        List<Prestamo> lista = prestamoDAO.listar();
+        if (lista != null) {
+            for (Prestamo p : lista) {
+                if (p.getIdUsuario() == usuario.getIdUsuario()) {
+                    misPrestamos.add(p);
+                    if ("PRESTADO".equalsIgnoreCase(p.getEstado())) {
+                        prestamosActivos++;
+                    } else {
+                        prestamosDevueltos++;
+                    }
+                }
+            }
+        }
+    } catch (Exception e) {
+        // Protección preventiva ante excepciones de BD
+    }
 %>
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>BOOKHUB | Mi cuenta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub | Mi cuenta</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -103,8 +129,70 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-    </style>
 
+        /* DISEÑO DE PERFIL DE USUARIO LIMPIO */
+        .card-profile {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        }
+        .user-avatar-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .stat-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            padding: 18px 20px;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+        }
+        .service-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+            border-color: #cbd5e1;
+        }
+        .service-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+        }
+        .table-loans th {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -117,7 +205,7 @@
 
     <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
         <div class="d-flex align-items-center gap-2">
-            <span class="fs-3">📚</span>
+            <img src="img/logo.svg" alt="BookHub Logo" width="36" height="36" class="d-inline-block">
             <div>
                 <h5 class="offcanvas-title fw-bold text-white mb-0" id="sidebarBookHubLabel">BookHub</h5>
                 <small class="text-white-50" style="font-size: 0.72rem;">Biblioteca Universitaria</small>
@@ -180,10 +268,6 @@
                         <small class="text-white-50" style="font-size: 0.72rem;">Dona libros a la biblioteca</small>
                     </div>
                 </a>
-                        <div>Mis Préstamos</div>
-                        <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
-                    </div>
-                </a>
             </div>
 
             <!-- SERVICIOS -->
@@ -204,7 +288,7 @@
     </div>
 </div>
 
-<!-- NAVBAR CON BOTÓN DE TRES LÍNEAS (SE DESVANECE AL HACER SCROLL) -->
+<!-- NAVBAR CON BOTÓN DE TRES LÍNEAS -->
 <nav class="navbar navbar-dark bg-dark sticky-top shadow-sm py-2 navbar-scroll-fade" id="mainNavbar">
     <div class="container-fluid px-3 px-lg-4">
 
@@ -220,11 +304,12 @@
             </button>
 
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.jsp">
+                <img src="img/logo.svg" alt="BookHub Logo" width="34" height="34" class="d-inline-block">
                 <span>BookHub</span>
             </a>
         </div>
 
-        <!-- Lado derecho: EXCLUSIVAMENTE sesión -->
+        <!-- Lado derecho: Sesión activa -->
         <div class="d-flex align-items-center gap-2 ms-auto">
             <span class="text-white small d-none d-sm-inline">
                 Hola, <strong><%= usuario.getNombre() %></strong>
@@ -239,210 +324,299 @@
 </nav>
 
 
-<!-- CONTENIDO -->
+<!-- CONTENIDO PRINCIPAL -->
+<div class="container py-4">
 
-<div class="container py-5">
-
-
-    <!-- BIENVENIDA -->
-
-    <div class="mb-5">
-
-        <h1 class="fw-bold">
-
-            ¡Bienvenido, <%= usuario.getNombre() %>! 👋
-
-        </h1>
-
-        <p class="text-muted">
-
-            Encuentra libros, consulta su disponibilidad
-            y gestiona tus préstamos.
-
-        </p>
-
-    </div>
-
-
-    <!-- OPCIONES PRINCIPALES -->
-
-    <div class="row g-4 mb-5">
-
-
-        <!-- CATÁLOGO -->
-
-        <div class="col-md-6">
-
-            <div class="card shadow-sm h-100">
-
-                <div class="card-body p-4">
-
-                    <div class="display-5 mb-3">
-                        📚
-                    </div>
-
-                    <h3 class="fw-bold">
-                        Catálogo
-                    </h3>
-
-                    <p class="text-muted">
-
-                        Explora todos los libros disponibles
-                        en la biblioteca.
-
-                    </p>
-
-                    <a href="CatalogoServlet"
-                       class="btn btn-primary">
-
-                        Ver catálogo
-
-                    </a>
-
+    <!-- PERFIL INSTITUCIONAL DEL LECTOR -->
+    <div class="card card-profile p-4 mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="user-avatar-box">
+                    <%= (usuario.getNombre() != null && !usuario.getNombre().isEmpty()) ? usuario.getNombre().substring(0, 1).toUpperCase() : "U" %>
                 </div>
-
+                <div>
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                        <h4 class="fw-bold mb-0 text-dark"><%= usuario.getNombre() %></h4>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                            <i class="bi bi-check-circle-fill me-1"></i>Membresía activa
+                        </span>
+                    </div>
+                    <div class="text-secondary small d-flex flex-wrap align-items-center gap-3">
+                        <span><i class="bi bi-envelope me-1"></i><%= usuario.getCorreo() %></span>
+                        <span><i class="bi bi-person-badge me-1"></i>ID de Lector: #<%= String.format("%04d", usuario.getIdUsuario()) %></span>
+                        <span><i class="bi bi-building me-1"></i>Comunidad Universitaria</span>
+                    </div>
+                </div>
             </div>
 
-        </div>
-
-
-        <!-- MIS PRÉSTAMOS -->
-
-        <div class="col-md-6">
-
-            <div class="card shadow-sm h-100">
-
-                <div class="card-body p-4">
-
-                    <div class="display-5 mb-3">
-                        📖
-                    </div>
-
-                    <h3 class="fw-bold">
-                        Mis préstamos
-                    </h3>
-
-                    <p class="text-muted">
-
-                        Consulta los libros que tienes
-                        prestados y tu historial.
-
-                    </p>
-
-                    <a href="MisPrestamosServlet"
-                       class="btn btn-primary">
-
-                        Ver mis préstamos
-
-                    </a>
-
-                </div>
-
+            <div class="d-flex align-items-center gap-2">
+                <a href="CatalogoServlet" class="btn btn-primary btn-sm d-flex align-items-center gap-1 px-3 py-2">
+                    <i class="bi bi-journal-bookmark-fill"></i> <span>Ir al Catálogo</span>
+                </a>
+                <a href="MisPrestamosServlet" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1 px-3 py-2">
+                    <i class="bi bi-clock-history"></i> <span>Mis Préstamos</span>
+                </a>
             </div>
-
         </div>
-
     </div>
 
-
-    <!-- BÚSQUEDA -->
-
-    <div class="card shadow-sm">
-
-        <div class="card-body p-4">
-
-            <h4 class="fw-bold mb-3">
-
-                🔎 Buscar un libro
-
-            </h4>
-
-            <p class="text-muted">
-
-                Busca rápidamente por título, autor o categoría.
-
-            </p>
-
-
-            <form action="CatalogoServlet"
-                  method="get">
-
-                <div class="input-group">
-
-                    <input type="text"
-                           name="busqueda"
-                           class="form-control"
-                           placeholder="Título, autor o categoría..."
-                           required>
-
-                    <button type="submit"
-                            class="btn btn-primary">
-
-                        Buscar
-
-                    </button>
-
+    <!-- TARJETAS DE INDICADORES / ACTIVIDAD DEL LECTOR -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Libros en préstamo</span>
+                    <span class="badge <%= prestamosActivos > 0 ? "bg-warning text-dark" : "bg-light text-secondary border" %>">
+                        <%= prestamosActivos > 0 ? "En curso" : "Sin pendientes" %>
+                    </span>
                 </div>
-
-            </form>
-
+                <div class="d-flex align-items-baseline gap-2">
+                    <h2 class="fw-bold mb-0 text-dark"><%= prestamosActivos %></h2>
+                    <span class="text-muted small">ejemplar<%= prestamosActivos != 1 ? "es" : "" %> activo<%= prestamosActivos != 1 ? "s" : "" %></span>
+                </div>
+                <div class="mt-2 pt-2 border-top">
+                    <a href="MisPrestamosServlet" class="small text-decoration-none text-primary d-inline-flex align-items-center gap-1">
+                        Ver detalles de fechas <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
-    </div>
-
-
-    <!-- INFORMACIÓN -->
-
-    <div class="card shadow-sm mt-4">
-
-        <div class="card-body p-4">
-
-            <h5 class="fw-bold">
-
-                ¿Cómo utilizar BOOKHUB?
-
-            </h5>
-
-            <p class="text-muted mb-0">
-
-                1. Ingresa al catálogo y busca un libro.
-                <br>
-                2. Consulta sus detalles y disponibilidad.
-                <br>
-                3. Solicita el préstamo.
-                <br>
-                4. Revisa tus préstamos desde "Mis préstamos".
-
-            </p>
-
+        <div class="col-sm-6 col-lg-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Préstamos completados</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                        Historial
+                    </span>
+                </div>
+                <div class="d-flex align-items-baseline gap-2">
+                    <h2 class="fw-bold mb-0 text-dark"><%= prestamosDevueltos %></h2>
+                    <span class="text-muted small">libro<%= prestamosDevueltos != 1 ? "s" : "" %> devuelto<%= prestamosDevueltos != 1 ? "s" : "" %></span>
+                </div>
+                <div class="mt-2 pt-2 border-top">
+                    <span class="small text-muted">Registro histórico en biblioteca</span>
+                </div>
+            </div>
         </div>
 
+        <div class="col-sm-12 col-lg-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Estado de cuenta</span>
+                    <span class="badge bg-success text-white">Regular</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-shield-check fs-3 text-success"></i>
+                    <div>
+                        <div class="fw-semibold text-dark">Sin sanciones ni mora</div>
+                        <div class="text-muted small">Habilitado para solicitar libros</div>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-top">
+                    <span class="small text-muted">Límite de préstamo: hasta 3 libros</span>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- BUSCADOR RÁPIDO DE CATÁLOGO -->
+    <div class="card card-profile p-4 mb-4">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-3 mb-lg-0">
+                <h5 class="fw-bold mb-1 text-dark">
+                    <i class="bi bi-search text-primary me-2"></i>Búsqueda en el acervo bibliográfico
+                </h5>
+                <p class="text-muted small mb-0">
+                    Consulta al instante la disponibilidad de títulos, autores y materias en catálogo.
+                </p>
+            </div>
+            <div class="col-lg-7">
+                <form action="CatalogoServlet" method="get">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi bi-search text-muted"></i>
+                        </span>
+                        <input type="text"
+                               name="busqueda"
+                               class="form-control border-start-0"
+                               placeholder="Ingresa título, autor o tema de tu interés..."
+                               required>
+                        <button type="submit" class="btn btn-primary px-4">
+                            Buscar libro
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIBROS ACTUALES EN PRÉSTAMO (SI EXISTEN) -->
+    <% if (prestamosActivos > 0) { %>
+    <div class="card card-profile mb-4">
+        <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="fw-semibold text-dark">
+                <i class="bi bi-book-half text-primary me-2"></i>Libros que tienes en préstamo actualmente
+            </div>
+            <a href="MisPrestamosServlet" class="btn btn-sm btn-outline-primary">
+                Ver todos mis préstamos
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-loans">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Libro</th>
+                        <th>Fecha de Préstamo</th>
+                        <th>Fecha Límite de Devolución</th>
+                        <th>Estado</th>
+                        <th class="text-end pe-4">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        for (Prestamo p : misPrestamos) {
+                            if ("PRESTADO".equalsIgnoreCase(p.getEstado())) {
+                                Libro libro = null;
+                                try {
+                                    libro = libroDAO.obtenerPorId(p.getIdLibro());
+                                } catch (Exception e) {}
+                                String tituloLibro = libro != null ? libro.getTitulo() : ("Libro #" + p.getIdLibro());
+                                String autorLibro = libro != null ? libro.getNombreAutor() : "Biblioteca BookHub";
+                    %>
+                    <tr>
+                        <td class="ps-4">
+                            <div class="fw-semibold text-dark"><%= tituloLibro %></div>
+                            <small class="text-muted"><%= autorLibro %></small>
+                        </td>
+                        <td><%= p.getFechaPrestamo() != null ? p.getFechaPrestamo() : "-" %></td>
+                        <td>
+                            <span class="badge bg-light text-dark border">
+                                <i class="bi bi-calendar-event me-1"></i><%= p.getFechaDevolucion() != null ? p.getFechaDevolucion() : "-" %>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                <i class="bi bi-hourglass-split me-1"></i>Prestado
+                            </span>
+                        </td>
+                        <td class="text-end pe-4">
+                            <a href="DetalleLibroServlet?id=<%= p.getIdLibro() %>" class="btn btn-sm btn-outline-secondary">
+                                Ver ficha
+                            </a>
+                        </td>
+                    </tr>
+                    <%
+                            }
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- SERVICIOS DISPONIBLES EN LA BIBLIOTECA -->
+    <h5 class="fw-bold text-dark mb-3">
+        <i class="bi bi-grid-fill text-primary me-2"></i>Servicios para la comunidad lectora
+    </h5>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card service-card p-4">
+                <div class="service-icon-wrap bg-primary-subtle text-primary">
+                    <i class="bi bi-journal-text"></i>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Catálogo General</h6>
+                <p class="text-muted small mb-3">
+                    Explora libros en literatura, ciencias exactas, ingeniería, historia y más, con disponibilidad en tiempo real.
+                </p>
+                <div class="mt-auto">
+                    <a href="CatalogoServlet" class="btn btn-sm btn-outline-primary w-100">
+                        Explorar acervo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card service-card p-4">
+                <div class="service-icon-wrap bg-danger-subtle text-danger">
+                    <i class="bi bi-gift"></i>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Donación de Libros</h6>
+                <p class="text-muted small mb-3">
+                    Comparte libros con otros lectores mediante nuestro programa solidario de donación bibliográfica.
+                </p>
+                <div class="mt-auto">
+                    <a href="donar.jsp" class="btn btn-sm btn-outline-danger w-100">
+                        Donar un ejemplar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card service-card p-4">
+                <div class="service-icon-wrap bg-success-subtle text-success">
+                    <i class="bi bi-universal-access"></i>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Inclusión y Accesibilidad (ODS 9)</h6>
+                <p class="text-muted small mb-3">
+                    Lectura con síntesis de voz, dictado de búsqueda, tipografías para dislexia y modo de alto contraste.
+                </p>
+                <div class="mt-auto">
+                    <a href="InnovacionServlet" class="btn btn-sm btn-outline-success w-100">
+                        Centro de accesibilidad
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GUÍA DE SERVICIO Y NORMAS DE PRÉSTAMO -->
+    <div class="card card-profile p-4">
+        <h6 class="fw-bold text-dark mb-3">
+            <i class="bi bi-info-circle text-primary me-2"></i>Guía y normas de préstamo universitario
+        </h6>
+        <div class="row g-3 small text-secondary">
+            <div class="col-md-4">
+                <div class="p-3 rounded-2 bg-light border">
+                    <div class="fw-semibold text-dark mb-1">
+                        <i class="bi bi-calendar-check text-primary me-1"></i> Plazo de préstamo
+                    </div>
+                    <div>Los ejemplares se otorgan por un período regular de 7 días naturales, renovables si no existen reservas.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-2 bg-light border">
+                    <div class="fw-semibold text-dark mb-1">
+                        <i class="bi bi-arrow-repeat text-success me-1"></i> Devolución responsable
+                    </div>
+                    <div>Puedes entregar los libros en ventanilla de atención o registrar su entrega con el personal encargado.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-2 bg-light border">
+                    <div class="fw-semibold text-dark mb-1">
+                        <i class="bi bi-headset text-info me-1"></i> Asistencia al lector
+                    </div>
+                    <div>Si necesitas adaptaciones de lectura asistida o consultas especializadas, consulta al equipo de biblioteca.</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
-
 <!-- FOOTER -->
-
 <footer class="bg-dark text-white py-4 mt-5">
-
     <div class="container text-center">
-
-        <p class="mb-1">
-
-            <strong>BOOKHUB</strong>
-
+        <p class="mb-1 fw-semibold">BookHub</p>
+        <p class="mb-0 small text-white-50">
+            Sistema de Gestión de Biblioteca Universitaria • Inclusión Digital ODS 9
         </p>
-
-        <p class="mb-0">
-
-            Sistema Web de Gestión de Biblioteca Universitaria
-
-        </p>
-
     </div>
-
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -462,5 +636,4 @@
 <%@include file="a11y-panel.jsp"%>
 
 </body>
-
 </html>

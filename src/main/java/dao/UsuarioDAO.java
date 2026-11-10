@@ -139,22 +139,33 @@ public class UsuarioDAO {
 
     public void agregar(Usuario usuario) {
         String sql = "INSERT INTO usuarios (nombre, correo, password, rol, estado) VALUES (?, ?, ?, ?, ?)";
+        int idGenerado = -1;
         try (Connection con = Conexion.conectar()) {
             if (con != null) {
-                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                try (PreparedStatement ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
                     ps.setString(1, usuario.getNombre());
                     ps.setString(2, usuario.getCorreo());
                     ps.setString(3, usuario.getPassword());
                     ps.setString(4, usuario.getRol());
                     ps.setString(5, usuario.getEstado());
                     ps.executeUpdate();
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            idGenerado = rs.getInt(1);
+                            usuario.setIdUsuario(idGenerado);
+                        }
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Error agregar UsuarioDAO: " + e.getMessage());
         }
 
-        usuario.setIdUsuario(contadorId++);
+        if (idGenerado == -1) {
+            usuario.setIdUsuario(contadorId++);
+        } else {
+            contadorId = Math.max(contadorId, idGenerado + 1);
+        }
         usuarios.add(usuario);
     }
 

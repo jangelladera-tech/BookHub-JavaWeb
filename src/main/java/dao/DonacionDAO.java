@@ -136,10 +136,11 @@ public class DonacionDAO {
         String sql = "INSERT INTO donaciones (titulo_libro, autor, categoria, anio, "
                 + "estado_conservacion, nombre_donante, correo_donante, telefono_donante, "
                 + "motivo_mensaje, fecha_solicitud, estado_revision) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int idGenerado = -1;
         try (Connection con = Conexion.conectar()) {
             if (con != null) {
                 asegurarTabla(con);
-                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                     ps.setString(1, d.getTituloLibro());
                     ps.setString(2, d.getAutor());
                     ps.setString(3, d.getCategoria());
@@ -153,7 +154,12 @@ public class DonacionDAO {
                     ps.setString(11, d.getEstadoRevision() != null ? d.getEstadoRevision() : "PENDIENTE");
                     int res = ps.executeUpdate();
                     if (res > 0) {
-                        return true;
+                        try (ResultSet rs = ps.getGeneratedKeys()) {
+                            if (rs.next()) {
+                                idGenerado = rs.getInt(1);
+                                d.setIdDonacion(idGenerado);
+                            }
+                        }
                     }
                 }
             }
@@ -161,7 +167,11 @@ public class DonacionDAO {
             System.err.println("Error en DonacionDAO.registrar: " + e.getMessage());
         }
 
-        d.setIdDonacion(contadorId++);
+        if (idGenerado == -1) {
+            d.setIdDonacion(contadorId++);
+        } else {
+            contadorId = Math.max(contadorId, idGenerado + 1);
+        }
         if (d.getEstadoRevision() == null) {
             d.setEstadoRevision("PENDIENTE");
         }

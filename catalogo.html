@@ -1,0 +1,2800 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Libros - BookHub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --a11y-font-scale: 1;
+            --a11y-line-height: 1.5;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-size: calc(1rem * var(--a11y-font-scale));
+            line-height: var(--a11y-line-height);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .navbar-brand {
+            letter-spacing: 0.5px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff;
+            padding: 40px 0;
+        }
+
+        .book-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #ffffff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        /* CONTENEDOR Y PORTADA VISIBLE EN EL CATÁLOGO */
+        .book-cover-wrapper {
+            position: relative;
+            background-color: #f1f5f9;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .book-cover-wrapper a.cover-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 160px;
+            height: 224px;
+            text-decoration: none;
+        }
+
+        .book-cover-img {
+            width: 160px;
+            height: 224px;
+            max-width: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: block;
+            transition: transform 0.25s ease;
+        }
+
+        .book-card:hover .book-cover-img {
+            transform: scale(1.03);
+        }
+
+        .stock-floating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .quick-view-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 2;
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #cbd5e1;
+        }
+
+        .chip-filtro {
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chip-filtro.active {
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+            border-color: #2563eb !important;
+        }
+
+        /* ========================================================
+           SISTEMA DE CONTRASTE CALIBRADO WCAG AAA (SIN TEXTO PERDIDO)
+           ======================================================== */
+
+        /* 1. MODO SEPIA / PAPEL CÁLIDO */
+        body.a11y-theme-sepia {
+            background-color: #fbf0d9 !important;
+            color: #3d2b1f !important;
+        }
+        body.a11y-theme-sepia .card,
+        body.a11y-theme-sepia .modal-content,
+        body.a11y-theme-sepia .navbar,
+        body.a11y-theme-sepia footer,
+        body.a11y-theme-sepia .book-cover-wrapper,
+        body.a11y-theme-sepia .hero {
+            background: #f4e6c0 !important;
+            background-color: #f4e6c0 !important;
+            color: #3d2b1f !important;
+            border-color: #dfcca4 !important;
+        }
+        body.a11y-theme-sepia h1,
+        body.a11y-theme-sepia h2,
+        body.a11y-theme-sepia h3,
+        body.a11y-theme-sepia h4,
+        body.a11y-theme-sepia h5,
+        body.a11y-theme-sepia h6,
+        body.a11y-theme-sepia strong,
+        body.a11y-theme-sepia th {
+            color: #261a12 !important;
+        }
+        body.a11y-theme-sepia .text-muted,
+        body.a11y-theme-sepia .text-secondary,
+        body.a11y-theme-sepia .text-dark,
+        body.a11y-theme-sepia .text-white-50 {
+            color: #5c4331 !important;
+        }
+        body.a11y-theme-sepia .form-control,
+        body.a11y-theme-sepia .form-select {
+            background-color: #fbf0d9 !important;
+            color: #3d2b1f !important;
+            border-color: #bfa67c !important;
+        }
+        body.a11y-theme-sepia a {
+            color: #8b3a00 !important;
+        }
+        body.a11y-theme-sepia .btn-primary {
+            background-color: #8b3a00 !important;
+            border-color: #8b3a00 !important;
+            color: #ffffff !important;
+        }
+        body.a11y-theme-sepia .btn-outline-primary,
+        body.a11y-theme-sepia .btn-outline-secondary {
+            border-color: #8b3a00 !important;
+            color: #8b3a00 !important;
+            background-color: transparent !important;
+        }
+        body.a11y-theme-sepia .badge {
+            background-color: #dfcca4 !important;
+            color: #3d2b1f !important;
+            border: 1px solid #bfa67c !important;
+        }
+
+        /* 2. MODO NOCHE / PIZARRA */
+        body.a11y-theme-dark {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
+        }
+        body.a11y-theme-dark .card,
+        body.a11y-theme-dark .modal-content,
+        body.a11y-theme-dark .navbar,
+        body.a11y-theme-dark footer,
+        body.a11y-theme-dark .book-cover-wrapper,
+        body.a11y-theme-dark .hero {
+            background: #1e293b !important;
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+            border-color: #334155 !important;
+        }
+        body.a11y-theme-dark h1,
+        body.a11y-theme-dark h2,
+        body.a11y-theme-dark h3,
+        body.a11y-theme-dark h4,
+        body.a11y-theme-dark h5,
+        body.a11y-theme-dark h6,
+        body.a11y-theme-dark strong,
+        body.a11y-theme-dark th {
+            color: #ffffff !important;
+        }
+        body.a11y-theme-dark .text-muted,
+        body.a11y-theme-dark .text-secondary,
+        body.a11y-theme-dark .text-dark,
+        body.a11y-theme-dark .text-white-50 {
+            color: #cbd5e1 !important;
+        }
+        body.a11y-theme-dark .form-control,
+        body.a11y-theme-dark .form-select {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
+            border-color: #475569 !important;
+        }
+        body.a11y-theme-dark a {
+            color: #60a5fa !important;
+        }
+        body.a11y-theme-dark .btn-primary {
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+        body.a11y-theme-dark .btn-outline-primary,
+        body.a11y-theme-dark .btn-outline-secondary {
+            border-color: #94a3b8 !important;
+            color: #f1f5f9 !important;
+            background-color: transparent !important;
+        }
+        body.a11y-theme-dark .badge {
+            background-color: #334155 !important;
+            color: #f8fafc !important;
+            border: 1px solid #475569 !important;
+        }
+
+        /* 3. ALTO CONTRASTE PURO WCAG AAA (AMARILLO / NEGRO) */
+        body.a11y-theme-contrast {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        body.a11y-theme-contrast .card,
+        body.a11y-theme-contrast .modal-content,
+        body.a11y-theme-contrast .navbar,
+        body.a11y-theme-contrast footer,
+        body.a11y-theme-contrast .book-cover-wrapper,
+        body.a11y-theme-contrast .hero {
+            background: #0a0a0a !important;
+            background-color: #0a0a0a !important;
+            color: #ffffff !important;
+            border: 2px solid #facc15 !important;
+        }
+        body.a11y-theme-contrast h1,
+        body.a11y-theme-contrast h2,
+        body.a11y-theme-contrast h3,
+        body.a11y-theme-contrast h4,
+        body.a11y-theme-contrast h5,
+        body.a11y-theme-contrast h6,
+        body.a11y-theme-contrast strong,
+        body.a11y-theme-contrast th {
+            color: #facc15 !important;
+        }
+        body.a11y-theme-contrast p,
+        body.a11y-theme-contrast span,
+        body.a11y-theme-contrast td,
+        body.a11y-theme-contrast div {
+            color: #ffffff !important;
+        }
+        body.a11y-theme-contrast .text-muted,
+        body.a11y-theme-contrast .text-secondary,
+        body.a11y-theme-contrast .text-dark,
+        body.a11y-theme-contrast .text-white-50 {
+            color: #ffffff !important;
+            font-weight: 500 !important;
+        }
+        body.a11y-theme-contrast .form-control,
+        body.a11y-theme-contrast .form-select {
+            background-color: #000000 !important;
+            color: #facc15 !important;
+            border: 2px solid #facc15 !important;
+        }
+        body.a11y-theme-contrast a {
+            color: #38bdf8 !important;
+            text-decoration: underline !important;
+        }
+        body.a11y-theme-contrast .btn-primary {
+            background-color: #facc15 !important;
+            border-color: #facc15 !important;
+            color: #000000 !important;
+            font-weight: bold !important;
+        }
+        body.a11y-theme-contrast .btn-outline-primary,
+        body.a11y-theme-contrast .btn-outline-secondary {
+            border: 2px solid #facc15 !important;
+            color: #facc15 !important;
+            background-color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        body.a11y-theme-contrast .badge {
+            background-color: #000000 !important;
+            color: #facc15 !important;
+            border: 1px solid #facc15 !important;
+        }
+
+        /* DISLEXIA Y SUBRAYADO */
+        body.a11y-dyslexia {
+            font-family: 'OpenDyslexic', 'Segoe UI', Arial, sans-serif !important;
+            letter-spacing: 0.08em !important;
+            word-spacing: 0.15em !important;
+            line-height: 1.8 !important;
+        }
+
+        body.a11y-underline-links a,
+        body.a11y-underline-links button {
+            text-decoration: underline !important;
+            text-underline-offset: 3px !important;
+        }
+
+        /* MÁSCARA GUÍA DE LECTURA (TDAH / ENFOQUE) */
+        #a11yReadingRuler {
+            display: none;
+            position: fixed;
+            left: 0;
+            width: 100vw;
+            height: 48px;
+            background: rgba(37, 99, 235, 0.15);
+            border-top: 2px solid #2563eb;
+            border-bottom: 2px solid #2563eb;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+            z-index: 99999;
+            transform: translateY(-50%);
+        }
+
+        /* BOTÓN FLOTANTE PARA ESCUCHAR TEXTO SELECCIONADO */
+        #a11yBtnAudioSel {
+            display: none;
+            position: absolute;
+            z-index: 100000;
+            background: #1e3a8a;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+        #a11yBtnAudioSel:hover {
+            background: #2563eb;
+        }
+
+        /* BOTÓN Y PANEL LATERAL ACCESIBLE */
+        .a11y-float-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #1e3a8a;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            font-weight: bold;
+            font-size: 1.15rem;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .a11y-float-btn:hover {
+            transform: scale(1.08);
+            background: #2563eb;
+        }
+
+        .a11y-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 340px;
+            max-width: 90vw;
+            background: #ffffff;
+            border-left: 1px solid #cbd5e1;
+            box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            overflow-y: auto;
+            display: none;
+            animation: slideInRight 0.25s ease-out;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .a11y-panel-header {
+            background: #1e3a8a;
+            color: #ffffff;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .a11y-panel-body {
+            padding: 18px 20px;
+        }
+        .a11y-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #64748b;
+            margin-bottom: 8px;
+            margin-top: 14px;
+        }
+
+        /* EFECTO DE DESVANECIMIENTO AL HACER SCROLL */
+        .navbar-scroll-fade {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .navbar-scroll-fade.navbar-hidden {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: translateY(-10px);
+        }
+
+        /* BOTÓN DE 3 LÍNEAS (HAMBURGUESA) */
+        .btn-sidebar-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-sidebar-toggle:hover, .btn-sidebar-toggle:focus {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: #ffffff;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* VENTANA LATERAL (OFFCANVAS) */
+        .offcanvas-bookhub {
+            width: 320px !important;
+            background: #0f172a !important;
+            color: #f8fafc;
+            border-right: 1px solid #334155 !important;
+        }
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .sidebar-menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+        .sidebar-menu-item.active {
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+        .sidebar-menu-item .menu-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-subtitle {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* BOTÓN DE AUDIO ULTRA DETALLADO */
+        .btn-audio-detailed {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 7px 15px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-audio-detailed:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
+            transform: translateY(-2px);
+            color: #ffffff !important;
+        }
+        .btn-audio-detailed:active {
+            transform: translateY(0);
+        }
+        .btn-audio-detailed i {
+            font-size: 0.95rem;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- VENTANA A LA MANO IZQUIERDA (SIDEBAR OFFCANVAS) -->
+<div class="offcanvas offcanvas-start offcanvas-bookhub shadow-lg"
+     tabindex="-1"
+     id="sidebarBookHub"
+     aria-labelledby="sidebarBookHubLabel">
+
+    <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
+        <div class="d-flex align-items-center gap-2">
+            <img src="img/logo.svg" alt="BookHub Logo" width="36" height="36" class="d-inline-block">
+            <div>
+                <h5 class="offcanvas-title fw-bold text-white mb-0" id="sidebarBookHubLabel">BookHub</h5>
+                <small class="text-white-50" style="font-size: 0.72rem;">Biblioteca Universitaria</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
+        <div>
+            
+    <div class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-person-circle fs-3 text-info"></i>
+            <div class="overflow-hidden">
+                <div class="fw-semibold text-white text-truncate">Lector Invitado</div>
+                <span class="badge bg-primary" style="font-size: 0.68rem;">LECTOR</span>
+            </div>
+        </div>
+    </div>
+  
+
+            <!-- APARTADOS PRINCIPALES -->
+            <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
+            <div class="d-flex flex-column gap-1 mb-4">
+                <a href="index.html" class="sidebar-menu-item">
+                    <i class="bi bi-house-door-fill menu-icon text-warning"></i>
+                    <div class="flex-grow-1">
+                        <div>Inicio</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Portal principal y novedades</small>
+                    </div>
+                </a>
+
+                <a href="catalogo.html" class="sidebar-menu-item active">
+                    <i class="bi bi-journal-bookmark-fill menu-icon text-info"></i>
+                    <div class="flex-grow-1">
+                        <div>Catálogo</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Explorar libros y categorías</small>
+                    </div>
+                </a>
+
+                <a href="innovacion.html" class="sidebar-menu-item">
+                    <i class="bi bi-universal-access-circle menu-icon text-success"></i>
+                    <div class="flex-grow-1">
+                        <div>ODS 09: Accesibilidad</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Inclusión asistiva WCAG</small>
+                    </div>
+                </a>
+
+                <a href="misPrestamos.html" class="sidebar-menu-item">
+                    <i class="bi bi-clock-history menu-icon text-warning"></i>
+                    <div class="flex-grow-1">
+                        <div>Mis Préstamos</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
+                    </div>
+                </a>
+
+                <a href="donar.html" class="sidebar-menu-item">
+                    <i class="bi bi-gift-fill menu-icon text-danger"></i>
+                    <div class="flex-grow-1">
+                        <div>Donar Libros</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Dona libros a la biblioteca</small>
+                    </div>
+                </a>
+            </div>
+
+            <!-- HERRAMIENTAS Y ACCESIBILIDAD -->
+            <p class="sidebar-subtitle mb-2 px-2">Herramientas & Inclusión</p>
+            <div class="d-flex flex-column gap-2 mb-3">
+                <button class="btn btn-outline-info text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3"
+                        type="button"
+                        onclick="toggleA11yPanel()">
+                    <i class="bi bi-eye"></i> Panel Accesibilidad (WCAG)
+                </button>
+                <button class="btn btn-outline-light text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3"
+                        type="button"
+                        onclick="iniciarDictadoVoz();">
+                    <i class="bi bi-mic"></i> Búsqueda por Voz
+                </button>
+            </div>
+        </div>
+
+        <div class="pt-3 border-top border-secondary border-opacity-25 text-center text-white-50 small">
+            <span>BookHub v2.0 • Inclusión Digital</span>
+        </div>
+    </div>
+</div>
+
+<!-- NAVEGACIÓN PRINCIPAL (SE DESVANECE AL HACER SCROLL) -->
+<nav class="navbar navbar-dark bg-dark sticky-top shadow-sm py-2 navbar-scroll-fade" id="mainNavbar">
+
+    <div class="container-fluid px-3 px-lg-4">
+
+        <!-- Lado izquierdo: Botón de tres líneas + Logo -->
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn-sidebar-toggle"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebarBookHub"
+                    aria-controls="sidebarBookHub"
+                    title="Abrir menú de apartados (Inicio, Catálogo, ODS 09, Mis préstamos)"
+                    aria-label="Menú principal de 3 líneas">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
+                <img src="img/logo.svg" alt="BookHub Logo" width="34" height="34" class="d-inline-block">
+                <span>BookHub</span>
+            </a>
+        </div>
+
+        <!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión / Registrarse (o Perfil / Salir) -->
+        <div class="d-flex align-items-center gap-2 ms-auto">
+            
+                    <a href="usuario.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline"></span>
+                    </a>
+                
+                <a href="login.html" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
+                </a>
+            
+                <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                </a>
+                <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                </a>
+            
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ENCABEZADO -->
+<section class="hero">
+
+    <div class="container text-center">
+
+        <h1 class="fw-bold mb-2">
+            Catálogo de Libros
+        </h1>
+
+        <p class="lead mb-0 text-white-50">
+            Consulta los títulos disponibles, escucha la síntesis de cada libro o solicita un préstamo.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CONTENIDO -->
+<div class="container py-4">
+
+    <!-- BUSCADOR CON DICTADO POR VOZ Y FILTROS -->
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0 text-secondary">
+                    Búsqueda y Filtros
+                </h6>
+                <span class="badge bg-light text-dark border" id="contadorResultados">
+                     ejemplares
+                </span>
+            </div>
+
+            <form action="catalogo.html" method="get" class="row g-2 align-items-end">
+
+                <div class="col-md-5">
+                    <label class="form-label small text-muted mb-1">Título, autor o ISBN</label>
+                    <div class="input-group">
+                        <input type="text"
+                               id="buscador"
+                               name="busqueda"
+                               value=""
+                               class="form-control"
+                               placeholder="Escribe para buscar...">
+                        <button class="btn btn-outline-secondary"
+                                type="button"
+                                id="btnVoiceSearch"
+                                onclick="iniciarBusquedaPorVoz()"
+                                title="Dictar búsqueda por voz">
+                            Dictar
+                        </button>
+                    </div>
+                    <div id="voiceSearchStatus" class="small text-muted mt-1" style="display:none;"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label small text-muted mb-1">Categoría</label>
+                    <select name="categoria" id="filtroCategoria" class="form-select">
+                        <option value="">Todas las categorías</option>
+                        
+                            <option value="" >
+                                
+                            </option>
+                        
+                    </select>
+                </div>
+
+                <div class="col-md-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        Buscar
+                    </button>
+                    <a href="catalogo.html" class="btn btn-outline-secondary">
+                        Restablecer
+                    </a>
+                </div>
+
+            </form>
+
+            <!-- FILTROS RÁPIDOS -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3 pt-3 border-top">
+                <div class="d-flex flex-wrap align-items-center gap-1">
+                    <span class="small text-muted me-1">Filtrar:</span>
+                    <button type="button" class="btn btn-sm btn-outline-primary chip-filtro active" onclick="filtrarPorChip('', this)">
+                        Todos
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary chip-filtro" onclick="filtrarPorChip('novela', this)">
+                        Novela
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary chip-filtro" onclick="filtrarPorChip('programación', this)">
+                        Programación
+                    </button>
+                </div>
+
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="soloDisponibles" onchange="aplicarFiltrosInteractivos()">
+                    <label class="form-check-label small text-muted" for="soloDisponibles">
+                        Solo con ejemplares disponibles
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LISTA DE LIBROS -->
+    
+    <div class="row g-4" id="listaLibros">
+      
+      <div class="col-md-4 libro-item" data-stock="5" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (5)</span>
+                  <a href="detalleLibro.html?id=1" class="cover-link" title="Ver ficha de Cien años de soledad">
+                      <img src="img/portadas/libro1.svg" alt="Portada de Cien años de soledad" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="1"
+                          data-titulo="Cien años de soledad"
+                          data-autor="Gabriel García Márquez"
+                          data-categoria="Literatura"
+                          data-isbn="9780307474728"
+                          data-anio="1967"
+                          data-stock="5"
+                          data-descripcion="Novela cumbre del realismo mágico sobre la saga de la familia Buendía en Macondo."
+                          data-portada="img/portadas/libro1.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1967</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Cien años de soledad</h6>
+                  <p class="text-muted small mb-1">Gabriel García Márquez</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Novela cumbre del realismo mágico sobre la saga de la familia Buendía en Macondo.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=1" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Cien años de soledad. De Gabriel García Márquez. Novela cumbre del realismo mágico sobre la saga de la familia Buendía en Macondo.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="2" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (2)</span>
+                  <a href="detalleLibro.html?id=2" class="cover-link" title="Ver ficha de Don Quijote de la Mancha">
+                      <img src="img/portadas/libro2.svg" alt="Portada de Don Quijote de la Mancha" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="2"
+                          data-titulo="Don Quijote de la Mancha"
+                          data-autor="Miguel de Cervantes"
+                          data-categoria="Literatura"
+                          data-isbn="9788420412146"
+                          data-anio="1605"
+                          data-stock="2"
+                          data-descripcion="Obra maestra de la literatura universal que narra las andanzas del ingenioso hidalgo."
+                          data-portada="img/portadas/libro2.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1605</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Don Quijote de la Mancha</h6>
+                  <p class="text-muted small mb-1">Miguel de Cervantes</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Obra maestra de la literatura universal que narra las andanzas del ingenioso hidalgo.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=2" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Don Quijote de la Mancha. De Miguel de Cervantes. Obra maestra de la literatura universal que narra las andanzas del ingenioso hidalgo.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="8" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (8)</span>
+                  <a href="detalleLibro.html?id=3" class="cover-link" title="Ver ficha de El Principito">
+                      <img src="img/portadas/libro3.svg" alt="Portada de El Principito" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="3"
+                          data-titulo="El Principito"
+                          data-autor="Antoine de Saint-Exupéry"
+                          data-categoria="Literatura"
+                          data-isbn="9780156012195"
+                          data-anio="1943"
+                          data-stock="8"
+                          data-descripcion="Obra poética y filosófica sobre el sentido del amor, la amistad y la naturaleza humana."
+                          data-portada="img/portadas/libro3.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1943</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">El Principito</h6>
+                  <p class="text-muted small mb-1">Antoine de Saint-Exupéry</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Obra poética y filosófica sobre el sentido del amor, la amistad y la naturaleza humana.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=3" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El Principito. De Antoine de Saint-Exupéry. Obra poética y filosófica sobre el sentido del amor, la amistad y la naturaleza humana.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="4" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (4)</span>
+                  <a href="detalleLibro.html?id=4" class="cover-link" title="Ver ficha de Clean Code: Manual de desarrollo ágil de software">
+                      <img src="img/portadas/libro4.svg" alt="Portada de Clean Code: Manual de desarrollo ágil de software" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="4"
+                          data-titulo="Clean Code: Manual de desarrollo ágil de software"
+                          data-autor="Robert C. Martin"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9780132350884"
+                          data-anio="2008"
+                          data-stock="4"
+                          data-descripcion="Principios, patrones y mejores prácticas para escribir código limpio, legible y robusto."
+                          data-portada="img/portadas/libro4.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">2008</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Clean Code: Manual de desarrollo ágil de software</h6>
+                  <p class="text-muted small mb-1">Robert C. Martin</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Principios, patrones y mejores prácticas para escribir código limpio, legible y robusto.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=4" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Clean Code: Manual de desarrollo ágil de software. De Robert C. Martin. Principios, patrones y mejores prácticas para escribir código limpio, legible y robusto.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="3" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (3)</span>
+                  <a href="detalleLibro.html?id=5" class="cover-link" title="Ver ficha de The Pragmatic Programmer">
+                      <img src="img/portadas/libro5.svg" alt="Portada de The Pragmatic Programmer" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="5"
+                          data-titulo="The Pragmatic Programmer"
+                          data-autor="Andrew Hunt &amp; David Thomas"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9780135957059"
+                          data-anio="1999"
+                          data-stock="3"
+                          data-descripcion="Guía de maestría profesional para desarrolladores de software modernos y eficientes."
+                          data-portada="img/portadas/libro5.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">1999</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">The Pragmatic Programmer</h6>
+                  <p class="text-muted small mb-1">Andrew Hunt &amp; David Thomas</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Guía de maestría profesional para desarrolladores de software modernos y eficientes.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=5" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('The Pragmatic Programmer. De Andrew Hunt &amp; David Thomas. Guía de maestría profesional para desarrolladores de software modernos y eficientes.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="1" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (1)</span>
+                  <a href="detalleLibro.html?id=6" class="cover-link" title="Ver ficha de Design Patterns: Elements of Reusable Object-Oriented Software">
+                      <img src="img/portadas/libro6.svg" alt="Portada de Design Patterns: Elements of Reusable Object-Oriented Software" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="6"
+                          data-titulo="Design Patterns: Elements of Reusable Object-Oriented Software"
+                          data-autor="Erich Gamma et al. (GoF)"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9780201633610"
+                          data-anio="1994"
+                          data-stock="1"
+                          data-descripcion="El catálogo fundamental de 23 patrones de diseño orientados a objetos de la Gang of Four."
+                          data-portada="img/portadas/libro6.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">1994</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Design Patterns: Elements of Reusable Object-Oriented Software</h6>
+                  <p class="text-muted small mb-1">Erich Gamma et al. (GoF)</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      El catálogo fundamental de 23 patrones de diseño orientados a objetos de la Gang of Four.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=6" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Design Patterns: Elements of Reusable Object-Oriented Software. De Erich Gamma et al. (GoF). El catálogo fundamental de 23 patrones de diseño orientados a objetos de la Gang of Four.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="0" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-secondary stock-floating-badge shadow-sm">Agotado</span>
+                  <a href="detalleLibro.html?id=7" class="cover-link" title="Ver ficha de Refactoring: Improving the Design of Existing Code">
+                      <img src="img/portadas/libro7.svg" alt="Portada de Refactoring: Improving the Design of Existing Code" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="7"
+                          data-titulo="Refactoring: Improving the Design of Existing Code"
+                          data-autor="Martin Fowler"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9780134757599"
+                          data-anio="1999"
+                          data-stock="0"
+                          data-descripcion="Técnicas comprobadas para reestructurar código existente sin cambiar su comportamiento."
+                          data-portada="img/portadas/libro7.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">1999</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Refactoring: Improving the Design of Existing Code</h6>
+                  <p class="text-muted small mb-1">Martin Fowler</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Técnicas comprobadas para reestructurar código existente sin cambiar su comportamiento.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=7" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Refactoring: Improving the Design of Existing Code. De Martin Fowler. Técnicas comprobadas para reestructurar código existente sin cambiar su comportamiento.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="6" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (6)</span>
+                  <a href="detalleLibro.html?id=8" class="cover-link" title="Ver ficha de Introduction to Algorithms (CLRS)">
+                      <img src="img/portadas/libro8.svg" alt="Portada de Introduction to Algorithms (CLRS)" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="8"
+                          data-titulo="Introduction to Algorithms (CLRS)"
+                          data-autor="Thomas H. Cormen"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9780262033848"
+                          data-anio="2009"
+                          data-stock="6"
+                          data-descripcion="La biblia académica de los algoritmos y estructuras de datos para ciencias de la computación."
+                          data-portada="img/portadas/libro8.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">2009</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Introduction to Algorithms (CLRS)</h6>
+                  <p class="text-muted small mb-1">Thomas H. Cormen</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      La biblia académica de los algoritmos y estructuras de datos para ciencias de la computación.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=8" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Introduction to Algorithms (CLRS). De Thomas H. Cormen. La biblia académica de los algoritmos y estructuras de datos para ciencias de la computación.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="4" data-categoria="ciencia &amp; matemáticas">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (4)</span>
+                  <a href="detalleLibro.html?id=9" class="cover-link" title="Ver ficha de Breve historia del tiempo">
+                      <img src="img/portadas/libro9.svg" alt="Portada de Breve historia del tiempo" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="9"
+                          data-titulo="Breve historia del tiempo"
+                          data-autor="Stephen Hawking"
+                          data-categoria="Ciencia &amp; Matemáticas"
+                          data-isbn="9788497593724"
+                          data-anio="1988"
+                          data-stock="4"
+                          data-descripcion="Fascinante viaje por el origen del universo, agujeros negros y la física cuántica."
+                          data-portada="img/portadas/libro9.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Ciencia &amp; Matemáticas</span>
+                      <span class="text-muted small">1988</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Breve historia del tiempo</h6>
+                  <p class="text-muted small mb-1">Stephen Hawking</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Fascinante viaje por el origen del universo, agujeros negros y la física cuántica.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=9" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Breve historia del tiempo. De Stephen Hawking. Fascinante viaje por el origen del universo, agujeros negros y la física cuántica.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="3" data-categoria="ciencia &amp; matemáticas">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (3)</span>
+                  <a href="detalleLibro.html?id=10" class="cover-link" title="Ver ficha de Cosmos">
+                      <img src="img/portadas/libro10.svg" alt="Portada de Cosmos" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="10"
+                          data-titulo="Cosmos"
+                          data-autor="Carl Sagan"
+                          data-categoria="Ciencia &amp; Matemáticas"
+                          data-isbn="9788408053682"
+                          data-anio="1980"
+                          data-stock="3"
+                          data-descripcion="Monumental obra de divulgación científica sobre el cosmos, la ciencia y la civilización."
+                          data-portada="img/portadas/libro10.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Ciencia &amp; Matemáticas</span>
+                      <span class="text-muted small">1980</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Cosmos</h6>
+                  <p class="text-muted small mb-1">Carl Sagan</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Monumental obra de divulgación científica sobre el cosmos, la ciencia y la civilización.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=10" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Cosmos. De Carl Sagan. Monumental obra de divulgación científica sobre el cosmos, la ciencia y la civilización.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="2" data-categoria="ciencia &amp; matemáticas">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (2)</span>
+                  <a href="detalleLibro.html?id=11" class="cover-link" title="Ver ficha de El gen egoísta">
+                      <img src="img/portadas/libro11.svg" alt="Portada de El gen egoísta" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="11"
+                          data-titulo="El gen egoísta"
+                          data-autor="Richard Dawkins"
+                          data-categoria="Ciencia &amp; Matemáticas"
+                          data-isbn="9788434501782"
+                          data-anio="1976"
+                          data-stock="2"
+                          data-descripcion="Una visión revolucionaria de la evolución centrada en la perspectiva del gen."
+                          data-portada="img/portadas/libro11.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Ciencia &amp; Matemáticas</span>
+                      <span class="text-muted small">1976</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">El gen egoísta</h6>
+                  <p class="text-muted small mb-1">Richard Dawkins</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Una visión revolucionaria de la evolución centrada en la perspectiva del gen.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=11" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El gen egoísta. De Richard Dawkins. Una visión revolucionaria de la evolución centrada en la perspectiva del gen.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="7" data-categoria="ciencia &amp; matemáticas">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (7)</span>
+                  <a href="detalleLibro.html?id=12" class="cover-link" title="Ver ficha de Física Universitaria con Física Moderna">
+                      <img src="img/portadas/libro12.svg" alt="Portada de Física Universitaria con Física Moderna" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="12"
+                          data-titulo="Física Universitaria con Física Moderna"
+                          data-autor="Francis Sears &amp; Mark Zemansky"
+                          data-categoria="Ciencia &amp; Matemáticas"
+                          data-isbn="9786073221900"
+                          data-anio="2013"
+                          data-stock="7"
+                          data-descripcion="Texto estándar de física para estudiantes de ingeniería y ciencias exactas."
+                          data-portada="img/portadas/libro12.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Ciencia &amp; Matemáticas</span>
+                      <span class="text-muted small">2013</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Física Universitaria con Física Moderna</h6>
+                  <p class="text-muted small mb-1">Francis Sears &amp; Mark Zemansky</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Texto estándar de física para estudiantes de ingeniería y ciencias exactas.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=12" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Física Universitaria con Física Moderna. De Francis Sears &amp; Mark Zemansky. Texto estándar de física para estudiantes de ingeniería y ciencias exactas.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="5" data-categoria="ciencia &amp; matemáticas">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (5)</span>
+                  <a href="detalleLibro.html?id=13" class="cover-link" title="Ver ficha de Cálculo de una variable: Trascendentes tempranas">
+                      <img src="img/portadas/libro13.svg" alt="Portada de Cálculo de una variable: Trascendentes tempranas" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="13"
+                          data-titulo="Cálculo de una variable: Trascendentes tempranas"
+                          data-autor="James Stewart"
+                          data-categoria="Ciencia &amp; Matemáticas"
+                          data-isbn="9786075220154"
+                          data-anio="2015"
+                          data-stock="5"
+                          data-descripcion="Tratado pedagógico integral sobre límites, derivadas, integrales y series."
+                          data-portada="img/portadas/libro13.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Ciencia &amp; Matemáticas</span>
+                      <span class="text-muted small">2015</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Cálculo de una variable: Trascendentes tempranas</h6>
+                  <p class="text-muted small mb-1">James Stewart</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Tratado pedagógico integral sobre límites, derivadas, integrales y series.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=13" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Cálculo de una variable: Trascendentes tempranas. De James Stewart. Tratado pedagógico integral sobre límites, derivadas, integrales y series.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="2" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (2)</span>
+                  <a href="detalleLibro.html?id=14" class="cover-link" title="Ver ficha de Inteligencia Artificial: Un Enfoque Moderno">
+                      <img src="img/portadas/libro14.svg" alt="Portada de Inteligencia Artificial: Un Enfoque Moderno" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="14"
+                          data-titulo="Inteligencia Artificial: Un Enfoque Moderno"
+                          data-autor="Stuart Russell &amp; Peter Norvig"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9788490355480"
+                          data-anio="2020"
+                          data-stock="2"
+                          data-descripcion="El texto de referencia global sobre agentes inteligentes, aprendizaje profundo y robótica."
+                          data-portada="img/portadas/libro14.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">2020</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Inteligencia Artificial: Un Enfoque Moderno</h6>
+                  <p class="text-muted small mb-1">Stuart Russell &amp; Peter Norvig</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      El texto de referencia global sobre agentes inteligentes, aprendizaje profundo y robótica.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=14" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Inteligencia Artificial: Un Enfoque Moderno. De Stuart Russell &amp; Peter Norvig. El texto de referencia global sobre agentes inteligentes, aprendizaje profundo y robótica.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="6" data-categoria="historia &amp; sociedad">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (6)</span>
+                  <a href="detalleLibro.html?id=15" class="cover-link" title="Ver ficha de Sapiens: De animales a dioses">
+                      <img src="img/portadas/libro15.svg" alt="Portada de Sapiens: De animales a dioses" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="15"
+                          data-titulo="Sapiens: De animales a dioses"
+                          data-autor="Yuval Noah Harari"
+                          data-categoria="Historia &amp; Sociedad"
+                          data-isbn="9788499926223"
+                          data-anio="2014"
+                          data-stock="6"
+                          data-descripcion="Breve historia de la humanidad desde los primeros cazadores hasta la revolución biotecnológica."
+                          data-portada="img/portadas/libro15.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Historia &amp; Sociedad</span>
+                      <span class="text-muted small">2014</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Sapiens: De animales a dioses</h6>
+                  <p class="text-muted small mb-1">Yuval Noah Harari</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Breve historia de la humanidad desde los primeros cazadores hasta la revolución biotecnológica.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=15" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Sapiens: De animales a dioses. De Yuval Noah Harari. Breve historia de la humanidad desde los primeros cazadores hasta la revolución biotecnológica.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="9" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (9)</span>
+                  <a href="detalleLibro.html?id=16" class="cover-link" title="Ver ficha de 1984">
+                      <img src="img/portadas/libro16.svg" alt="Portada de 1984" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="16"
+                          data-titulo="1984"
+                          data-autor="George Orwell"
+                          data-categoria="Literatura"
+                          data-isbn="9788499890944"
+                          data-anio="1949"
+                          data-stock="9"
+                          data-descripcion="Inmortal novela distópica sobre el Gran Hermano, la vigilancia masiva y el autoritarismo."
+                          data-portada="img/portadas/libro16.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1949</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">1984</h6>
+                  <p class="text-muted small mb-1">George Orwell</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Inmortal novela distópica sobre el Gran Hermano, la vigilancia masiva y el autoritarismo.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=16" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('1984. De George Orwell. Inmortal novela distópica sobre el Gran Hermano, la vigilancia masiva y el autoritarismo.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="0" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-secondary stock-floating-badge shadow-sm">Agotado</span>
+                  <a href="detalleLibro.html?id=17" class="cover-link" title="Ver ficha de Un mundo feliz">
+                      <img src="img/portadas/libro17.svg" alt="Portada de Un mundo feliz" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="17"
+                          data-titulo="Un mundo feliz"
+                          data-autor="Aldous Huxley"
+                          data-categoria="Literatura"
+                          data-isbn="9788497594257"
+                          data-anio="1932"
+                          data-stock="0"
+                          data-descripcion="Profética sátira sobre una sociedad futurista condicionada tecnológicamente."
+                          data-portada="img/portadas/libro17.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1932</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Un mundo feliz</h6>
+                  <p class="text-muted small mb-1">Aldous Huxley</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Profética sátira sobre una sociedad futurista condicionada tecnológicamente.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=17" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Un mundo feliz. De Aldous Huxley. Profética sátira sobre una sociedad futurista condicionada tecnológicamente.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="4" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (4)</span>
+                  <a href="detalleLibro.html?id=18" class="cover-link" title="Ver ficha de Crónica de una muerte anunciada">
+                      <img src="img/portadas/libro18.svg" alt="Portada de Crónica de una muerte anunciada" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="18"
+                          data-titulo="Crónica de una muerte anunciada"
+                          data-autor="Gabriel García Márquez"
+                          data-categoria="Literatura"
+                          data-isbn="9780307475404"
+                          data-anio="1981"
+                          data-stock="4"
+                          data-descripcion="Reconstrucción casi periodística del fatídico asesinato de Santiago Nasar."
+                          data-portada="img/portadas/libro18.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1981</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Crónica de una muerte anunciada</h6>
+                  <p class="text-muted small mb-1">Gabriel García Márquez</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Reconstrucción casi periodística del fatídico asesinato de Santiago Nasar.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=18" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Crónica de una muerte anunciada. De Gabriel García Márquez. Reconstrucción casi periodística del fatídico asesinato de Santiago Nasar.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="3" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (3)</span>
+                  <a href="detalleLibro.html?id=19" class="cover-link" title="Ver ficha de Rayuela">
+                      <img src="img/portadas/libro19.svg" alt="Portada de Rayuela" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="19"
+                          data-titulo="Rayuela"
+                          data-autor="Julio Cortázar"
+                          data-categoria="Literatura"
+                          data-isbn="9788466331906"
+                          data-anio="1963"
+                          data-stock="3"
+                          data-descripcion="Contranovela revolucionaria de Julio Cortázar que puede leerse en múltiples órdenes."
+                          data-portada="img/portadas/libro19.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1963</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Rayuela</h6>
+                  <p class="text-muted small mb-1">Julio Cortázar</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Contranovela revolucionaria de Julio Cortázar que puede leerse en múltiples órdenes.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=19" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Rayuela. De Julio Cortázar. Contranovela revolucionaria de Julio Cortázar que puede leerse en múltiples órdenes.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="5" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (5)</span>
+                  <a href="detalleLibro.html?id=20" class="cover-link" title="Ver ficha de Ficciones">
+                      <img src="img/portadas/libro20.svg" alt="Portada de Ficciones" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="20"
+                          data-titulo="Ficciones"
+                          data-autor="Jorge Luis Borges"
+                          data-categoria="Literatura"
+                          data-isbn="9788420658742"
+                          data-anio="1944"
+                          data-stock="5"
+                          data-descripcion="Colección de cuentos laberínticos sobre espejos, bibliotecas infinitas y paradojas."
+                          data-portada="img/portadas/libro20.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1944</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Ficciones</h6>
+                  <p class="text-muted small mb-1">Jorge Luis Borges</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Colección de cuentos laberínticos sobre espejos, bibliotecas infinitas y paradojas.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=20" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Ficciones. De Jorge Luis Borges. Colección de cuentos laberínticos sobre espejos, bibliotecas infinitas y paradojas.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="10" data-categoria="psicología &amp; desarrollo">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (10)</span>
+                  <a href="detalleLibro.html?id=21" class="cover-link" title="Ver ficha de Hábitos Atómicos">
+                      <img src="img/portadas/libro21.svg" alt="Portada de Hábitos Atómicos" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="21"
+                          data-titulo="Hábitos Atómicos"
+                          data-autor="James Clear"
+                          data-categoria="Psicología &amp; Desarrollo"
+                          data-isbn="9788416883271"
+                          data-anio="2018"
+                          data-stock="10"
+                          data-descripcion="Método comprobado para crear buenos hábitos y romper los malos mediante pequeños cambios."
+                          data-portada="img/portadas/libro21.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Psicología &amp; Desarrollo</span>
+                      <span class="text-muted small">2018</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Hábitos Atómicos</h6>
+                  <p class="text-muted small mb-1">James Clear</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Método comprobado para crear buenos hábitos y romper los malos mediante pequeños cambios.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=21" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Hábitos Atómicos. De James Clear. Método comprobado para crear buenos hábitos y romper los malos mediante pequeños cambios.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="4" data-categoria="psicología &amp; desarrollo">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (4)</span>
+                  <a href="detalleLibro.html?id=22" class="cover-link" title="Ver ficha de El hombre en busca de sentido">
+                      <img src="img/portadas/libro22.svg" alt="Portada de El hombre en busca de sentido" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="22"
+                          data-titulo="El hombre en busca de sentido"
+                          data-autor="Viktor Frankl"
+                          data-categoria="Psicología &amp; Desarrollo"
+                          data-isbn="9788425432026"
+                          data-anio="1946"
+                          data-stock="4"
+                          data-descripcion="Sobrecogedor testimonio de Viktor Frankl en campos de concentración y base de la logoterapia."
+                          data-portada="img/portadas/libro22.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Psicología &amp; Desarrollo</span>
+                      <span class="text-muted small">1946</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">El hombre en busca de sentido</h6>
+                  <p class="text-muted small mb-1">Viktor Frankl</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Sobrecogedor testimonio de Viktor Frankl en campos de concentración y base de la logoterapia.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=22" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El hombre en busca de sentido. De Viktor Frankl. Sobrecogedor testimonio de Viktor Frankl en campos de concentración y base de la logoterapia.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="2" data-categoria="psicología &amp; desarrollo">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (2)</span>
+                  <a href="detalleLibro.html?id=23" class="cover-link" title="Ver ficha de Pensar rápido, pensar despacio">
+                      <img src="img/portadas/libro23.svg" alt="Portada de Pensar rápido, pensar despacio" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="23"
+                          data-titulo="Pensar rápido, pensar despacio"
+                          data-autor="Daniel Kahneman"
+                          data-categoria="Psicología &amp; Desarrollo"
+                          data-isbn="9788499922072"
+                          data-anio="2011"
+                          data-stock="2"
+                          data-descripcion="Análisis magistral de los dos sistemas que dirigen nuestra mente y toma de decisiones."
+                          data-portada="img/portadas/libro23.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Psicología &amp; Desarrollo</span>
+                      <span class="text-muted small">2011</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Pensar rápido, pensar despacio</h6>
+                  <p class="text-muted small mb-1">Daniel Kahneman</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Análisis magistral de los dos sistemas que dirigen nuestra mente y toma de decisiones.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=23" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Pensar rápido, pensar despacio. De Daniel Kahneman. Análisis magistral de los dos sistemas que dirigen nuestra mente y toma de decisiones.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="6" data-categoria="filosofía &amp; estrategia">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (6)</span>
+                  <a href="detalleLibro.html?id=24" class="cover-link" title="Ver ficha de El arte de la guerra">
+                      <img src="img/portadas/libro24.svg" alt="Portada de El arte de la guerra" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="24"
+                          data-titulo="El arte de la guerra"
+                          data-autor="Sun Tzu"
+                          data-categoria="Filosofía &amp; Estrategia"
+                          data-isbn="9788497940733"
+                          data-anio="-500"
+                          data-stock="6"
+                          data-descripcion="Tratado milenario de estrategia, liderazgo, resolución de conflictos y táctica militar."
+                          data-portada="img/portadas/libro24.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Filosofía &amp; Estrategia</span>
+                      <span class="text-muted small">-500</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">El arte de la guerra</h6>
+                  <p class="text-muted small mb-1">Sun Tzu</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Tratado milenario de estrategia, liderazgo, resolución de conflictos y táctica militar.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=24" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El arte de la guerra. De Sun Tzu. Tratado milenario de estrategia, liderazgo, resolución de conflictos y táctica militar.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="3" data-categoria="filosofía &amp; estrategia">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (3)</span>
+                  <a href="detalleLibro.html?id=25" class="cover-link" title="Ver ficha de Meditaciones">
+                      <img src="img/portadas/libro25.svg" alt="Portada de Meditaciones" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="25"
+                          data-titulo="Meditaciones"
+                          data-autor="Marco Aurelio"
+                          data-categoria="Filosofía &amp; Estrategia"
+                          data-isbn="9788424939106"
+                          data-anio="180"
+                          data-stock="3"
+                          data-descripcion="Reflexiones íntimas del emperador filósofo Marco Aurelio sobre el deber y la resiliencia."
+                          data-portada="img/portadas/libro25.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Filosofía &amp; Estrategia</span>
+                      <span class="text-muted small">180</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Meditaciones</h6>
+                  <p class="text-muted small mb-1">Marco Aurelio</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Reflexiones íntimas del emperador filósofo Marco Aurelio sobre el deber y la resiliencia.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=25" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Meditaciones. De Marco Aurelio. Reflexiones íntimas del emperador filósofo Marco Aurelio sobre el deber y la resiliencia.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="0" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-secondary stock-floating-badge shadow-sm">Agotado</span>
+                  <a href="detalleLibro.html?id=26" class="cover-link" title="Ver ficha de Clean Architecture: Guía para el especialista en software">
+                      <img src="img/portadas/libro26.svg" alt="Portada de Clean Architecture: Guía para el especialista en software" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="26"
+                          data-titulo="Clean Architecture: Guía para el especialista en software"
+                          data-autor="Robert C. Martin"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9780134494166"
+                          data-anio="2017"
+                          data-stock="0"
+                          data-descripcion="Reglas universales de arquitectura de software para crear sistemas desacoplados y testeables."
+                          data-portada="img/portadas/libro26.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">2017</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Clean Architecture: Guía para el especialista en software</h6>
+                  <p class="text-muted small mb-1">Robert C. Martin</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Reglas universales de arquitectura de software para crear sistemas desacoplados y testeables.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=26" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Clean Architecture: Guía para el especialista en software. De Robert C. Martin. Reglas universales de arquitectura de software para crear sistemas desacoplados y testeables.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="5" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (5)</span>
+                  <a href="detalleLibro.html?id=27" class="cover-link" title="Ver ficha de Head First Java: Aprende Java con programación orientada a objetos">
+                      <img src="img/portadas/libro27.svg" alt="Portada de Head First Java: Aprende Java con programación orientada a objetos" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="27"
+                          data-titulo="Head First Java: Aprende Java con programación orientada a objetos"
+                          data-autor="Kathy Sierra &amp; Bert Bates"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9781491910771"
+                          data-anio="2022"
+                          data-stock="5"
+                          data-descripcion="Método multisensorial y visual para dominar Java, POO, hilos y programación concurrente."
+                          data-portada="img/portadas/libro27.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">2022</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Head First Java: Aprende Java con programación orientada a objetos</h6>
+                  <p class="text-muted small mb-1">Kathy Sierra &amp; Bert Bates</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Método multisensorial y visual para dominar Java, POO, hilos y programación concurrente.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=27" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Head First Java: Aprende Java con programación orientada a objetos. De Kathy Sierra &amp; Bert Bates. Método multisensorial y visual para dominar Java, POO, hilos y programación concurrente.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="4" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (4)</span>
+                  <a href="detalleLibro.html?id=28" class="cover-link" title="Ver ficha de Fundamentos de Sistemas de Bases de Datos">
+                      <img src="img/portadas/libro28.svg" alt="Portada de Fundamentos de Sistemas de Bases de Datos" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="28"
+                          data-titulo="Fundamentos de Sistemas de Bases de Datos"
+                          data-autor="Abraham Silberschatz &amp; Henry Korth"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9786071514066"
+                          data-anio="2019"
+                          data-stock="4"
+                          data-descripcion="Conceptos esenciales del modelo relacional, SQL, normalización, índices y transacciones ACID."
+                          data-portada="img/portadas/libro28.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">2019</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Fundamentos de Sistemas de Bases de Datos</h6>
+                  <p class="text-muted small mb-1">Abraham Silberschatz &amp; Henry Korth</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Conceptos esenciales del modelo relacional, SQL, normalización, índices y transacciones ACID.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=28" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Fundamentos de Sistemas de Bases de Datos. De Abraham Silberschatz &amp; Henry Korth. Conceptos esenciales del modelo relacional, SQL, normalización, índices y transacciones ACID.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="3" data-categoria="programación &amp; software">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (3)</span>
+                  <a href="detalleLibro.html?id=29" class="cover-link" title="Ver ficha de Redes de Computadoras">
+                      <img src="img/portadas/libro29.svg" alt="Portada de Redes de Computadoras" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="29"
+                          data-titulo="Redes de Computadoras"
+                          data-autor="Andrew S. Tanenbaum"
+                          data-categoria="Programación &amp; Software"
+                          data-isbn="9786073208178"
+                          data-anio="2011"
+                          data-stock="3"
+                          data-descripcion="Tratado clásico de arquitectura de redes, capa de transporte, protocolos TCP/IP e Internet."
+                          data-portada="img/portadas/libro29.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Programación &amp; Software</span>
+                      <span class="text-muted small">2011</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Redes de Computadoras</h6>
+                  <p class="text-muted small mb-1">Andrew S. Tanenbaum</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Tratado clásico de arquitectura de redes, capa de transporte, protocolos TCP/IP e Internet.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=29" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Redes de Computadoras. De Andrew S. Tanenbaum. Tratado clásico de arquitectura de redes, capa de transporte, protocolos TCP/IP e Internet.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="2" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (2)</span>
+                  <a href="detalleLibro.html?id=30" class="cover-link" title="Ver ficha de El nombre de la rosa">
+                      <img src="img/portadas/libro30.svg" alt="Portada de El nombre de la rosa" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="30"
+                          data-titulo="El nombre de la rosa"
+                          data-autor="Umberto Eco"
+                          data-categoria="Literatura"
+                          data-isbn="9788497592581"
+                          data-anio="1980"
+                          data-stock="2"
+                          data-descripcion="Fascinante novela histórica de intriga monástica, herejías y manuscritos prohibidos."
+                          data-portada="img/portadas/libro30.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1980</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">El nombre de la rosa</h6>
+                  <p class="text-muted small mb-1">Umberto Eco</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Fascinante novela histórica de intriga monástica, herejías y manuscritos prohibidos.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=30" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El nombre de la rosa. De Umberto Eco. Fascinante novela histórica de intriga monástica, herejías y manuscritos prohibidos.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="7" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (7)</span>
+                  <a href="detalleLibro.html?id=31" class="cover-link" title="Ver ficha de La metamorfosis">
+                      <img src="img/portadas/libro31.svg" alt="Portada de La metamorfosis" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="31"
+                          data-titulo="La metamorfosis"
+                          data-autor="Franz Kafka"
+                          data-categoria="Literatura"
+                          data-isbn="9788491050292"
+                          data-anio="1915"
+                          data-stock="7"
+                          data-descripcion="Relato existencial sobre la soledad y alienación a través de la transformación de Gregor Samsa."
+                          data-portada="img/portadas/libro31.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1915</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">La metamorfosis</h6>
+                  <p class="text-muted small mb-1">Franz Kafka</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Relato existencial sobre la soledad y alienación a través de la transformación de Gregor Samsa.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=31" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('La metamorfosis. De Franz Kafka. Relato existencial sobre la soledad y alienación a través de la transformación de Gregor Samsa.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+
+      <div class="col-md-4 libro-item" data-stock="4" data-categoria="literatura">
+          <div class="card book-card h-100 shadow-sm">
+              <div class="book-cover-wrapper">
+                  <span class="badge bg-success stock-floating-badge shadow-sm">Disponible (4)</span>
+                  <a href="detalleLibro.html?id=32" class="cover-link" title="Ver ficha de Ensayo sobre la ceguera">
+                      <img src="img/portadas/libro32.svg" alt="Portada de Ensayo sobre la ceguera" class="book-cover-img" onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                  </a>
+                  <button type="button" class="btn btn-sm quick-view-btn shadow-sm"
+                          data-id="32"
+                          data-titulo="Ensayo sobre la ceguera"
+                          data-autor="José Saramago"
+                          data-categoria="Literatura"
+                          data-isbn="9788490628720"
+                          data-anio="1995"
+                          data-stock="4"
+                          data-descripcion="Parábola conmovedora sobre la condición humana y la solidaridad, pionera en inclusión y empatía."
+                          data-portada="img/portadas/libro32.svg"
+                          onclick="abrirVistaRapida(this)">
+                      Vista rápida
+                  </button>
+              </div>
+              <div class="card-body d-flex flex-column p-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge bg-light text-dark border">Literatura</span>
+                      <span class="text-muted small">1995</span>
+                  </div>
+                  <h6 class="card-title fw-bold mb-1">Ensayo sobre la ceguera</h6>
+                  <p class="text-muted small mb-1">José Saramago</p>
+                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      Parábola conmovedora sobre la condición humana y la solidaridad, pionera en inclusión y empatía.
+                  </p>
+                  <div class="d-flex gap-2 align-items-center mt-auto">
+                      <a href="detalleLibro.html?id=32" class="btn btn-outline-primary btn-sm flex-grow-1">
+                          <i class="bi bi-eye"></i> Ver detalles
+                      </a>
+                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Ensayo sobre la ceguera. De José Saramago. Parábola conmovedora sobre la condición humana y la solidaridad, pionera en inclusión y empatía.')">
+                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    </div>
+  </div></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            
+
+        
+
+            <div class="col-12">
+                <div class="alert alert-light border text-center py-4">
+                    No se encontraron libros con los criterios seleccionados.
+                    <a href="catalogo.html" class="ms-2">Ver todo el catálogo</a>
+                </div>
+            </div>
+
+        
+
+    </div>
+
+</div>
+
+
+<!-- MODAL DE VISTA RÁPIDA -->
+<div class="modal fade" id="modalVistaRapida" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h6 class="modal-title fw-bold" id="modalTitulo">Vista rápida del libro</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-4 text-center">
+                        <img id="modalPortada"
+                             src="img/portadas/default.svg"
+                             alt="Portada"
+                             class="rounded shadow-sm"
+                             style="width: 170px; height: 238px; object-fit: cover;"
+                             onerror="this.onerror=null;this.src='img/portadas/default.svg';">
+                    </div>
+                    <div class="col-md-8">
+                        <span class="badge bg-secondary mb-2" id="modalCategoria"></span>
+                        <h5 class="fw-bold mb-1" id="modalNombreLibro"></h5>
+                        <p class="mb-1 text-muted">Autor: <span id="modalAutor" class="text-dark"></span></p>
+                        <p class="mb-2 text-muted small">ISBN: <span id="modalIsbn"></span> · Año: <span id="modalAnio"></span></p>
+                        <hr class="my-2">
+                        <p class="text-secondary small mb-3" id="modalDescripcion"></p>
+                        <div class="mb-3" id="modalStockBadge"></div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="button" class="btn-audio-detailed" id="modalBtnAudio" onclick="escucharModalActual()">
+                                <i class="bi bi-volume-up-fill"></i>
+                                <span>Audio</span>
+                            </button>
+                            <a id="modalBtnDetalle" href="#" class="btn btn-primary btn-sm">Ficha completa</a>
+                            <a id="modalBtnPrestamo" href="#" class="btn btn-outline-primary btn-sm">Solicitar préstamo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MÁSCARA GUÍA DE LECTURA VISUAL (TDAH / ENFOQUE) -->
+<div id="a11yReadingRuler"></div>
+
+<!-- MINI BOTÓN FLOTANTE PARA ESCUCHAR TEXTO SELECCIONADO -->
+<button id="a11yBtnAudioSel" type="button" onclick="leerTextoSeleccionado()">
+    Escuchar selección
+</button>
+
+
+<!-- BOTÓN Y PANEL LATERAL DE ACCESIBILIDAD -->
+<button class="a11y-float-btn"
+        id="btnA11yToggle"
+        type="button"
+        onclick="toggleA11yPanel()"
+        aria-label="Abrir opciones de accesibilidad"
+        title="Opciones de accesibilidad">
+    A
+</button>
+
+<div class="a11y-panel" id="a11yPanel">
+    <div class="a11y-panel-header">
+        <div>
+            <h6 class="mb-0 fw-bold">Accesibilidad y Lectura</h6>
+            <small class="text-white-50">Configuración personalizada (ODS 9)</small>
+        </div>
+        <button type="button" class="btn-close btn-close-white" onclick="toggleA11yPanel()" aria-label="Cerrar"></button>
+    </div>
+
+    <div class="a11y-panel-body">
+        <!-- 1. TAMAÑO DE TEXTO GRADUAL -->
+        <div class="a11y-section-title">Tamaño de Texto</div>
+        <div class="btn-group w-100" role="group">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont100" onclick="setEscalaFuente(1.0)">100%</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont115" onclick="setEscalaFuente(1.15)">115%</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont130" onclick="setEscalaFuente(1.30)">130%</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnFont145" onclick="setEscalaFuente(1.45)">145%</button>
+        </div>
+
+        <!-- 2. CONTRASTE VISUAL CALIBRADO (SIN TEXTO PERDIDO) -->
+        <div class="a11y-section-title">Contraste Visual</div>
+        <div class="d-grid gap-1">
+            <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeDefault" onclick="setTemaContraste('default')">
+                Estándar (Fondo blanco)
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeSepia" onclick="setTemaContraste('sepia')">
+                Sepia (Papel cálido / Menor fatiga)
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeDark" onclick="setTemaContraste('dark')">
+                Modo Noche (Pizarra oscura)
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm text-start" id="btnThemeContrast" onclick="setTemaContraste('contrast')">
+                Alto Contraste (Amarillo / Negro WCAG AAA)
+            </button>
+        </div>
+
+        <!-- 3. HERRAMIENTAS DE APOYO -->
+        <div class="a11y-section-title">Apoyo de Lectura</div>
+        <div class="d-grid gap-1">
+            <button type="button" class="btn btn-outline-primary btn-sm text-start" id="btnToggleDyslexia" onclick="toggleDyslexia()">
+                Tipografía de fácil lectura (Dislexia)
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm text-start" id="btnToggleRuler" onclick="toggleRuler()">
+                Máscara guía de lectura (TDAH)
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-sm text-start" id="btnToggleUnderline" onclick="toggleUnderlineLinks()">
+                Subrayar enlaces interactivos
+            </button>
+        </div>
+
+        <div class="pt-3 mt-3 border-top text-center">
+            <button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" onclick="restablecerA11y()">
+                Restablecer ajustes por defecto
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- PIE DE PÁGINA -->
+<footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-1 fw-bold">BookHub</p>
+        <p class="mb-0 small text-secondary">
+            Sistema de Gestión de Biblioteca Universitaria · Cumplimiento de accesibilidad digital
+        </p>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SCRIPTS DE BÚSQUEDA, FILTROS Y ACCESIBILIDAD SUITE -->
+<script>
+    const buscador = document.getElementById("buscador");
+    const soloDisponibles = document.getElementById("soloDisponibles");
+    const librosItems = document.querySelectorAll(".libro-item");
+    const contadorResultados = document.getElementById("contadorResultados");
+    let chipActivo = "";
+
+    function filtrarPorChip(categoriaTexto, boton) {
+        chipActivo = categoriaTexto.toLowerCase();
+        document.querySelectorAll(".chip-filtro").forEach(btn => btn.classList.remove("active"));
+        boton.classList.add("active");
+        aplicarFiltrosInteractivos();
+    }
+
+    function aplicarFiltrosInteractivos() {
+        const texto = buscador ? buscador.value.toLowerCase().trim() : "";
+        const requiereStock = soloDisponibles ? soloDisponibles.checked : false;
+        let visibles = 0;
+
+        librosItems.forEach(function (libro) {
+            const contenido = libro.textContent.toLowerCase();
+            const stock = parseInt(libro.getAttribute("data-stock") || "0", 10);
+            const coincideTexto = texto === "" || contenido.includes(texto);
+            const coincideChip = chipActivo === "" || contenido.includes(chipActivo);
+            const coincideStock = !requiereStock || stock > 0;
+
+            if (coincideTexto && coincideChip && coincideStock) {
+                libro.style.display = "block";
+                visibles++;
+            } else {
+                libro.style.display = "none";
+            }
+        });
+
+        if (contadorResultados) {
+            contadorResultados.textContent = visibles + " ejemplares";
+        }
+    }
+
+    if (buscador) {
+        buscador.addEventListener("keyup", aplicarFiltrosInteractivos);
+    }
+
+    // MODAL VISTA RÁPIDA
+    let datosModalActual = { titulo: '', autor: '', desc: '' };
+
+    function abrirVistaRapida(btn) {
+        const id = btn.getAttribute("data-id");
+        const titulo = btn.getAttribute("data-titulo");
+        const autor = btn.getAttribute("data-autor");
+        const categoria = btn.getAttribute("data-categoria");
+        const isbn = btn.getAttribute("data-isbn");
+        const anio = btn.getAttribute("data-anio");
+        const stock = parseInt(btn.getAttribute("data-stock") || "0", 10);
+        const descripcion = btn.getAttribute("data-descripcion");
+        const portada = btn.getAttribute("data-portada") || "img/portadas/default.svg";
+
+        datosModalActual = { titulo, autor, desc: descripcion };
+
+        document.getElementById("modalNombreLibro").textContent = titulo;
+        document.getElementById("modalAutor").textContent = autor;
+        document.getElementById("modalCategoria").textContent = categoria;
+        document.getElementById("modalIsbn").textContent = isbn;
+        document.getElementById("modalAnio").textContent = anio;
+        document.getElementById("modalDescripcion").textContent = descripcion;
+        document.getElementById("modalPortada").src = portada;
+
+        const stockContainer = document.getElementById("modalStockBadge");
+        const btnPrestamo = document.getElementById("modalBtnPrestamo");
+        document.getElementById("modalBtnDetalle").href = "Detallelibros.html?id=" + id;
+
+        if (stock > 0) {
+            stockContainer.innerHTML = '<span class="badge bg-success">Disponible (' + stock + ' ejemplares)</span>';
+            btnPrestamo.style.display = "inline-block";
+            btnPrestamo.href = "Solicitarprestamos.html?idLibro=" + id;
+        } else {
+            stockContainer.innerHTML = '<span class="badge bg-secondary">Agotado</span>';
+            btnPrestamo.style.display = "none";
+        }
+
+        const modal = new bootstrap.Modal(document.getElementById("modalVistaRapida"));
+        modal.show();
+    }
+
+    function escucharModalActual() {
+        leerLibroAudio(datosModalActual.titulo, datosModalActual.autor, datosModalActual.desc);
+    }
+
+    // SÍNTESIS DE VOZ
+    function reproducirAudio(texto, velocidad = 1.0) {
+        if (!('speechSynthesis' in window)) {
+            alert('Tu navegador no cuenta con soporte nativo de síntesis de voz.');
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'es-ES';
+        utterance.rate = parseFloat(velocidad) || 1.0;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function leerLibroAudio(titulo, autor, descripcion) {
+        const texto = "Título: " + titulo + ". Autor: " + autor + ". Sinopsis: " + descripcion;
+        reproducirAudio(texto, 1.0);
+    }
+
+    function detenerVoz() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+
+    // ESCUCHAR TEXTO SELECCIONADO
+    document.addEventListener('mouseup', function(e) {
+        const sel = window.getSelection().toString().trim();
+        const btn = document.getElementById('a11yBtnAudioSel');
+        if (btn) {
+            if (sel.length >= 3) {
+                btn.style.display = 'block';
+                btn.style.top = (e.pageY + 12) + 'px';
+                btn.style.left = Math.min(window.innerWidth - 180, e.pageX) + 'px';
+                btn.setAttribute('data-texto', sel);
+            } else {
+                btn.style.display = 'none';
+            }
+        }
+    });
+
+    function leerTextoSeleccionado() {
+        const btn = document.getElementById('a11yBtnAudioSel');
+        if (btn) {
+            const texto = btn.getAttribute('data-texto');
+            if (texto) {
+                reproducirAudio(texto);
+                btn.style.display = 'none';
+            }
+        }
+    }
+
+    // BÚSQUEDA POR VOZ
+    function iniciarBusquedaPorVoz() {
+        const statusBox = document.getElementById("voiceSearchStatus");
+        const btnMic = document.getElementById("btnVoiceSearch");
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            if (statusBox) {
+                statusBox.style.display = "block";
+                statusBox.textContent = "Navegador sin soporte de reconocimiento de voz.";
+            }
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'es-ES';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = function () {
+            if (statusBox) {
+                statusBox.style.display = "block";
+                statusBox.textContent = "Escuchando... Di el título o autor.";
+            }
+            if (btnMic) {
+                btnMic.classList.add("btn-danger");
+                btnMic.classList.remove("btn-outline-secondary");
+                btnMic.textContent = "Escuchando...";
+            }
+        };
+
+        recognition.onresult = function (event) {
+            const transcripcion = event.results[0][0].transcript;
+            if (buscador) {
+                buscador.value = transcripcion;
+                aplicarFiltrosInteractivos();
+            }
+            if (statusBox) {
+                statusBox.textContent = 'Búsqueda: "' + transcripcion + '"';
+            }
+        };
+
+        recognition.onerror = function (event) {
+            if (statusBox) {
+                statusBox.style.display = "block";
+                statusBox.textContent = "No se detectó audio (" + event.error + ").";
+            }
+        };
+
+        recognition.onend = function () {
+            if (btnMic) {
+                btnMic.classList.remove("btn-danger");
+                btnMic.classList.add("btn-outline-secondary");
+                btnMic.textContent = "Dictar";
+            }
+        };
+
+        try {
+            recognition.start();
+        } catch (e) {
+            console.warn(e);
+        }
+    }
+
+    // SUITE DE ACCESIBILIDAD PROGRESIVA
+    let a11yState = {
+        scale: 1.0,
+        theme: 'default', // 'default', 'sepia', 'dark', 'contrast'
+        dyslexia: false,
+        ruler: false,
+        underline: false
+    };
+
+    function cargarA11yPrefs() {
+        try {
+            const guardado = localStorage.getItem('bookhub_a11y_suite');
+            if (guardado) {
+                a11yState = Object.assign(a11yState, JSON.parse(guardado));
+            }
+        } catch (e) {}
+        aplicarA11yState();
+    }
+
+    function guardarA11yPrefs() {
+        try {
+            localStorage.setItem('bookhub_a11y_suite', JSON.stringify(a11yState));
+        } catch (e) {}
+    }
+
+    function aplicarA11yState() {
+        // Escala tipográfica y de espaciado
+        document.documentElement.style.setProperty('--a11y-font-scale', a11yState.scale);
+        const lh = a11yState.scale >= 1.3 ? 1.75 : (a11yState.scale >= 1.15 ? 1.65 : 1.5);
+        document.documentElement.style.setProperty('--a11y-line-height', lh);
+
+        // Clases de contraste
+        document.body.classList.remove('a11y-theme-sepia', 'a11y-theme-dark', 'a11y-theme-contrast');
+        if (a11yState.theme === 'sepia') document.body.classList.add('a11y-theme-sepia');
+        else if (a11yState.theme === 'dark') document.body.classList.add('a11y-theme-dark');
+        else if (a11yState.theme === 'contrast') document.body.classList.add('a11y-theme-contrast');
+
+        // Apoyo de lectura
+        document.body.classList.toggle('a11y-dyslexia', !!a11yState.dyslexia);
+        document.body.classList.toggle('a11y-underline-links', !!a11yState.underline);
+
+        // Regla visual
+        const ruler = document.getElementById('a11yReadingRuler');
+        if (ruler) {
+            ruler.style.display = a11yState.ruler ? 'block' : 'none';
+        }
+
+        // Actualizar estado activo en botones del panel
+        actualizarUIBotonesPanel();
+    }
+
+    function actualizarUIBotonesPanel() {
+        // Botones de escala
+        [1.0, 1.15, 1.30, 1.45].forEach(s => {
+            const id = 'btnFont' + Math.round(s * 100);
+            const btn = document.getElementById(id);
+            if (btn) {
+                if (Math.abs(a11yState.scale - s) < 0.05) {
+                    btn.classList.add('btn-primary');
+                    btn.classList.remove('btn-outline-secondary');
+                } else {
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-outline-secondary');
+                }
+            }
+        });
+
+        // Botones de tema
+        const temas = {
+            'default': 'btnThemeDefault',
+            'sepia': 'btnThemeSepia',
+            'dark': 'btnThemeDark',
+            'contrast': 'btnThemeContrast'
+        };
+        for (const [key, id] of Object.entries(temas)) {
+            const btn = document.getElementById(id);
+            if (btn) {
+                if (a11yState.theme === key) {
+                    btn.classList.add('btn-dark');
+                    btn.classList.remove('btn-outline-secondary');
+                } else {
+                    btn.classList.remove('btn-dark');
+                    btn.classList.add('btn-outline-secondary');
+                }
+            }
+        }
+
+        // Toggles de apoyo
+        const btnDys = document.getElementById('btnToggleDyslexia');
+        if (btnDys) btnDys.classList.toggle('active', !!a11yState.dyslexia);
+
+        const btnRul = document.getElementById('btnToggleRuler');
+        if (btnRul) btnRul.classList.toggle('active', !!a11yState.ruler);
+
+        const btnUnd = document.getElementById('btnToggleUnderline');
+        if (btnUnd) btnUnd.classList.toggle('active', !!a11yState.underline);
+    }
+
+    function setEscalaFuente(escala) {
+        a11yState.scale = escala;
+        aplicarA11yState();
+        guardarA11yPrefs();
+    }
+
+    function setTemaContraste(tema) {
+        a11yState.theme = tema;
+        aplicarA11yState();
+        guardarA11yPrefs();
+    }
+
+    function toggleDyslexia() {
+        a11yState.dyslexia = !a11yState.dyslexia;
+        aplicarA11yState();
+        guardarA11yPrefs();
+    }
+
+    function toggleRuler() {
+        a11yState.ruler = !a11yState.ruler;
+        aplicarA11yState();
+        guardarA11yPrefs();
+    }
+
+    function toggleUnderlineLinks() {
+        a11yState.underline = !a11yState.underline;
+        aplicarA11yState();
+        guardarA11yPrefs();
+    }
+
+    function restablecerA11y() {
+        a11yState = {
+            scale: 1.0,
+            theme: 'default',
+            dyslexia: false,
+            ruler: false,
+            underline: false
+        };
+        aplicarA11yState();
+        guardarA11yPrefs();
+        detenerVoz();
+    }
+
+    function toggleA11yPanel() {
+        const panel = document.getElementById('a11yPanel');
+        if (panel) {
+            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+        }
+    }
+
+    // SEGUIMIENTO DE LA MÁSCARA GUÍA DE LECTURA
+    document.addEventListener('mousemove', function(e) {
+        const ruler = document.getElementById('a11yReadingRuler');
+        if (ruler && a11yState.ruler) {
+            ruler.style.top = e.clientY + 'px';
+        }
+    });
+
+    // DESVANECIMIENTO SUAVE DE LA BARRA SUPERIOR AL HACER SCROLL
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('mainNavbar');
+        if (!navbar) return;
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScrollY > 70) {
+            navbar.classList.add('navbar-hidden');
+        } else {
+            navbar.classList.remove('navbar-hidden');
+        }
+    }, { passive: true });
+
+    document.addEventListener('DOMContentLoaded', cargarA11yPrefs);
+</script>
+
+
+  <script>
+    function aplicarFiltrosInteractivos() {
+        const busqueda = (document.getElementById('busquedaLibro') ? document.getElementById('busquedaLibro').value : '').toLowerCase().trim();
+        const categoriaSel = (document.getElementById('filtroCategoria') ? document.getElementById('filtroCategoria').value : '').toLowerCase().trim();
+        const soloDisp = document.getElementById('soloDisponibles') ? document.getElementById('soloDisponibles').checked : false;
+
+        const items = document.querySelectorAll('.libro-item');
+        let contador = 0;
+
+        items.forEach(item => {
+            const stock = parseInt(item.getAttribute('data-stock') || '0');
+            const cat = (item.getAttribute('data-categoria') || '').toLowerCase();
+            const cardText = item.innerText.toLowerCase();
+
+            let coincide = true;
+            if (busqueda && !cardText.includes(busqueda)) coincide = false;
+            if (categoriaSel && categoriaSel !== 'todas' && !cat.includes(categoriaSel)) coincide = false;
+            if (soloDisp && stock <= 0) coincide = false;
+
+            if (coincide) {
+                item.style.display = '';
+                contador++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        const badgeTotal = document.getElementById('contadorLibrosBadge');
+        if (badgeTotal) badgeTotal.textContent = contador + ' libros';
+    }
+
+    function filtrarPorChip(cat, btn) {
+        document.querySelectorAll('.chip-filtro').forEach(b => {
+            b.classList.remove('btn-primary', 'active');
+            b.classList.add('btn-outline-secondary');
+        });
+        btn.classList.remove('btn-outline-secondary');
+        btn.classList.add('btn-primary', 'active');
+
+        const select = document.getElementById('filtroCategoria');
+        if (select) {
+            select.value = cat;
+        }
+        aplicarFiltrosInteractivos();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputBusqueda = document.getElementById('busquedaLibro');
+        if (inputBusqueda) {
+            inputBusqueda.addEventListener('input', aplicarFiltrosInteractivos);
+        }
+        const selectCat = document.getElementById('filtroCategoria');
+        if (selectCat) {
+            selectCat.addEventListener('change', aplicarFiltrosInteractivos);
+        }
+        aplicarFiltrosInteractivos();
+    });
+  </script>
+  </body>
+
+</html>

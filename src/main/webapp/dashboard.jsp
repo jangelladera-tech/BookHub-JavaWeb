@@ -116,7 +116,7 @@
 
     <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
         <div class="d-flex align-items-center gap-2">
-            <span class="fs-3">📚</span>
+            <img src="img/logo.svg" alt="BookHub Logo" width="36" height="36" class="d-inline-block">
             <div>
                 <h5 class="offcanvas-title fw-bold text-white mb-0" id="sidebarBookHubLabel">BookHub</h5>
                 <small class="text-white-50" style="font-size: 0.72rem;">Panel de Administración</small>
@@ -237,6 +237,7 @@
             </button>
 
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="dashboard.jsp">
+                <img src="img/logo.svg" alt="BookHub Logo" width="32" height="32" class="d-inline-block">
                 <span>BookHub</span>
                 <span class="badge bg-danger" style="font-size: 0.65rem;">ADMIN</span>
             </a>

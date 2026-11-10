@@ -176,26 +176,38 @@ public class LibroDAO {
 
     public void agregar(Libro libro) {
         String sql = "INSERT INTO libros (titulo, isbn, anio, descripcion, stock, id_autor, id_categoria, imagen_portada) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        int idGenerado = -1;
         try (Connection con = Conexion.conectar()) {
             if (con != null) {
                 asegurarColumnaPortada(con);
-                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                     ps.setString(1, libro.getTitulo());
                     ps.setString(2, libro.getIsbn());
                     ps.setInt(3, libro.getAnio());
                     ps.setString(4, libro.getDescripcion());
                     ps.setInt(5, libro.getStock());
-                    ps.setInt(6, libro.getIdAutor());
-                    ps.setInt(7, libro.getIdCategoria());
+                    ps.setInt(6, libro.getIdAutor() > 0 ? libro.getIdAutor() : 1);
+                    ps.setInt(7, libro.getIdCategoria() > 0 ? libro.getIdCategoria() : 1);
                     ps.setString(8, libro.getImagenPortada());
                     ps.executeUpdate();
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            idGenerado = rs.getInt(1);
+                            libro.setIdLibro(idGenerado);
+                        }
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Error agregar LibroDAO: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        libro.setIdLibro(contadorId++);
+        if (idGenerado == -1) {
+            libro.setIdLibro(contadorId++);
+        } else {
+            contadorId = Math.max(contadorId, idGenerado + 1);
+        }
         librosMemoria.add(libro);
     }
 
@@ -210,8 +222,8 @@ public class LibroDAO {
                     ps.setInt(3, libro.getAnio());
                     ps.setString(4, libro.getDescripcion());
                     ps.setInt(5, libro.getStock());
-                    ps.setInt(6, libro.getIdAutor());
-                    ps.setInt(7, libro.getIdCategoria());
+                    ps.setInt(6, libro.getIdAutor() > 0 ? libro.getIdAutor() : 1);
+                    ps.setInt(7, libro.getIdCategoria() > 0 ? libro.getIdCategoria() : 1);
                     ps.setString(8, libro.getImagenPortada());
                     ps.setInt(9, libro.getIdLibro());
                     ps.executeUpdate();
@@ -219,6 +231,7 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error actualizar LibroDAO: " + e.getMessage());
+            e.printStackTrace();
         }
 
         for (int i = 0; i < librosMemoria.size(); i++) {

@@ -47,15 +47,13 @@
                         <div class="card-body p-4 p-md-5">
 
                             <div class="text-center mb-4">
-
-                                <h2 class="fw-bold">
-                                    📚 BOOKHUB
-                                </h2>
-
+                                <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+                                    <img src="img/logo.svg" alt="BookHub Logo" width="44" height="44">
+                                    <h2 class="fw-bold mb-0">BookHub</h2>
+                                </div>
                                 <p class="text-muted mb-0">
                                     Iniciar sesión en la biblioteca
                                 </p>
-
                             </div>
 
 
@@ -156,31 +154,31 @@
                             </form>
 
 
-                            <!-- USUARIOS PRE-CREADOS (1 ADMIN Y 2 LECTORES) -->
+                            <!-- ACCESOS RÁPIDOS DE PRUEBA -->
 
                             <div class="card bg-light border mt-4">
                                 <div class="card-body p-3">
-                                    <p class="small fw-bold text-secondary mb-2 text-center">
-                                        🔑 Usuarios ya creados (clic para autocompletar):
+                                    <p class="small fw-semibold text-secondary mb-2 text-center">
+                                        <i class="bi bi-key me-1"></i> Cuentas demostrativas (clic para autocompletar):
                                     </p>
 
                                     <div class="d-grid gap-2">
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-danger text-start"
                                                 onclick="completarCredenciales('admin@bookhub.com', '123456')">
-                                            🛡️ <strong>Admin:</strong> admin@bookhub.com <span class="float-end badge bg-danger">123456</span>
+                                            <i class="bi bi-shield-lock-fill text-danger me-1"></i> <strong>Administrador:</strong> admin@bookhub.com <span class="float-end badge bg-danger">123456</span>
                                         </button>
 
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary text-start"
                                                 onclick="completarCredenciales('juan@bookhub.com', '123456')">
-                                            📖 <strong>Lector 1 (Juan Pérez):</strong> juan@bookhub.com <span class="float-end badge bg-primary">123456</span>
+                                            <i class="bi bi-person-fill text-primary me-1"></i> <strong>Juan Pérez:</strong> juan@bookhub.com <span class="float-end badge bg-primary">123456</span>
                                         </button>
 
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary text-start"
                                                 onclick="completarCredenciales('maria@bookhub.com', '123456')">
-                                            📖 <strong>Lector 2 (María López):</strong> maria@bookhub.com <span class="float-end badge bg-primary">123456</span>
+                                            <i class="bi bi-person-fill text-primary me-1"></i> <strong>María López:</strong> maria@bookhub.com <span class="float-end badge bg-primary">123456</span>
                                         </button>
                                     </div>
                                 </div>
@@ -197,7 +195,7 @@
 
                                 <a href="registro.jsp"
                                    class="btn btn-outline-success btn-sm w-100">
-                                    ✍️ Crear una cuenta nueva
+                                    <i class="bi bi-person-plus me-1"></i> Crear una cuenta nueva
                                 </a>
 
                             </div>

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+﻿<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="beans.Usuario"%>
 <%
     Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
@@ -111,7 +111,7 @@
 <div class="offcanvas offcanvas-start offcanvas-bookhub shadow-lg" tabindex="-1" id="sidebarBookHub">
     <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
         <div class="d-flex align-items-center gap-2">
-            <span class="fs-3">📚</span>
+            <img src="img/logo.svg" alt="BookHub Logo" width="36" height="36" class="d-inline-block">
             <div>
                 <h5 class="offcanvas-title fw-bold text-white mb-0">BookHub</h5>
                 <small class="text-white-50" style="font-size: 0.72rem;">Biblioteca Universitaria</small>
@@ -159,7 +159,10 @@
             <button class="btn-sidebar-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarBookHub">
                 <i class="bi bi-list fs-3"></i>
             </button>
-            <a class="navbar-brand fw-bold m-0" href="index.html">BookHub</a>
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.jsp">
+                <img src="img/logo.svg" alt="BookHub Logo" width="34" height="34" class="d-inline-block">
+                <span>BookHub</span>
+            </a>
         </div>
 
         <div class="d-flex align-items-center gap-2 ms-auto">
@@ -331,3 +334,4 @@
 <%@include file="a11y-panel.jsp"%>
 </body>
 </html>
+

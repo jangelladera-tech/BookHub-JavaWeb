@@ -1,0 +1,1115 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub | Mi cuenta</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        /* EFECTO DE DESVANECIMIENTO AL HACER SCROLL */
+        .navbar-scroll-fade {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .navbar-scroll-fade.navbar-hidden {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: translateY(-10px);
+        }
+
+        /* BOTÓN DE 3 LÍNEAS (HAMBURGUESA) */
+        .btn-sidebar-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-sidebar-toggle:hover, .btn-sidebar-toggle:focus {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: #ffffff;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* VENTANA LATERAL (OFFCANVAS) */
+        .offcanvas-bookhub {
+            width: 320px !important;
+            background: #0f172a !important;
+            color: #f8fafc;
+            border-right: 1px solid #334155 !important;
+        }
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .sidebar-menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+        .sidebar-menu-item.active {
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+        .sidebar-menu-item .menu-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-subtitle {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* DISEÑO DE PERFIL DE USUARIO LIMPIO */
+        .card-profile {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        }
+        .user-avatar-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .stat-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            padding: 18px 20px;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+        }
+        .service-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+            border-color: #cbd5e1;
+        }
+        .service-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+        }
+        .table-loans th {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+<!-- VENTANA A LA MANO IZQUIERDA (SIDEBAR OFFCANVAS) -->
+<div class="offcanvas offcanvas-start offcanvas-bookhub shadow-lg"
+     tabindex="-1"
+     id="sidebarBookHub"
+     aria-labelledby="sidebarBookHubLabel">
+
+    <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
+        <div class="d-flex align-items-center gap-2">
+            <img src="img/logo.svg" alt="BookHub Logo" width="36" height="36" class="d-inline-block">
+            <div>
+                <h5 class="offcanvas-title fw-bold text-white mb-0" id="sidebarBookHubLabel">BookHub</h5>
+                <small class="text-white-50" style="font-size: 0.72rem;">Biblioteca Universitaria</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
+        <div>
+            <div class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-person-circle fs-3 text-info"></i>
+                    <div class="overflow-hidden">
+                        <div class="fw-semibold text-white text-truncate"></div>
+                        <span class="badge bg-primary" style="font-size: 0.68rem;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- APARTADOS PRINCIPALES -->
+            <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
+            <div class="d-flex flex-column gap-1 mb-4">
+                <a href="index.html" class="sidebar-menu-item">
+                    <i class="bi bi-house-door-fill menu-icon text-warning"></i>
+                    <div class="flex-grow-1">
+                        <div>Inicio</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Portal principal y novedades</small>
+                    </div>
+                </a>
+
+                <a href="catalogo.html" class="sidebar-menu-item">
+                    <i class="bi bi-journal-bookmark-fill menu-icon text-info"></i>
+                    <div class="flex-grow-1">
+                        <div>Catálogo</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Explorar libros y categorías</small>
+                    </div>
+                </a>
+
+                <a href="innovacion.html" class="sidebar-menu-item">
+                    <i class="bi bi-universal-access-circle menu-icon text-success"></i>
+                    <div class="flex-grow-1">
+                        <div>ODS 09: Accesibilidad</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Inclusión asistiva WCAG</small>
+                    </div>
+                </a>
+
+                <a href="misPrestamos.html" class="sidebar-menu-item">
+                    <i class="bi bi-clock-history menu-icon text-warning"></i>
+                    <div class="flex-grow-1">
+                        <div>Mis Préstamos</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
+                    </div>
+                </a>
+
+                <a href="donar.html" class="sidebar-menu-item">
+                    <i class="bi bi-gift-fill menu-icon text-danger"></i>
+                    <div class="flex-grow-1">
+                        <div>Donar Libros</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Dona libros a la biblioteca</small>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SERVICIOS -->
+            <p class="sidebar-subtitle mb-2 px-2">Servicios</p>
+            <div class="d-flex flex-column gap-2 mb-3">
+                <a href="catalogo.html" class="btn btn-outline-light text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3">
+                    <i class="bi bi-search"></i> Explorar Catálogo
+                </a>
+                <a href="innovacion.html" class="btn btn-outline-info text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3">
+                    <i class="bi bi-universal-access"></i> Centro ODS 09
+                </a>
+            </div>
+        </div>
+
+        <div class="pt-3 border-top border-secondary border-opacity-25 text-center text-white-50 small">
+            <span>BookHub v2.0 • Inclusión Digital</span>
+        </div>
+    </div>
+</div>
+
+<!-- NAVBAR CON BOTÓN DE TRES LÍNEAS -->
+<nav class="navbar navbar-dark bg-dark sticky-top shadow-sm py-2 navbar-scroll-fade" id="mainNavbar">
+    <div class="container-fluid px-3 px-lg-4">
+
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn-sidebar-toggle"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebarBookHub"
+                    aria-controls="sidebarBookHub"
+                    title="Abrir menú de apartados (Inicio, Catálogo, ODS 09, Mis préstamos)"
+                    aria-label="Menú principal de 3 líneas">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
+                <img src="img/logo.svg" alt="BookHub Logo" width="34" height="34" class="d-inline-block">
+                <span>BookHub</span>
+            </a>
+        </div>
+
+        <!-- Lado derecho: Sesión activa -->
+        <div class="d-flex align-items-center gap-2 ms-auto">
+            <span class="text-white small d-none d-sm-inline">
+                Hola, <strong></strong>
+            </span>
+
+            <a href="login.html" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="container py-4">
+
+    <!-- PERFIL INSTITUCIONAL DEL LECTOR -->
+    <div class="card card-profile p-4 mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="user-avatar-box">
+                    
+                </div>
+                <div>
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                        <h4 class="fw-bold mb-0 text-dark"></h4>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                            <i class="bi bi-check-circle-fill me-1"></i>Membresía activa
+                        </span>
+                    </div>
+                    <div class="text-secondary small d-flex flex-wrap align-items-center gap-3">
+                        <span><i class="bi bi-envelope me-1"></i></span>
+                        <span><i class="bi bi-person-badge me-1"></i>ID de Lector: #</span>
+                        <span><i class="bi bi-building me-1"></i>Comunidad Universitaria</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <a href="catalogo.html" class="btn btn-primary btn-sm d-flex align-items-center gap-1 px-3 py-2">
+                    <i class="bi bi-journal-bookmark-fill"></i> <span>Ir al Catálogo</span>
+                </a>
+                <a href="misPrestamos.html" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1 px-3 py-2">
+                    <i class="bi bi-clock-history"></i> <span>Mis Préstamos</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- TARJETAS DE INDICADORES / ACTIVIDAD DEL LECTOR -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Libros en préstamo</span>
+                    <span class="badge ">
+                        
+                    </span>
+                </div>
+                <div class="d-flex align-items-baseline gap-2">
+                    <h2 class="fw-bold mb-0 text-dark"></h2>
+                    <span class="text-muted small">ejemplar activo</span>
+                </div>
+                <div class="mt-2 pt-2 border-top">
+                    <a href="misPrestamos.html" class="small text-decoration-none text-primary d-inline-flex align-items-center gap-1">
+                        Ver detalles de fechas <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Préstamos completados</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                        Historial
+                    </span>
+                </div>
+                <div class="d-flex align-items-baseline gap-2">
+                    <h2 class="fw-bold mb-0 text-dark"></h2>
+                    <span class="text-muted small">libro devuelto</span>
+                </div>
+                <div class="mt-2 pt-2 border-top">
+                    <span class="small text-muted">Registro histórico en biblioteca</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Estado de cuenta</span>
+                    <span class="badge bg-success text-white">Regular</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-shield-check fs-3 text-success"></i>
+                    <div>
+                        <div class="fw-semibold text-dark">Sin sanciones ni mora</div>
+                        <div class="text-muted small">Habilitado para solicitar libros</div>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-top">
+                    <span class="small text-muted">Límite de préstamo: hasta 3 libros</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUSCADOR RÁPIDO DE CATÁLOGO -->
+    <div class="card card-profile p-4 mb-4">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-3 mb-lg-0">
+                <h5 class="fw-bold mb-1 text-dark">
+                    <i class="bi bi-search text-primary me-2"></i>Búsqueda en el acervo bibliográfico
+                </h5>
+                <p class="text-muted small mb-0">
+                    Consulta al instante la disponibilidad de títulos, autores y materias en catálogo.
+                </p>
+            </div>
+            <div class="col-lg-7">
+                <form action="catalogo.html" method="get">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi bi-search text-muted"></i>
+                        </span>
+                        <input type="text"
+                               name="busqueda"
+                               class="form-control border-start-0"
+                               placeholder="Ingresa título, autor o tema de tu interés..."
+                               required>
+                        <button type="submit" class="btn btn-primary px-4">
+                            Buscar libro
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIBROS ACTUALES EN PRÉSTAMO (SI EXISTEN) -->
+    
+    <div class="card card-profile mb-4">
+        <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="fw-semibold text-dark">
+                <i class="bi bi-book-half text-primary me-2"></i>Libros que tienes en préstamo actualmente
+            </div>
+            <a href="misPrestamos.html" class="btn btn-sm btn-outline-primary">
+                Ver todos mis préstamos
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-loans">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Libro</th>
+                        <th>Fecha de Préstamo</th>
+                        <th>Fecha Límite de Devolución</th>
+                        <th>Estado</th>
+                        <th class="text-end pe-4">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td class="ps-4">
+                            <div class="fw-semibold text-dark"></div>
+                            <small class="text-muted"></small>
+                        </td>
+                        <td></td>
+                        <td>
+                            <span class="badge bg-light text-dark border">
+                                <i class="bi bi-calendar-event me-1"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                <i class="bi bi-hourglass-split me-1"></i>Prestado
+                            </span>
+                        </td>
+                        <td class="text-end pe-4">
+                            <a href="Detallelibros.html?id=" class="btn btn-sm btn-outline-secondary">
+                                Ver ficha
+                            </a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+    <!-- SERVICIOS DISPONIBLES EN LA BIBLIOTECA -->
+    <h5 class="fw-bold text-dark mb-3">
+        <i class="bi bi-grid-fill text-primary me-2"></i>Servicios para la comunidad lectora
+    </h5>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card service-card p-4">
+                <div class="service-icon-wrap bg-primary-subtle text-primary">
+                    <i class="bi bi-journal-text"></i>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Catálogo General</h6>
+                <p class="text-muted small mb-3">
+                    Explora libros en literatura, ciencias exactas, ingeniería, historia y más, con disponibilidad en tiempo real.
+                </p>
+                <div class="mt-auto">
+                    <a href="catalogo.html" class="btn btn-sm btn-outline-primary w-100">
+                        Explorar acervo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card service-card p-4">
+                <div class="service-icon-wrap bg-danger-subtle text-danger">
+                    <i class="bi bi-gift"></i>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Donación de Libros</h6>
+                <p class="text-muted small mb-3">
+                    Comparte libros con otros lectores mediante nuestro programa solidario de donación bibliográfica.
+                </p>
+                <div class="mt-auto">
+                    <a href="donar.html" class="btn btn-sm btn-outline-danger w-100">
+                        Donar un ejemplar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card service-card p-4">
+                <div class="service-icon-wrap bg-success-subtle text-success">
+                    <i class="bi bi-universal-access"></i>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Inclusión y Accesibilidad (ODS 9)</h6>
+                <p class="text-muted small mb-3">
+                    Lectura con síntesis de voz, dictado de búsqueda, tipografías para dislexia y modo de alto contraste.
+                </p>
+                <div class="mt-auto">
+                    <a href="innovacion.html" class="btn btn-sm btn-outline-success w-100">
+                        Centro de accesibilidad
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GUÍA DE SERVICIO Y NORMAS DE PRÉSTAMO -->
+    <div class="card card-profile p-4">
+        <h6 class="fw-bold text-dark mb-3">
+            <i class="bi bi-info-circle text-primary me-2"></i>Guía y normas de préstamo universitario
+        </h6>
+        <div class="row g-3 small text-secondary">
+            <div class="col-md-4">
+                <div class="p-3 rounded-2 bg-light border">
+                    <div class="fw-semibold text-dark mb-1">
+                        <i class="bi bi-calendar-check text-primary me-1"></i> Plazo de préstamo
+                    </div>
+                    <div>Los ejemplares se otorgan por un período regular de 7 días naturales, renovables si no existen reservas.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-2 bg-light border">
+                    <div class="fw-semibold text-dark mb-1">
+                        <i class="bi bi-arrow-repeat text-success me-1"></i> Devolución responsable
+                    </div>
+                    <div>Puedes entregar los libros en ventanilla de atención o registrar su entrega con el personal encargado.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-2 bg-light border">
+                    <div class="fw-semibold text-dark mb-1">
+                        <i class="bi bi-headset text-info me-1"></i> Asistencia al lector
+                    </div>
+                    <div>Si necesitas adaptaciones de lectura asistida o consultas especializadas, consulta al equipo de biblioteca.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+        <p class="mb-1 fw-semibold">BookHub</p>
+        <p class="mb-0 small text-white-50">
+            Sistema de Gestión de Biblioteca Universitaria • Inclusión Digital ODS 9
+        </p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('mainNavbar');
+        if (!navbar) return;
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScrollY > 70) {
+            navbar.classList.add('navbar-hidden');
+        } else {
+            navbar.classList.remove('navbar-hidden');
+        }
+    }, { passive: true });
+</script>
+
+
+<!-- ==========================================
+     SISTEMA UNIVERSAL DE ACCESIBILIDAD BOOKHUB (WCAG 2.1 AAA)
+     Compatible con todas las vistas de Administrador y Usuario
+     ========================================== -->
+<style id="a11yGlobalStyles">
+    /* 1. MODO SEPIA */
+    body.a11y-theme-sepia {
+        background-color: #fbf0d9 !important;
+        color: #3d2b1f !important;
+    }
+    body.a11y-theme-sepia .card,
+    body.a11y-theme-sepia .modal-content,
+    body.a11y-theme-sepia .navbar,
+    body.a11y-theme-sepia footer,
+    body.a11y-theme-sepia .hero {
+        background: #f4e6c0 !important;
+        background-color: #f4e6c0 !important;
+        color: #3d2b1f !important;
+        border-color: #dfcca4 !important;
+    }
+    body.a11y-theme-sepia h1, body.a11y-theme-sepia h2, body.a11y-theme-sepia h3,
+    body.a11y-theme-sepia h4, body.a11y-theme-sepia h5, body.a11y-theme-sepia h6,
+    body.a11y-theme-sepia strong, body.a11y-theme-sepia th {
+        color: #261a12 !important;
+    }
+    body.a11y-theme-sepia .text-muted, body.a11y-theme-sepia .text-secondary,
+    body.a11y-theme-sepia .text-dark, body.a11y-theme-sepia .text-white-50 {
+        color: #5c4331 !important;
+    }
+    body.a11y-theme-sepia .form-control, body.a11y-theme-sepia .form-select {
+        background-color: #fbf0d9 !important;
+        color: #3d2b1f !important;
+        border-color: #bfa67c !important;
+    }
+    body.a11y-theme-sepia a { color: #8b3a00 !important; }
+    body.a11y-theme-sepia .btn-primary {
+        background-color: #8b3a00 !important;
+        border-color: #8b3a00 !important;
+        color: #ffffff !important;
+    }
+    body.a11y-theme-sepia .table {
+        color: #3d2b1f !important;
+        background-color: #fbf0d9 !important;
+    }
+
+    /* 2. MODO PIZARRA OSCURA */
+    body.a11y-theme-dark {
+        background-color: #0f172a !important;
+        color: #f8fafc !important;
+    }
+    body.a11y-theme-dark .card,
+    body.a11y-theme-dark .modal-content,
+    body.a11y-theme-dark .navbar,
+    body.a11y-theme-dark footer,
+    body.a11y-theme-dark .hero {
+        background: #1e293b !important;
+        background-color: #1e293b !important;
+        color: #f8fafc !important;
+        border-color: #334155 !important;
+    }
+    body.a11y-theme-dark h1, body.a11y-theme-dark h2, body.a11y-theme-dark h3,
+    body.a11y-theme-dark h4, body.a11y-theme-dark h5, body.a11y-theme-dark h6,
+    body.a11y-theme-dark strong, body.a11y-theme-dark th {
+        color: #ffffff !important;
+    }
+    body.a11y-theme-dark .text-muted, body.a11y-theme-dark .text-secondary,
+    body.a11y-theme-dark .text-dark, body.a11y-theme-dark .text-white-50 {
+        color: #cbd5e1 !important;
+    }
+    body.a11y-theme-dark .form-control, body.a11y-theme-dark .form-select {
+        background-color: #0f172a !important;
+        color: #f8fafc !important;
+        border-color: #475569 !important;
+    }
+    body.a11y-theme-dark a { color: #60a5fa !important; }
+    body.a11y-theme-dark .table {
+        color: #f8fafc !important;
+        background-color: #1e293b !important;
+    }
+
+    /* 3. MODO ALTO CONTRASTE (WCAG AAA) */
+    body.a11y-theme-contrast {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.a11y-theme-contrast .card,
+    body.a11y-theme-contrast .modal-content,
+    body.a11y-theme-contrast .navbar,
+    body.a11y-theme-contrast footer,
+    body.a11y-theme-contrast .hero {
+        background: #0a0a0a !important;
+        background-color: #0a0a0a !important;
+        color: #ffffff !important;
+        border: 2px solid #ffff00 !important;
+    }
+    body.a11y-theme-contrast h1, body.a11y-theme-contrast h2, body.a11y-theme-contrast h3,
+    body.a11y-theme-contrast h4, body.a11y-theme-contrast h5, body.a11y-theme-contrast h6,
+    body.a11y-theme-contrast strong, body.a11y-theme-contrast th {
+        color: #ffff00 !important;
+    }
+    body.a11y-theme-contrast p, body.a11y-theme-contrast span, body.a11y-theme-contrast td,
+    body.a11y-theme-contrast div, body.a11y-theme-contrast label {
+        color: #ffffff !important;
+    }
+    body.a11y-theme-contrast .text-muted, body.a11y-theme-contrast .text-secondary,
+    body.a11y-theme-contrast .text-dark, body.a11y-theme-contrast .text-white-50 {
+        color: #ffffff !important;
+        font-weight: 500 !important;
+    }
+    body.a11y-theme-contrast .form-control, body.a11y-theme-contrast .form-select {
+        background-color: #000000 !important;
+        color: #ffff00 !important;
+        border: 2px solid #ffff00 !important;
+    }
+    body.a11y-theme-contrast a {
+        color: #00ffff !important;
+        text-decoration: underline !important;
+    }
+    body.a11y-theme-contrast .btn-primary {
+        background-color: #ffff00 !important;
+        border-color: #ffff00 !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+    }
+    body.a11y-theme-contrast .btn-outline-primary,
+    body.a11y-theme-contrast .btn-outline-secondary,
+    body.a11y-theme-contrast .btn-outline-light {
+        border: 2px solid #ffff00 !important;
+        color: #ffff00 !important;
+    }
+    body.a11y-theme-contrast .table {
+        color: #ffffff !important;
+        background-color: #000000 !important;
+        border: 1px solid #ffff00 !important;
+    }
+
+    /* 4. ESCALADOR TIPOGRÁFICO */
+    body.a11y-scale-115 { font-size: 1.15rem !important; }
+    body.a11y-scale-130 { font-size: 1.30rem !important; }
+    body.a11y-scale-145 { font-size: 1.45rem !important; }
+
+    /* 5. MODO DISLEXIA */
+    body.a11y-dyslexia * {
+        font-family: 'Comic Sans MS', 'Atkinson Hyperlegible', sans-serif !important;
+        letter-spacing: 0.05em !important;
+        word-spacing: 0.1em !important;
+        line-height: 1.85 !important;
+    }
+
+    /* 6. SUBRAYADO DE ENLACES */
+    body.a11y-underline a {
+        text-decoration: underline !important;
+        text-underline-offset: 3px !important;
+    }
+
+    /* MÁSCARA / FOCO DE LECTURA (TDAH) */
+    #a11yFocusRuler {
+        display: none;
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: rgba(37, 99, 235, 0.08);
+        border-top: 2px solid #2563eb;
+        border-bottom: 2px solid #2563eb;
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+        z-index: 99999;
+        transform: translateY(-50%);
+    }
+
+    /* BOTÓN FLOTANTE PARA LEER TEXTO SELECCIONADO */
+    #a11yBtnAudioSel {
+        display: none;
+        position: absolute;
+        z-index: 100000;
+        background: #1e3a8a;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+    }
+    #a11yBtnAudioSel:hover {
+        background: #2563eb;
+    }
+
+    /* BOTÓN FLOTANTE DE ACCESIBILIDAD */
+    .a11y-float-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #1e3a8a;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 9999;
+        font-size: 1.4rem;
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .a11y-float-btn:hover {
+        transform: scale(1.1);
+        background: #2563eb;
+    }
+
+    /* PANEL LATERAL DE ACCESIBILIDAD */
+    .a11y-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 340px;
+        max-width: 90vw;
+        background: #ffffff;
+        color: #1e293b;
+        border-left: 1px solid #cbd5e1;
+        box-shadow: -8px 0 24px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        overflow-y: auto;
+        display: none;
+        animation: a11ySlideInRight 0.25s ease-out;
+    }
+    @keyframes a11ySlideInRight {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+    }
+    .a11y-panel-header {
+        background: #1e3a8a;
+        color: #ffffff;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .a11y-panel-body {
+        padding: 18px 20px;
+    }
+    .a11y-section-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #64748b;
+        margin-bottom: 8px;
+        margin-top: 14px;
+    }
+</style>
+
+<!-- ELEMENTOS FLOTANTES DE ACCESIBILIDAD -->
+<div id="a11yFocusRuler"></div>
+<button id="a11yBtnAudioSel" type="button" onclick="a11yLeerTextoSeleccionado()">
+    <i class="bi bi-volume-up-fill me-1"></i> Audio
+</button>
+
+<button class="a11y-float-btn" type="button" onclick="toggleA11yPanel()" title="Herramientas de Accesibilidad (WCAG)" aria-label="Abrir panel de accesibilidad">
+    <i class="bi bi-universal-access"></i>
+</button>
+
+<!-- PANEL LATERAL DE ACCESIBILIDAD -->
+<div class="a11y-panel shadow-lg" id="a11yPanelDrawer">
+    <div class="a11y-panel-header">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-universal-access fs-4"></i>
+            <div>
+                <h6 class="mb-0 fw-bold">Accesibilidad BookHub</h6>
+                <small class="text-white-50" style="font-size: 0.72rem;">Normas WCAG 2.1 AAA</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" onclick="toggleA11yPanel()" aria-label="Cerrar panel"></button>
+    </div>
+
+    <div class="a11y-panel-body">
+        <!-- 1. CONTRASTE Y TEMAS -->
+        <div class="a11y-section-title mt-0">Modo Visual y Contraste</div>
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-sm btn-outline-dark text-start d-flex align-items-center justify-content-between py-2" onclick="setA11yTheme('normal')">
+                <span><i class="bi bi-sun-fill me-2 text-warning"></i> Modo Estándar</span>
+                <span class="badge bg-secondary" id="badgeThemeNormal">Normal</span>
+            </button>
+            <button class="btn btn-sm text-start d-flex align-items-center justify-content-between py-2" style="background:#fbf0d9; color:#2c221e; border:1px solid #d4c5a9;" onclick="setA11yTheme('sepia')">
+                <span><i class="bi bi-book me-2"></i> Sepia (Lectura Cálida)</span>
+                <span class="badge bg-dark" id="badgeThemeSepia" style="display:none;">Activo</span>
+            </button>
+            <button class="btn btn-sm btn-dark text-start d-flex align-items-center justify-content-between py-2" onclick="setA11yTheme('dark')">
+                <span><i class="bi bi-moon-stars-fill me-2 text-info"></i> Modo Pizarra / Noche</span>
+                <span class="badge bg-info text-dark" id="badgeThemeDark" style="display:none;">Activo</span>
+            </button>
+            <button class="btn btn-sm text-start d-flex align-items-center justify-content-between py-2" style="background:#000000; color:#ffff00; border:2px solid #ffff00; font-weight:600;" onclick="setA11yTheme('contrast')">
+                <span><i class="bi bi-circle-half me-2"></i> Alto Contraste (AAA)</span>
+                <span class="badge bg-warning text-dark" id="badgeThemeContrast" style="display:none;">Activo</span>
+            </button>
+        </div>
+
+        <!-- 2. TAMAÑO DE TEXTO PROGRESIVO -->
+        <div class="a11y-section-title">Tamaño de Texto</div>
+        <div class="btn-group w-100 mb-3" role="group">
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnScale100" onclick="setA11yScale(100)">100%</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnScale115" onclick="setA11yScale(115)">115%</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnScale130" onclick="setA11yScale(130)">130%</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnScale145" onclick="setA11yScale(145)">145%</button>
+        </div>
+
+        <!-- 3. APOYO A LA LECTURA Y NEURODIVERGENCIA -->
+        <div class="a11y-section-title">Apoyo a la Lectura & TDAH</div>
+        <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="checkA11yFocusRuler" onchange="toggleA11yFocusRuler(this.checked)">
+            <label class="form-check-label small" for="checkA11yFocusRuler">Máscara / Regla de enfoque (TDAH)</label>
+        </div>
+        <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="checkA11yDyslexia" onchange="toggleA11yDyslexia(this.checked)">
+            <label class="form-check-label small" for="checkA11yDyslexia">Tipografía para Dislexia</label>
+        </div>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="checkA11yUnderline" onchange="toggleA11yUnderline(this.checked)">
+            <label class="form-check-label small" for="checkA11yUnderline">Subrayar todos los enlaces</label>
+        </div>
+
+        <!-- 4. LECTURA ASISTIDA POR VOZ (TTS) -->
+        <div class="a11y-section-title">Lector de Pantalla Asistido</div>
+        <p class="text-muted small mb-2">Selecciona cualquier texto en la pantalla con el ratón para escuchar su locución automática.</p>
+        <button class="btn btn-outline-primary btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-2 mb-3" onclick="a11yLeerEncabezados()">
+            <i class="bi bi-volume-up-fill"></i> Escuchar Resumen de la Página
+        </button>
+
+        <button class="btn btn-outline-secondary btn-sm w-100" onclick="resetA11ySettings()">
+            <i class="bi bi-arrow-counterclockwise"></i> Restaurar Configuración
+        </button>
+    </div>
+</div>
+
+<script id="a11yGlobalScript">
+    const A11Y_STORAGE_KEY = 'bookhub_a11y_state';
+    let a11yState = {
+        theme: 'normal',
+        scale: 100,
+        dyslexia: false,
+        underline: false,
+        focusRuler: false
+    };
+
+    function loadA11yState() {
+        try {
+            const saved = localStorage.getItem(A11Y_STORAGE_KEY);
+            if (saved) {
+                a11yState = Object.assign(a11yState, JSON.parse(saved));
+            }
+        } catch (e) {}
+        applyA11yState();
+    }
+
+    function saveA11yState() {
+        try {
+            localStorage.setItem(A11Y_STORAGE_KEY, JSON.stringify(a11yState));
+        } catch (e) {}
+    }
+
+    function applyA11yState() {
+        // 1. Tema
+        document.body.classList.remove('a11y-theme-sepia', 'a11y-theme-dark', 'a11y-theme-contrast');
+        if (a11yState.theme === 'sepia') document.body.classList.add('a11y-theme-sepia');
+        else if (a11yState.theme === 'dark') document.body.classList.add('a11y-theme-dark');
+        else if (a11yState.theme === 'contrast') document.body.classList.add('a11y-theme-contrast');
+
+        // Badges
+        const bNormal = document.getElementById('badgeThemeNormal');
+        const bSepia = document.getElementById('badgeThemeSepia');
+        const bDark = document.getElementById('badgeThemeDark');
+        const bContrast = document.getElementById('badgeThemeContrast');
+        if (bNormal) bNormal.style.display = a11yState.theme === 'normal' ? '' : 'none';
+        if (bSepia) bSepia.style.display = a11yState.theme === 'sepia' ? '' : 'none';
+        if (bDark) bDark.style.display = a11yState.theme === 'dark' ? '' : 'none';
+        if (bContrast) bContrast.style.display = a11yState.theme === 'contrast' ? '' : 'none';
+
+        // 2. Escala
+        document.body.classList.remove('a11y-scale-115', 'a11y-scale-130', 'a11y-scale-145');
+        ['btnScale100', 'btnScale115', 'btnScale130', 'btnScale145'].forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) btn.classList.remove('active');
+        });
+        if (a11yState.scale === 115) {
+            document.body.classList.add('a11y-scale-115');
+            document.getElementById('btnScale115')?.classList.add('active');
+        } else if (a11yState.scale === 130) {
+            document.body.classList.add('a11y-scale-130');
+            document.getElementById('btnScale130')?.classList.add('active');
+        } else if (a11yState.scale === 145) {
+            document.body.classList.add('a11y-scale-145');
+            document.getElementById('btnScale145')?.classList.add('active');
+        } else {
+            document.getElementById('btnScale100')?.classList.add('active');
+        }
+
+        // 3. Dislexia
+        document.body.classList.toggle('a11y-dyslexia', !!a11yState.dyslexia);
+        const cDys = document.getElementById('checkA11yDyslexia');
+        if (cDys) cDys.checked = !!a11yState.dyslexia;
+
+        // 4. Subrayado
+        document.body.classList.toggle('a11y-underline', !!a11yState.underline);
+        const cUnd = document.getElementById('checkA11yUnderline');
+        if (cUnd) cUnd.checked = !!a11yState.underline;
+
+        // 5. Regla de enfoque
+        const ruler = document.getElementById('a11yFocusRuler');
+        if (ruler) ruler.style.display = a11yState.focusRuler ? 'block' : 'none';
+        const cRul = document.getElementById('checkA11yFocusRuler');
+        if (cRul) cRul.checked = !!a11yState.focusRuler;
+    }
+
+    function toggleA11yPanel() {
+        const p = document.getElementById('a11yPanelDrawer');
+        if (p) {
+            p.style.display = (p.style.display === 'block') ? 'none' : 'block';
+        }
+    }
+
+    function setA11yTheme(theme) {
+        a11yState.theme = theme;
+        applyA11yState();
+        saveA11yState();
+    }
+
+    function setA11yScale(scale) {
+        a11yState.scale = scale;
+        applyA11yState();
+        saveA11yState();
+    }
+
+    function toggleA11yDyslexia(checked) {
+        a11yState.dyslexia = checked !== undefined ? checked : !a11yState.dyslexia;
+        applyA11yState();
+        saveA11yState();
+    }
+
+    function toggleA11yUnderline(checked) {
+        a11yState.underline = checked !== undefined ? checked : !a11yState.underline;
+        applyA11yState();
+        saveA11yState();
+    }
+
+    function toggleA11yFocusRuler(checked) {
+        a11yState.focusRuler = checked !== undefined ? checked : !a11yState.focusRuler;
+        applyA11yState();
+        saveA11yState();
+    }
+
+    function resetA11ySettings() {
+        a11yState = { theme: 'normal', scale: 100, dyslexia: false, underline: false, focusRuler: false };
+        applyA11yState();
+        saveA11yState();
+    }
+
+    // Movimiento de la regla de lectura con el cursor
+    document.addEventListener('mousemove', (e) => {
+        if (!a11yState.focusRuler) return;
+        const ruler = document.getElementById('a11yFocusRuler');
+        if (ruler) ruler.style.top = e.clientY + 'px';
+    });
+
+    // Síntesis de voz (TTS)
+    function a11yHablar(texto) {
+        if (!('speechSynthesis' in window) || !texto) return;
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(texto);
+        utter.lang = 'es-ES';
+        utter.rate = 1.0;
+        window.speechSynthesis.speak(utter);
+    }
+
+    function a11yLeerEncabezados() {
+        const h1 = document.querySelector('h1, h2');
+        const p = document.querySelector('p.text-muted, p');
+        let texto = '';
+        if (h1) texto += h1.innerText + '. ';
+        if (p) texto += p.innerText;
+        if (!texto) texto = document.title;
+        a11yHablar(texto);
+    }
+
+    let a11ySelectedText = '';
+    document.addEventListener('mouseup', (e) => {
+        const btn = document.getElementById('a11yBtnAudioSel');
+        if (!btn) return;
+        const sel = window.getSelection().toString().trim();
+        if (sel && sel.length > 2) {
+            a11ySelectedText = sel;
+            btn.style.left = Math.min(window.innerWidth - 120, e.pageX + 10) + 'px';
+            btn.style.top = Math.max(10, e.pageY - 35) + 'px';
+            btn.style.display = 'block';
+        } else {
+            setTimeout(() => {
+                if (btn && !window.getSelection().toString().trim()) {
+                    btn.style.display = 'none';
+                }
+            }, 250);
+        }
+    });
+
+    function a11yLeerTextoSeleccionado() {
+        if (a11ySelectedText) {
+            a11yHablar(a11ySelectedText);
+            const btn = document.getElementById('a11yBtnAudioSel');
+            if (btn) btn.style.display = 'none';
+        }
+    }
+
+    // Inicializar accesibilidad al cargar la página
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadA11yState);
+    } else {
+        loadA11yState();
+    }
+</script>
+
+
+</body>
+</html>

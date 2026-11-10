@@ -66,19 +66,30 @@ public class CategoriaDAO {
 
     public void agregar(Categoria categoria) {
         String sql = "INSERT INTO categorias (nombre, descripcion) VALUES (?, ?)";
+        int idGenerado = -1;
         try (Connection con = Conexion.conectar()) {
             if (con != null) {
-                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                try (PreparedStatement ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
                     ps.setString(1, categoria.getNombre());
                     ps.setString(2, categoria.getDescripcion());
                     ps.executeUpdate();
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            idGenerado = rs.getInt(1);
+                            categoria.setIdCategoria(idGenerado);
+                        }
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Error agregar CategoriaDAO: " + e.getMessage());
         }
 
-        categoria.setIdCategoria(contadorId++);
+        if (idGenerado == -1) {
+            categoria.setIdCategoria(contadorId++);
+        } else {
+            contadorId = Math.max(contadorId, idGenerado + 1);
+        }
         categoriasMemoria.add(categoria);
     }
 

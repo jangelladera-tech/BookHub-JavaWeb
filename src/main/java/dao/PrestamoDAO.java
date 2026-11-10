@@ -96,22 +96,33 @@ public class PrestamoDAO {
 
     public void agregar(Prestamo prestamo) {
         String sql = "INSERT INTO prestamos (id_usuario, id_libro, fecha_prestamo, fecha_devolucion, estado) VALUES (?, ?, ?, ?, ?)";
+        int idGenerado = -1;
         try (Connection con = Conexion.conectar()) {
             if (con != null) {
-                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                try (PreparedStatement ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
                     ps.setInt(1, prestamo.getIdUsuario());
                     ps.setInt(2, prestamo.getIdLibro());
                     ps.setString(3, prestamo.getFechaPrestamo());
                     ps.setString(4, prestamo.getFechaDevolucion());
                     ps.setString(5, prestamo.getEstado());
                     ps.executeUpdate();
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            idGenerado = rs.getInt(1);
+                            prestamo.setIdPrestamo(idGenerado);
+                        }
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Error agregar PrestamoDAO: " + e.getMessage());
         }
 
-        prestamo.setIdPrestamo(contadorId++);
+        if (idGenerado == -1) {
+            prestamo.setIdPrestamo(contadorId++);
+        } else {
+            contadorId = Math.max(contadorId, idGenerado + 1);
+        }
         prestamos.add(prestamo);
     }
 

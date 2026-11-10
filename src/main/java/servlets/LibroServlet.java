@@ -93,14 +93,20 @@ public class LibroServlet extends HttpServlet {
 
         if (idAutorStr != null && !idAutorStr.isEmpty()) {
             int idAutor = Integer.parseInt(idAutorStr);
+            libro.setIdAutor(idAutor);
             Autor autor = autorDAO.obtenerPorId(idAutor);
-            libro.setAutor(autor);
+            if (autor != null) {
+                libro.setAutor(autor);
+            }
         }
 
         if (idCategoriaStr != null && !idCategoriaStr.isEmpty()) {
             int idCategoria = Integer.parseInt(idCategoriaStr);
+            libro.setIdCategoria(idCategoria);
             Categoria categoria = categoriaDAO.obtenerPorId(idCategoria);
-            libro.setCategoria(categoria);
+            if (categoria != null) {
+                libro.setCategoria(categoria);
+            }
         }
 
         if ("actualizar".equals(accion)) {
