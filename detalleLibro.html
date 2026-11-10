@@ -591,33 +591,14 @@
             </div>
 
             <!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión / Registrarse (o Perfil / Salir) -->
-            <div class="d-flex align-items-center gap-2 ms-auto">
-                
-                    
-                        <a href="dashboard.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
-                            <i class="bi bi-speedometer2"></i> <span class="d-none d-sm-inline">Panel Admin</span>
-                        </a>
-                    
-                        <a href="usuario.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
-                            <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline"></span>
-                        </a>
-                    
-                    <a href="login.html" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
-                        <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
-                    </a>
-                
-                    <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
-                        <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
-                    </a>
-                    <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
-                        <i class="bi bi-person-plus"></i> <span>Registrarse</span>
-                    </a>
-                
-            </div>
-
-        </div>
-
-    </nav>
+            
+    <div class="d-flex align-items-center gap-2 ms-auto">
+        <a href="catalogo.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+            <i class="bi bi-arrow-left"></i> <span>Volver al Catálogo</span>
+        </a>
+    </div>
+</div>
+</nav>
 
 
     <div class="container py-4">
@@ -741,7 +722,7 @@
 
                                 <div class="d-flex flex-wrap gap-2 pt-2 border-top">
                                     
-                                        <a href="Solicitarprestamos.html?idLibro="
+                                        <a href="SolicitarPrestamoServlet?idLibro="
                                            class="btn btn-primary btn-sm px-4">
                                             Solicitar préstamo
                                         </a>
@@ -1156,51 +1137,42 @@
         const libro = librosData.find(l => l.id === bookId) || librosData[0];
 
         document.title = libro.titulo + " - BookHub";
-        
-        // Elementos a poblar
-        const titleElements = document.querySelectorAll('h1, h2');
-        titleElements.forEach(el => {
-            if (el.classList.contains('fw-bold') && !el.closest('.modal') && !el.closest('.offcanvas')) {
-                el.textContent = libro.titulo;
-            }
-        });
 
-        const coverImg = document.querySelector('.detalle-portada-box img') || document.querySelector('.book-cover-img');
-        if (coverImg) {
-            coverImg.src = libro.portada;
-            coverImg.alt = "Portada de " + libro.titulo;
+        const titleEl = document.querySelector('h1.fw-bold') || document.querySelector('h2.fw-bold');
+        if (titleEl) titleEl.textContent = libro.titulo;
+
+        const imgEl = document.querySelector('.detalle-portada-box img') || document.querySelector('.book-cover-img');
+        if (imgEl) {
+            imgEl.src = libro.portada;
+            imgEl.alt = "Portada de " + libro.titulo;
         }
 
-        const labels = document.querySelectorAll('li, p, div, span');
-        labels.forEach(el => {
+        const items = document.querySelectorAll('p, div, span, li');
+        items.forEach(el => {
             if (el.textContent.includes('Autor:')) {
                 el.innerHTML = '<strong>Autor:</strong> ' + libro.autor;
             } else if (el.textContent.includes('Categoría:')) {
                 el.innerHTML = '<strong>Categoría:</strong> <span class="badge bg-info text-dark">' + libro.categoria + '</span>';
             } else if (el.textContent.includes('Año:') || el.textContent.includes('Publicación:')) {
-                el.innerHTML = '<strong>Año de Publicación:</strong> ' + libro.anio;
+                el.innerHTML = '<strong>Año:</strong> ' + libro.anio;
             } else if (el.textContent.includes('ISBN:')) {
                 el.innerHTML = '<strong>ISBN:</strong> ' + libro.isbn;
-            } else if (el.textContent.includes('Stock disponible:') || el.textContent.includes('Disponibilidad:')) {
+            } else if (el.textContent.includes('Disponibilidad:') || el.textContent.includes('Stock:')) {
                 el.innerHTML = '<strong>Disponibilidad:</strong> ' + (libro.stock > 0 
                     ? '<span class="badge bg-success">Disponible (' + libro.stock + ' ejemplares)</span>'
-                    : '<span class="badge bg-danger">Agotado</span>');
+                    : '<span class="badge bg-secondary">Agotado</span>');
             }
         });
 
-        // Resumen / descripción
-        const descParagraph = document.querySelector('.lead') || document.querySelector('.book-description');
-        if (descParagraph) {
-            descParagraph.textContent = libro.descripcion;
-        }
+        const descEl = document.querySelector('.lead') || document.querySelector('.card-text');
+        if (descEl) descEl.textContent = libro.descripcion;
 
-        // Configurar botones de audio
-        const btnAudios = document.querySelectorAll('button[onclick*="reproducirAudio"]');
-        btnAudios.forEach(btn => {
-            btn.onclick = () => {
+        const btnAudio = document.querySelector('.btn-audio-detailed') || document.querySelector('button[onclick*="reproducirAudio"]');
+        if (btnAudio) {
+            btnAudio.onclick = () => {
                 reproducirAudio(libro.titulo + ". De " + libro.autor + ". " + libro.descripcion);
             };
-        });
+        }
     });
   </script>
   </body>

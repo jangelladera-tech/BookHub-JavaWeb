@@ -508,24 +508,116 @@
     <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
         <div>
             
-                    <a href="usuario.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
-                        <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline"></span>
-                    </a>
-                
-                <a href="login.html" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
-                    <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
-                </a>
+                <div class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-person-circle fs-3 text-info"></i>
+                        <div class="overflow-hidden">
+                            <div class="fw-semibold text-white text-truncate"></div>
+                            <span class="badge " style="font-size: 0.68rem;">
+                                
+                            </span>
+                        </div>
+                    </div>
+                </div>
             
-                <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
-                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+
+            <!-- APARTADOS PRINCIPALES -->
+            <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
+            <div class="d-flex flex-column gap-1 mb-4">
+                <a href="index.html" class="sidebar-menu-item">
+                    <i class="bi bi-house-door-fill menu-icon text-warning"></i>
+                    <div class="flex-grow-1">
+                        <div>Inicio</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Portal principal y novedades</small>
+                    </div>
                 </a>
-                <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
-                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+
+                <a href="catalogo.html" class="sidebar-menu-item">
+                    <i class="bi bi-journal-bookmark-fill menu-icon text-info"></i>
+                    <div class="flex-grow-1">
+                        <div>Catálogo</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Explorar libros y categorías</small>
+                    </div>
                 </a>
-            
+
+                <a href="innovacion.html" class="sidebar-menu-item active">
+                    <i class="bi bi-universal-access-circle menu-icon text-success"></i>
+                    <div class="flex-grow-1">
+                        <div>ODS 09: Accesibilidad</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Inclusión asistiva WCAG</small>
+                    </div>
+                </a>
+
+                <a href="misPrestamos.html" class="sidebar-menu-item">
+                    <i class="bi bi-clock-history menu-icon text-warning"></i>
+                    <div class="flex-grow-1">
+                        <div>Mis Préstamos</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
+                    </div>
+                </a>
+
+                <a href="donar.html" class="sidebar-menu-item">
+                    <i class="bi bi-gift-fill menu-icon text-danger"></i>
+                    <div class="flex-grow-1">
+                        <div>Donar Libros</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Dona libros a la biblioteca</small>
+                    </div>
+                </a>
+            </div>
+
+            <!-- HERRAMIENTAS Y ACCESIBILIDAD -->
+            <p class="sidebar-subtitle mb-2 px-2">Herramientas & Inclusión</p>
+            <div class="d-flex flex-column gap-2 mb-3">
+                <button class="btn btn-outline-info text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3"
+                        type="button"
+                        onclick="toggleA11yPanel()">
+                    <i class="bi bi-eye"></i> Panel Accesibilidad (WCAG)
+                </button>
+                <a href="catalogo.html" class="btn btn-outline-light text-start d-flex align-items-center gap-2 py-2 px-3 rounded-3">
+                    <i class="bi bi-mic"></i> Búsqueda por Voz
+                </a>
+            </div>
         </div>
 
+        <div class="pt-3 border-top border-secondary border-opacity-25 text-center text-white-50 small">
+            <span>BookHub v2.0 • Inclusión Digital</span>
+        </div>
     </div>
+</div>
+
+<!-- NAVBAR CON BOTÓN DE TRES LÍNEAS (SE DESVANECE AL HACER SCROLL) -->
+<nav class="navbar navbar-dark bg-dark sticky-top shadow-sm py-2 navbar-scroll-fade" id="mainNavbar">
+    <div class="container-fluid px-3 px-lg-4">
+
+        <!-- Lado izquierdo: Botón de tres líneas + Logo -->
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn-sidebar-toggle"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebarBookHub"
+                    aria-controls="sidebarBookHub"
+                    title="Abrir menú de apartados (Inicio, Catálogo, ODS 09, Mis préstamos)"
+                    aria-label="Menú principal de 3 líneas">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
+                <img src="img/logo.svg" alt="BookHub Logo" width="34" height="34" class="d-inline-block">
+                <span>BookHub</span>
+            </a>
+        </div>
+
+        <!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión / Registrarse (o Perfil / Salir) -->
+        
+    <div class="d-flex align-items-center gap-2 ms-auto">
+        <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+            <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+        </a>
+        <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+            <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+        </a>
+    </div>
+</div>
 </nav>
 
 
@@ -845,7 +937,7 @@
                                                 title="Escuchar información del libro">
                                             Escuchar
                                         </button>
-                                        <a href="Detallelibros.html?id="
+                                        <a href="DetalleLibroServlet?id="
                                            class="btn btn-outline-primary"
                                            title="Ver detalles">
                                             Ficha
@@ -1201,7 +1293,7 @@
                 document.getElementById('sttEstado').innerText = 'Texto reconocido:';
                 const btnIr = document.getElementById('btnIrACatalogoConVoz');
                 if (btnIr) {
-                    btnIr.href = 'catalogo.html?busqueda=' + encodeURIComponent(transcript);
+                    btnIr.href = 'CatalogoServlet?busqueda=' + encodeURIComponent(transcript);
                 }
             };
 
