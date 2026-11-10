@@ -123,6 +123,48 @@ public class LibroDAO {
         return new ArrayList<>(librosMemoria);
     }
 
+    public List<Libro> buscar(String busqueda, String categoria) {
+        List<Libro> todos = listar();
+        if ((busqueda == null || busqueda.trim().isEmpty())
+                && (categoria == null || categoria.trim().isEmpty() || "todas".equalsIgnoreCase(categoria.trim()))) {
+            return todos;
+        }
+
+        String q = busqueda != null ? busqueda.trim().toLowerCase() : "";
+        String cat = categoria != null ? categoria.trim().toLowerCase() : "";
+        if ("todas".equalsIgnoreCase(cat)) {
+            cat = "";
+        }
+
+        List<Libro> filtrados = new ArrayList<>();
+        for (Libro l : todos) {
+            boolean coincideTexto = q.isEmpty();
+            if (!coincideTexto) {
+                String tit = l.getTitulo() != null ? l.getTitulo().toLowerCase() : "";
+                String aut = l.getNombreAutor() != null ? l.getNombreAutor().toLowerCase() : "";
+                String isbn = l.getIsbn() != null ? l.getIsbn().toLowerCase() : "";
+                String desc = l.getDescripcion() != null ? l.getDescripcion().toLowerCase() : "";
+                String cname = l.getNombreCategoria() != null ? l.getNombreCategoria().toLowerCase() : "";
+                if (tit.contains(q) || aut.contains(q) || isbn.contains(q) || desc.contains(q) || cname.contains(q)) {
+                    coincideTexto = true;
+                }
+            }
+
+            boolean coincideCat = cat.isEmpty();
+            if (!coincideCat) {
+                String cname = l.getNombreCategoria() != null ? l.getNombreCategoria().toLowerCase() : "";
+                if (cname.equalsIgnoreCase(cat) || cname.contains(cat) || String.valueOf(l.getIdCategoria()).equals(cat)) {
+                    coincideCat = true;
+                }
+            }
+
+            if (coincideTexto && coincideCat) {
+                filtrados.add(l);
+            }
+        }
+        return filtrados;
+    }
+
     public Libro obtenerPorId(int id) {
         for (Libro libro : listar()) {
             if (libro.getIdLibro() == id) {
