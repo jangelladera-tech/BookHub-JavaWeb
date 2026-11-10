@@ -134,10 +134,19 @@ function replaceUrls(content) {
     .replace(/href="usuarios\.jsp"/g, 'href="usuarios.html"')
     .replace(/href="usuario\.jsp"/g, 'href="usuario.html"');
 
-  if (!res.includes('rel="icon"')) {
-    const fav = `\n    <!-- Favicon / Logo de pestaña del navegador -->\n    <link rel="icon" type="image/svg+xml" href="img/logo.svg">\n    <link rel="alternate icon" type="image/x-icon" href="favicon.ico">\n    <link rel="apple-touch-icon" href="img/logo.svg">\n`;
-    res = res.replace(/<head>/i, '<head>' + fav);
-  }
+  
+  // Inyectar favicon universal
+  res = res.replace(/<!-- Favicon[\s\S]*?-->\s*(<link[^>]+(icon|apple-touch-icon)[^>]*>\s*)+/gi, '');
+  res = res.replace(/<head>/i, '<head>' + `
+    <!-- Favicon / Logo oficial de la ventana y pestañas -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+    <link rel="apple-touch-icon" href="favicon-180x180.png">
+`);
+
 
   return res;
 }
