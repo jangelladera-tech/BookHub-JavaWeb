@@ -216,7 +216,7 @@
                     Admin: <strong></strong>
                 </span>
             
-            <a href="login.html" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+            <a href="javascript:void(0)" onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
                 <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
             </a>
         </div>
@@ -901,59 +901,76 @@
 
 <script id="bookhubSessionScript">
 function sincronizarSesionUI() {
+    // Limpieza de datos obsoletos
+    try { localStorage.removeItem('bookhub_user'); } catch(e){}
+
     let user = null;
     try {
-        const userStr = localStorage.getItem('bookhub_user');
+        const userStr = sessionStorage.getItem('bookhub_user');
         if (userStr) user = JSON.parse(userStr);
     } catch (e) {}
 
-    const loginBtn = document.getElementById('navBtnLogin');
-    const regBtn = document.getElementById('navBtnRegister');
-    const adminBtn = document.getElementById('navBtnAdmin');
-    const userBtn = document.getElementById('navBtnUser');
-    const logoutBtn = document.getElementById('navBtnLogout');
-    const sideBox = document.getElementById('sidebarUserSessionBox');
-    const sideName = document.getElementById('sidebarUserName');
-    const sideRole = document.getElementById('sidebarUserRole');
-    const sideIcon = document.getElementById('sidebarUserIcon');
-    const navName = document.getElementById('navUserName');
+    const sessionContainer = document.getElementById('navSessionContainer');
+    const sideContainer = document.getElementById('sidebarUserSessionContainer');
 
     if (user && user.nombre) {
-        if (loginBtn) loginBtn.style.display = 'none';
-        if (regBtn) regBtn.style.display = 'none';
-        if (logoutBtn) logoutBtn.style.display = 'inline-flex';
-
-        if (user.rol === 'ADMIN') {
-            if (adminBtn) adminBtn.style.display = 'inline-flex';
-            if (userBtn) userBtn.style.display = 'none';
-        } else {
-            if (adminBtn) adminBtn.style.display = 'none';
-            if (userBtn) userBtn.style.display = 'inline-flex';
-            if (navName) navName.textContent = user.nombre;
+        // Usuario autenticado
+        if (sessionContainer) {
+            if (user.rol === 'ADMIN') {
+                sessionContainer.innerHTML = `
+                    <a href="dashboard.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-speedometer2"></i> <span class="d-none d-sm-inline">Panel Admin</span>
+                    </a>
+                    <button type="button" onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
+                    </button>
+                `;
+            } else {
+                sessionContainer.innerHTML = `
+                    <a href="usuario.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline">${user.nombre}</span>
+                    </a>
+                    <button type="button" onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
+                    </button>
+                `;
+            }
         }
 
-        if (sideBox) {
-            sideBox.style.display = 'block';
-            if (sideName) sideName.textContent = user.nombre;
-            if (sideRole) {
-                sideRole.textContent = user.rol;
-                sideRole.className = 'badge ' + (user.rol === 'ADMIN' ? 'bg-danger' : 'bg-primary');
-            }
-            if (sideIcon) {
-                sideIcon.className = 'bi ' + (user.rol === 'ADMIN' ? 'bi-shield-lock-fill text-danger' : 'bi-person-circle text-info') + ' fs-3';
-            }
+        if (sideContainer) {
+            const isAdm = user.rol === 'ADMIN';
+            sideContainer.innerHTML = `
+                <div class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi ${isAdm ? 'bi-shield-lock-fill text-danger' : 'bi-person-circle text-info'} fs-3"></i>
+                        <div class="overflow-hidden">
+                            <div class="fw-semibold text-white text-truncate">${user.nombre}</div>
+                            <span class="badge ${isAdm ? 'bg-danger' : 'bg-primary'}" style="font-size: 0.68rem;">${user.rol}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
     } else {
-        if (loginBtn) loginBtn.style.display = 'inline-flex';
-        if (regBtn) regBtn.style.display = 'inline-flex';
-        if (adminBtn) adminBtn.style.display = 'none';
-        if (userBtn) userBtn.style.display = 'none';
-        if (logoutBtn) logoutBtn.style.display = 'none';
-        if (sideBox) sideBox.style.display = 'none';
+        // Invitado (sin sesión) - EXACTO al estado inicial de Apache NetBeans
+        if (sessionContainer) {
+            sessionContainer.innerHTML = `
+                <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                </a>
+                <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                </a>
+            `;
+        }
+        if (sideContainer) {
+            sideContainer.innerHTML = '';
+        }
     }
 }
 
 function cerrarSesion() {
+    sessionStorage.removeItem('bookhub_user');
     localStorage.removeItem('bookhub_user');
     window.location.href = 'index.html';
 }

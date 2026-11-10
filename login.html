@@ -57,23 +57,13 @@
                             </div>
 
 
-                            <!-- MENSAJE DE ERROR -->
-
                             
-
-                            <div class="alert alert-success">
-                                ¡Cuenta de lector creada correctamente!
-                                Ya puedes iniciar sesión con tu correo y contraseña.
-                            </div>
-
-                            <%
-                                }
-                            %>
-
-
+    <!-- CONTENEDOR DINÁMICO DE ALERTAS -->
+    <div id="alertContainer"></div>
+  
                             <!-- FORMULARIO LOGIN -->
 
-                            <form action="LoginServlet" method="POST" id="formLogin">
+                            <form action="login.html" method="POST" id="formLogin">
 
                                 <div class="mb-3">
 
@@ -86,7 +76,7 @@
                                            name="correo"
                                            class="form-control"
                                            placeholder="correo@bookhub.com"
-                                           value=""
+                                           
                                            required>
 
                                 </div>
@@ -209,35 +199,47 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Verificar si viene de registro exitoso
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('registro') === 'exitoso') {
+            const container = document.getElementById('alertContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div class="alert alert-success">
+                        ¡Cuenta de lector creada correctamente! Ya puedes iniciar sesión con tu correo y contraseña.
+                    </div>
+                `;
+            }
+        }
+
         const form = document.getElementById('formLogin') || document.querySelector('form');
         if (form) {
-            form.setAttribute('action', 'javascript:void(0)');
             form.onsubmit = (e) => {
                 e.preventDefault();
                 const correo = (document.getElementById('correoInput') ? document.getElementById('correoInput').value : '').trim().toLowerCase();
                 const pass = document.getElementById('passwordInput') ? document.getElementById('passwordInput').value : '';
 
-                if (correo.includes('admin')) {
-                    localStorage.setItem('bookhub_user', JSON.stringify({
+                if (correo === 'admin@bookhub.com') {
+                    sessionStorage.setItem('bookhub_user', JSON.stringify({
                         nombre: 'Administrador',
                         correo: 'admin@bookhub.com',
                         rol: 'ADMIN'
                     }));
                     window.location.href = 'dashboard.html';
-                } else if (correo.includes('maria')) {
-                    localStorage.setItem('bookhub_user', JSON.stringify({
+                } else if (correo === 'maria@bookhub.com') {
+                    sessionStorage.setItem('bookhub_user', JSON.stringify({
                         nombre: 'María López (Lector 2)',
                         correo: 'maria@bookhub.com',
                         rol: 'USUARIO'
                     }));
-                    window.location.href = 'usuario.html';
+                    window.location.href = 'catalogo.html';
                 } else {
-                    localStorage.setItem('bookhub_user', JSON.stringify({
+                    sessionStorage.setItem('bookhub_user', JSON.stringify({
                         nombre: 'Juan Pérez (Lector 1)',
                         correo: correo || 'juan@bookhub.com',
                         rol: 'USUARIO'
                     }));
-                    window.location.href = 'usuario.html';
+                    window.location.href = 'catalogo.html';
                 }
             };
         }

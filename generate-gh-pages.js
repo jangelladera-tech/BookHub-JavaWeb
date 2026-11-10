@@ -92,7 +92,6 @@ function escapeJs(str) {
   return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 }
 
-// Reemplazo exacto de URLs para modo estático en GitHub Pages
 function replaceUrls(content) {
   return content
     .replace(/href="CatalogoServlet"/g, 'href="catalogo.html"')
@@ -110,7 +109,9 @@ function replaceUrls(content) {
     .replace(/href="UsuarioServlet"/g, 'href="usuarios.html"')
     .replace(/href="LoginServlet"/g, 'href="login.html"')
     .replace(/href="RegistroServlet"/g, 'href="registro.html"')
-    .replace(/href="LogoutServlet"/g, 'href="login.html"')
+    .replace(/action="RegistroServlet"/g, 'action="registro.html"')
+    .replace(/action="LoginServlet"/g, 'action="login.html"')
+    .replace(/href="LogoutServlet"/g, 'href="javascript:void(0)" onclick="cerrarSesion()"')
     .replace(/href="DetalleLibroServlet\?id=([0-9]+)"/g, 'href="detalleLibro.html?id=$1"')
     .replace(/href="DetalleLibroServlet"/g, 'href="detalleLibro.html"')
     .replace(/href="index\.jsp"/g, 'href="index.html"')
@@ -134,63 +135,80 @@ function replaceUrls(content) {
     .replace(/href="usuario\.jsp"/g, 'href="usuario.html"');
 }
 
-// Script compartido de sincronización de sesión
+// Sincronizador de sesión basado en sessionStorage (por defecto: nadie ha iniciado sesión)
 const scriptSincronizacionSesion = `
 <script id="bookhubSessionScript">
 function sincronizarSesionUI() {
+    // Limpieza de datos obsoletos
+    try { localStorage.removeItem('bookhub_user'); } catch(e){}
+
     let user = null;
     try {
-        const userStr = localStorage.getItem('bookhub_user');
+        const userStr = sessionStorage.getItem('bookhub_user');
         if (userStr) user = JSON.parse(userStr);
     } catch (e) {}
 
-    const loginBtn = document.getElementById('navBtnLogin');
-    const regBtn = document.getElementById('navBtnRegister');
-    const adminBtn = document.getElementById('navBtnAdmin');
-    const userBtn = document.getElementById('navBtnUser');
-    const logoutBtn = document.getElementById('navBtnLogout');
-    const sideBox = document.getElementById('sidebarUserSessionBox');
-    const sideName = document.getElementById('sidebarUserName');
-    const sideRole = document.getElementById('sidebarUserRole');
-    const sideIcon = document.getElementById('sidebarUserIcon');
-    const navName = document.getElementById('navUserName');
+    const sessionContainer = document.getElementById('navSessionContainer');
+    const sideContainer = document.getElementById('sidebarUserSessionContainer');
 
     if (user && user.nombre) {
-        if (loginBtn) loginBtn.style.display = 'none';
-        if (regBtn) regBtn.style.display = 'none';
-        if (logoutBtn) logoutBtn.style.display = 'inline-flex';
-
-        if (user.rol === 'ADMIN') {
-            if (adminBtn) adminBtn.style.display = 'inline-flex';
-            if (userBtn) userBtn.style.display = 'none';
-        } else {
-            if (adminBtn) adminBtn.style.display = 'none';
-            if (userBtn) userBtn.style.display = 'inline-flex';
-            if (navName) navName.textContent = user.nombre;
+        // Usuario autenticado
+        if (sessionContainer) {
+            if (user.rol === 'ADMIN') {
+                sessionContainer.innerHTML = \`
+                    <a href="dashboard.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-speedometer2"></i> <span class="d-none d-sm-inline">Panel Admin</span>
+                    </a>
+                    <button type="button" onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
+                    </button>
+                \`;
+            } else {
+                sessionContainer.innerHTML = \`
+                    <a href="usuario.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline">\${user.nombre}</span>
+                    </a>
+                    <button type="button" onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
+                    </button>
+                \`;
+            }
         }
 
-        if (sideBox) {
-            sideBox.style.display = 'block';
-            if (sideName) sideName.textContent = user.nombre;
-            if (sideRole) {
-                sideRole.textContent = user.rol;
-                sideRole.className = 'badge ' + (user.rol === 'ADMIN' ? 'bg-danger' : 'bg-primary');
-            }
-            if (sideIcon) {
-                sideIcon.className = 'bi ' + (user.rol === 'ADMIN' ? 'bi-shield-lock-fill text-danger' : 'bi-person-circle text-info') + ' fs-3';
-            }
+        if (sideContainer) {
+            const isAdm = user.rol === 'ADMIN';
+            sideContainer.innerHTML = \`
+                <div class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi \${isAdm ? 'bi-shield-lock-fill text-danger' : 'bi-person-circle text-info'} fs-3"></i>
+                        <div class="overflow-hidden">
+                            <div class="fw-semibold text-white text-truncate">\${user.nombre}</div>
+                            <span class="badge \${isAdm ? 'bg-danger' : 'bg-primary'}" style="font-size: 0.68rem;">\${user.rol}</span>
+                        </div>
+                    </div>
+                </div>
+            \`;
         }
     } else {
-        if (loginBtn) loginBtn.style.display = 'inline-flex';
-        if (regBtn) regBtn.style.display = 'inline-flex';
-        if (adminBtn) adminBtn.style.display = 'none';
-        if (userBtn) userBtn.style.display = 'none';
-        if (logoutBtn) logoutBtn.style.display = 'none';
-        if (sideBox) sideBox.style.display = 'none';
+        // Invitado (sin sesión) - EXACTO al estado inicial de Apache NetBeans
+        if (sessionContainer) {
+            sessionContainer.innerHTML = \`
+                <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                </a>
+                <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                </a>
+            \`;
+        }
+        if (sideContainer) {
+            sideContainer.innerHTML = '';
+        }
     }
 }
 
 function cerrarSesion() {
+    sessionStorage.removeItem('bookhub_user');
     localStorage.removeItem('bookhub_user');
     window.location.href = 'index.html';
 }
@@ -199,79 +217,67 @@ document.addEventListener('DOMContentLoaded', sincronizarSesionUI);
 </script>
 `;
 
-const htmlOffcanvasUserBox = `
-                <div id="sidebarUserSessionBox" style="display:none;" class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
-                    <div class="d-flex align-items-center gap-2">
-                        <i id="sidebarUserIcon" class="bi bi-person-circle text-info fs-3"></i>
-                        <div class="overflow-hidden">
-                            <div id="sidebarUserName" class="fw-semibold text-white text-truncate">Usuario</div>
-                            <span id="sidebarUserRole" class="badge bg-primary" style="font-size: 0.68rem;">LECTOR</span>
-                        </div>
-                    </div>
-                </div>`;
-
-const htmlNavbarSessionContainer = `
-            <div class="d-flex align-items-center gap-2 ms-auto" id="navSessionContainer">
-                <a href="login.html" id="navBtnLogin" class="btn btn-light btn-sm d-flex align-items-center gap-1">
-                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
-                </a>
-                <a href="registro.html" id="navBtnRegister" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
-                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
-                </a>
-                <a href="dashboard.html" id="navBtnAdmin" class="btn btn-warning btn-sm d-flex align-items-center gap-1" style="display:none;">
-                    <i class="bi bi-speedometer2"></i> <span class="d-none d-sm-inline">Panel Admin</span>
-                </a>
-                <a href="usuario.html" id="navBtnUser" class="btn btn-light btn-sm d-flex align-items-center gap-1" style="display:none;">
-                    <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline" id="navUserName">Mi cuenta</span>
-                </a>
-                <button type="button" id="navBtnLogout" onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1" style="display:none;">
-                    <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
-                </button>
-            </div>`;
-
 // -------------------------------------------------------------
-// 1. GENERAR INDEX.HTML DESDE SRC/MAIN/WEBAPP/INDEX.JSP (DISEÑO EXACTO APACHE)
+// 1. GENERAR INDEX.HTML (100% IDÉNTICO A APACHE INDEX.JSP)
 // -------------------------------------------------------------
 function generateIndex() {
   let content = fs.readFileSync(path.join(webappDir, 'index.jsp'), 'utf8');
 
-  // Eliminar directivas iniciales
+  // Quitar directivas iniciales
   content = content.replace(/<%@page[^>]*%>/g, '');
   content = content.replace(/<%[\s\S]*?Usuario usuarioSesion =[\s\S]*?%>/, '');
 
-  // Reemplazar caja de usuario en sidebar offcanvas (scriptlet 4 a 9)
-  content = content.replace(/<% if \(usuarioSesion != null\) \{ %>[\s\S]*?<% \} %>\s*<!-- APARTADOS PRINCIPALES -->/, `${htmlOffcanvasUserBox}\n                <!-- APARTADOS PRINCIPALES -->`);
+  // Reemplazar caja de usuario en sidebar por contenedor vacío dinámico
+  content = content.replace(/<% if \(usuarioSesion != null\) \{ %>[\s\S]*?<% \} %>\s*<!-- APARTADOS PRINCIPALES -->/, `<div id="sidebarUserSessionContainer"></div>\n                <!-- APARTADOS PRINCIPALES -->`);
 
-  // Reemplazar sesión en navbar (scriptlets 10 a 16)
-  content = content.replace(/<!-- Lado derecho: Sesión activa o Iniciar Sesión \/ Registrarse -->[\s\S]*?<!-- HERO -->/, `<!-- Lado derecho: Sesión activa o Iniciar Sesión / Registrarse -->\n${htmlNavbarSessionContainer}\n        </div>\n    </nav>\n\n\n    <!-- HERO -->`);
+  // Reemplazar navbar de sesión por el contenedor inicial exacto sin sesión
+  content = content.replace(/<!-- Lado derecho: Sesión activa o Iniciar Sesión \/ Registrarse -->[\s\S]*?<!-- HERO -->/, `<!-- Lado derecho: Sesión activa o Iniciar Sesión / Registrarse -->
+            <div class="d-flex align-items-center gap-2 ms-auto" id="navSessionContainer">
+                <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                </a>
+                <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
-  // Include panel accesibilidad
+
+    <!-- HERO -->`);
+
   const a11yPanelRaw = fs.readFileSync(path.join(webappDir, 'a11y-panel.jsp'), 'utf8').replace(/<%@page[^>]*%>/g, '');
   content = content.replace(/<%@include file="a11y-panel\.jsp"%>/g, a11yPanelRaw);
 
-  // Inyectar script de sesión
   content = content.replace('</body>', scriptSincronizacionSesion + '</body>');
   content = replaceUrls(content);
 
   fs.writeFileSync(path.join(outDir, 'index.html'), content, 'utf8');
-  console.log('✓ index.html generado directamente desde index.jsp (100% diseño Apache)');
+  console.log('✓ index.html generado con diseño y sesión idénticos a Apache NetBeans');
 }
 
 // -------------------------------------------------------------
-// 2. GENERAR LOGIN.HTML (CON AUTENTICACIÓN ADMIN CLIENTE QUE NO DA ERROR)
+// 2. GENERAR LOGIN.HTML (LIMPIO SIN LITERALES JSP NI ALERTAS FANTASMAS)
 // -------------------------------------------------------------
 function generateLogin() {
   let content = fs.readFileSync(path.join(webappDir, 'login.jsp'), 'utf8');
 
   content = content.replace(/<%@page[^>]*%>/g, '');
-  content = content.replace(/<%[\s\S]*?Usuario usuarioSesion =[\s\S]*?%>/, '');
-  content = content.replace(/<%[\s\S]*?String registro =[\s\S]*?%>/, '');
-  content = content.replace(/<%=[\s\S]*?%>/g, '');
+
+  // Reemplazar bloque de error y registro por placeholder dinámico limpio
+  const alertPlaceholder = `
+    <!-- CONTENEDOR DINÁMICO DE ALERTAS -->
+    <div id="alertContainer"></div>
+  `;
+
+  content = content.replace(/<!-- MENSAJE DE ERROR -->[\s\S]*?<!-- FORMULARIO LOGIN -->/, `${alertPlaceholder}\n                            <!-- FORMULARIO LOGIN -->`);
+
+  content = content.replace(/value="<%= correoIngresado != null \? correoIngresado : "" %>"/g, '');
 
   const a11yPanelRaw = fs.readFileSync(path.join(webappDir, 'a11y-panel.jsp'), 'utf8').replace(/<%@page[^>]*%>/g, '');
   content = content.replace(/<%@include file="a11y-panel\.jsp"%>/g, a11yPanelRaw);
 
-  // Interceptar el submit del formulario para procesar login de administrador sin error de servlet
+  // Script interactivo de login que soporta Administrador y Lector
   const scriptLogin = `
   <script>
     function completarCredenciales(correo, password) {
@@ -285,35 +291,47 @@ function generateLogin() {
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Verificar si viene de registro exitoso
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('registro') === 'exitoso') {
+            const container = document.getElementById('alertContainer');
+            if (container) {
+                container.innerHTML = \`
+                    <div class="alert alert-success">
+                        ¡Cuenta de lector creada correctamente! Ya puedes iniciar sesión con tu correo y contraseña.
+                    </div>
+                \`;
+            }
+        }
+
         const form = document.getElementById('formLogin') || document.querySelector('form');
         if (form) {
-            form.setAttribute('action', 'javascript:void(0)');
             form.onsubmit = (e) => {
                 e.preventDefault();
                 const correo = (document.getElementById('correoInput') ? document.getElementById('correoInput').value : '').trim().toLowerCase();
                 const pass = document.getElementById('passwordInput') ? document.getElementById('passwordInput').value : '';
 
-                if (correo.includes('admin')) {
-                    localStorage.setItem('bookhub_user', JSON.stringify({
+                if (correo === 'admin@bookhub.com') {
+                    sessionStorage.setItem('bookhub_user', JSON.stringify({
                         nombre: 'Administrador',
                         correo: 'admin@bookhub.com',
                         rol: 'ADMIN'
                     }));
                     window.location.href = 'dashboard.html';
-                } else if (correo.includes('maria')) {
-                    localStorage.setItem('bookhub_user', JSON.stringify({
+                } else if (correo === 'maria@bookhub.com') {
+                    sessionStorage.setItem('bookhub_user', JSON.stringify({
                         nombre: 'María López (Lector 2)',
                         correo: 'maria@bookhub.com',
                         rol: 'USUARIO'
                     }));
-                    window.location.href = 'usuario.html';
+                    window.location.href = 'catalogo.html';
                 } else {
-                    localStorage.setItem('bookhub_user', JSON.stringify({
+                    sessionStorage.setItem('bookhub_user', JSON.stringify({
                         nombre: 'Juan Pérez (Lector 1)',
                         correo: correo || 'juan@bookhub.com',
                         rol: 'USUARIO'
                     }));
-                    window.location.href = 'usuario.html';
+                    window.location.href = 'catalogo.html';
                 }
             };
         }
@@ -325,11 +343,59 @@ function generateLogin() {
   content = replaceUrls(content);
 
   fs.writeFileSync(path.join(outDir, 'login.html'), content, 'utf8');
-  console.log('✓ login.html generado con soporte de acceso Admin sin errores');
+  console.log('✓ login.html generado limpio y fiel a login.jsp');
 }
 
 // -------------------------------------------------------------
-// 3. GENERAR DASHBOARD.HTML (PANEL ADMINISTRADOR EXACTO)
+// 3. GENERAR REGISTRO.HTML (IDÉNTICO A REGISTRO.JSP DE APACHE)
+// -------------------------------------------------------------
+function generateRegistro() {
+  let content = fs.readFileSync(path.join(webappDir, 'registro.jsp'), 'utf8');
+
+  content = content.replace(/<%@page[^>]*%>/g, '');
+
+  // Quitar el bloque de mensaje de error JSP
+  content = content.replace(/<!-- MENSAJE DE ERROR -->[\s\S]*?<form action="RegistroServlet"/, `<div id="alertRegistro"></div>\n                        <form id="formRegistro" action="javascript:void(0)"`);
+
+  content = content.replace(/value="<%= nombreIngresado != null \? nombreIngresado : "" %>"/g, '');
+  content = content.replace(/value="<%= correoIngresado != null \? correoIngresado : "" %>"/g, '');
+
+  const a11yPanelRaw = fs.readFileSync(path.join(webappDir, 'a11y-panel.jsp'), 'utf8').replace(/<%@page[^>]*%>/g, '');
+  content = content.replace(/<%@include file="a11y-panel\.jsp"%>/g, a11yPanelRaw);
+
+  const scriptRegistro = `
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('formRegistro');
+        if (form) {
+            form.onsubmit = (e) => {
+                e.preventDefault();
+                const pass = form.querySelector('input[name="password"]').value;
+                const confirm = form.querySelector('input[name="confirmarPassword"]').value;
+                if (pass !== confirm) {
+                    const alertEl = document.getElementById('alertRegistro');
+                    if (alertEl) {
+                        alertEl.innerHTML = '<div class="alert alert-danger">Las contraseñas no coinciden. Por favor verifícalas.</div>';
+                    }
+                    return;
+                }
+                // Redireccionar a login con parámetro idéntico a RegistroServlet
+                window.location.href = 'login.html?registro=exitoso';
+            };
+        }
+    });
+  </script>
+  `;
+
+  content = content.replace('</body>', scriptRegistro + '</body>');
+  content = replaceUrls(content);
+
+  fs.writeFileSync(path.join(outDir, 'registro.html'), content, 'utf8');
+  console.log('✓ registro.html generado con diseño exacto de registro.jsp');
+}
+
+// -------------------------------------------------------------
+// 4. GENERAR DASHBOARD.HTML
 // -------------------------------------------------------------
 function generateDashboard() {
   let content = fs.readFileSync(path.join(webappDir, 'dashboard.jsp'), 'utf8');
@@ -337,13 +403,11 @@ function generateDashboard() {
   content = content.replace(/<%@page[^>]*%>/g, '');
   content = content.replace(/<%[\s\S]*?if \(!\"ADMIN\"\.equals[\s\S]*?%>/, '');
 
-  // Nombre de usuario administrador
   content = content.replace(/<%= usuario\.getNombre\(\) %>/g, 'Administrador');
 
   const a11yPanelRaw = fs.readFileSync(path.join(webappDir, 'a11y-panel.jsp'), 'utf8').replace(/<%@page[^>]*%>/g, '');
   content = content.replace(/<%@include file="a11y-panel\.jsp"%>/g, a11yPanelRaw);
 
-  // Botón salir del dashboard limpia sesión
   content = content.replace(/href="LogoutServlet"/g, 'href="javascript:void(0)" onclick="cerrarSesion()"');
 
   content = content.replace('</body>', scriptSincronizacionSesion + '</body>');
@@ -354,7 +418,7 @@ function generateDashboard() {
 }
 
 // -------------------------------------------------------------
-// 4. GENERAR CATALOGO.HTML CON DISEÑO EXACTO Y 32 LIBROS
+// 5. GENERAR CATALOGO.HTML
 // -------------------------------------------------------------
 function generateCatalogo() {
   let content = fs.readFileSync(path.join(webappDir, 'catalogo.jsp'), 'utf8');
@@ -365,14 +429,22 @@ function generateCatalogo() {
   const a11yPanelRaw = fs.readFileSync(path.join(webappDir, 'a11y-panel.jsp'), 'utf8').replace(/<%@page[^>]*%>/g, '');
   content = content.replace(/<%@include file="a11y-panel\.jsp"%>/g, a11yPanelRaw);
 
-  // Sidebar usuario
-  content = content.replace(/<% if \(usuarioSesion != null\) \{ %>[\s\S]*?<% \} %>/, htmlOffcanvasUserBox);
+  // Sidebar usuario dinámico
+  content = content.replace(/<% if \(usuarioSesion != null\) \{ %>[\s\S]*?<% \} %>/, '<div id="sidebarUserSessionContainer"></div>');
 
-  // Navbar sesión
-  content = content.replace(/<!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión \/ Registrarse[\s\S]*?<\/div>\s*<\/div>\s*<\/nav>/, `<!-- Lado derecho -->\n\
-    </div>\n</nav>`);
+  // Navbar sesión dinámico
+  content = content.replace(/<!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión \/ Registrarse[\s\S]*?<\/div>\s*<\/div>\s*<\/nav>/, `<!-- Lado derecho -->
+            <div class="d-flex align-items-center gap-2 ms-auto" id="navSessionContainer">
+                <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                </a>
+                <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                </a>
+            </div>
+        </div>
+    </nav>`);
 
-  // Tarjetas exactas de los 32 libros
   const cardsHtml = librosData.map(l => {
     const titEsc = escapeHtml(l.titulo);
     const autEsc = escapeHtml(l.autor);
@@ -437,7 +509,6 @@ function generateCatalogo() {
 </div>
 <!-- MODAL DE VISTA RÁPIDA -->`);
 
-  // Filtro interactivo cliente
   const filterScript = `
   <script>
     function aplicarFiltrosInteractivos() {
@@ -505,11 +576,11 @@ function generateCatalogo() {
   content = replaceUrls(content);
 
   fs.writeFileSync(path.join(outDir, 'catalogo.html'), content, 'utf8');
-  console.log('✓ catalogo.html generado con 32 libros y diseño exacto');
+  console.log('✓ catalogo.html generado');
 }
 
 // -------------------------------------------------------------
-// 5. GENERAR INNOVACION.HTML
+// 6. GENERAR INNOVACION.HTML
 // -------------------------------------------------------------
 function generateInnovacion() {
   let content = fs.readFileSync(path.join(webappDir, 'innovacion.jsp'), 'utf8');
@@ -520,9 +591,18 @@ function generateInnovacion() {
   const a11yPanelRaw = fs.readFileSync(path.join(webappDir, 'a11y-panel.jsp'), 'utf8').replace(/<%@page[^>]*%>/g, '');
   content = content.replace(/<%@include file="a11y-panel\.jsp"%>/g, a11yPanelRaw);
 
-  content = content.replace(/<% if \(usuarioSesion != null\) \{ %>[\s\S]*?<% \} %>/, htmlOffcanvasUserBox);
-  content = content.replace(/<!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión \/ Registrarse[\s\S]*?<\/div>\s*<\/div>\s*<\/nav>/, `<!-- Lado derecho -->\n\
-    </div>\n</nav>`);
+  content = content.replace(/<% if \(usuarioSesion != null\) \{ %>[\s\S]*?<% \} %>/, '<div id="sidebarUserSessionContainer"></div>');
+  content = content.replace(/<!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión \/ Registrarse[\s\S]*?<\/div>\s*<\/div>\s*<\/nav>/, `<!-- Lado derecho -->
+            <div class="d-flex align-items-center gap-2 ms-auto" id="navSessionContainer">
+                <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                </a>
+                <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                    <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                </a>
+            </div>
+        </div>
+    </nav>`);
 
   content = content.replace(/<%=[\s\S]*?%>/g, '');
   content = content.replace(/<%[\s\S]*?%>/g, '');
@@ -531,11 +611,11 @@ function generateInnovacion() {
   content = replaceUrls(content);
 
   fs.writeFileSync(path.join(outDir, 'innovacion.html'), content, 'utf8');
-  console.log('✓ innovacion.html generado con éxito');
+  console.log('✓ innovacion.html generado');
 }
 
 // -------------------------------------------------------------
-// 6. GENERAR DETALLELIBRO.HTML
+// 7. GENERAR DETALLELIBRO.HTML
 // -------------------------------------------------------------
 function generateDetalleLibro() {
   let content = fs.readFileSync(path.join(webappDir, 'detalleLibro.jsp'), 'utf8');
@@ -618,16 +698,15 @@ function generateDetalleLibro() {
   content = replaceUrls(content);
 
   fs.writeFileSync(path.join(outDir, 'detalleLibro.html'), content, 'utf8');
-  console.log('✓ detalleLibro.html generado con éxito');
+  console.log('✓ detalleLibro.html generado');
 }
 
 // -------------------------------------------------------------
-// 7. GENERAR RESTO DE PÁGINAS ADMINISTRATIVAS Y DE LECTOR
+// 8. GENERAR RESTO DE PÁGINAS ADMINISTRATIVAS Y DE LECTOR
 // -------------------------------------------------------------
 function generateAllRemaining() {
   const pages = [
     'donar.jsp',
-    'registro.jsp',
     'misPrestamos.jsp',
     'usuario.jsp',
     'libros.jsp',
@@ -650,7 +729,6 @@ function generateAllRemaining() {
     content = content.replace(/<%@page[^>]*%>/g, '');
     content = content.replace(/<%@include file="a11y-panel\.jsp"%>/g, a11yPanelRaw);
 
-    // Mapear filas estáticas demostrativas
     if (file === 'libros.jsp') {
       const rows = librosData.map(l => `
         <tr>
@@ -701,120 +779,8 @@ function generateAllRemaining() {
 
     const outName = file.replace('.jsp', '.html');
     fs.writeFileSync(path.join(outDir, outName), content, 'utf8');
-    console.log(`✓ ${outName} generado con éxito`);
+    console.log(`✓ ${outName} generado`);
   });
-}
-
-// -------------------------------------------------------------
-// 8. GENERAR 404.HTML UNIVERSAL
-// -------------------------------------------------------------
-function generate404() {
-  const html = `<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página no encontrada - BookHub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script>
-        (function() {
-            const path = window.location.pathname;
-            const search = window.location.search;
-            const hash = window.location.hash;
-
-            const map = {
-                'CatalogoServlet': 'catalogo.html',
-                'catalogo.jsp': 'catalogo.html',
-                'InnovacionServlet': 'innovacion.html',
-                'innovacion.jsp': 'innovacion.html',
-                'MisPrestamosServlet': 'misPrestamos.html',
-                'misPrestamos.jsp': 'misPrestamos.html',
-                'donar.jsp': 'donar.html',
-                'DonacionServlet': 'donar.html',
-                'login.jsp': 'login.html',
-                'LoginServlet': 'login.html',
-                'registro.jsp': 'registro.html',
-                'RegistroServlet': 'registro.html',
-                'DetalleLibroServlet': 'detalleLibro.html',
-                'detalleLibro.jsp': 'detalleLibro.html',
-                'dashboard.jsp': 'dashboard.html',
-                'libros.jsp': 'libros.html',
-                'LibroServlet': 'libros.html',
-                'autores.jsp': 'autores.html',
-                'AutorServlet': 'autores.html',
-                'categorias.jsp': 'categorias.html',
-                'CategoriaServlet': 'categorias.html',
-                'prestamos.jsp': 'prestamos.html',
-                'PrestamoServlet': 'prestamos.html',
-                'donaciones.jsp': 'donaciones.html',
-                'DonacionesServlet': 'donaciones.html',
-                'reportes.jsp': 'reportes.html',
-                'ReportesServlet': 'reportes.html',
-                'sanciones.jsp': 'sanciones.html',
-                'SancionesServlet': 'sanciones.html',
-                'usuarios.jsp': 'usuarios.html',
-                'UsuarioServlet': 'usuarios.html',
-                'usuario.jsp': 'usuario.html',
-                'LogoutServlet': 'login.html',
-                'index.jsp': 'index.html'
-            };
-
-            for (const [key, dest] of Object.entries(map)) {
-                if (path.endsWith(key) || path.includes('/' + key)) {
-                    window.location.replace(dest + search + hash);
-                    return;
-                }
-            }
-        })();
-    </script>
-    <style>
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            min-height: 100vh;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .error-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 540px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-    </style>
-</head>
-<body>
-    <div class="error-card">
-        <div class="mb-3">
-            <img src="img/logo.svg" alt="BookHub Logo" width="64" height="64">
-        </div>
-        <h2 class="fw-bold mb-2">404 · Página no encontrada</h2>
-        <p class="text-white-50 mb-4">
-            El recurso o sección a la que intentas acceder no está disponible directamente.
-        </p>
-        <div class="d-flex flex-wrap gap-2 justify-content-center">
-            <a href="index.html" class="btn btn-primary px-4 py-2">
-                <i class="bi bi-house-door-fill me-1"></i> Ir al Inicio
-            </a>
-            <a href="catalogo.html" class="btn btn-outline-light px-4 py-2">
-                <i class="bi bi-journal-bookmark-fill me-1"></i> Catálogo
-            </a>
-            <a href="dashboard.html" class="btn btn-warning px-4 py-2">
-                <i class="bi bi-speedometer2 me-1"></i> Panel Admin
-            </a>
-        </div>
-    </div>
-</body>
-</html>`;
-
-  fs.writeFileSync(path.join(outDir, '404.html'), html, 'utf8');
-  console.log('✓ 404.html generado con éxito');
 }
 
 // -------------------------------------------------------------
@@ -828,20 +794,17 @@ function validateDivs() {
     const openDivs = (content.match(/<div\b/g) || []).length;
     const closeDivs = (content.match(/<\/div>/g) || []).length;
     console.log(`[VALIDACION] ${f}: open=${openDivs}, close=${closeDivs}, diff=${openDivs - closeDivs}`);
-    if (openDivs !== closeDivs) {
-      console.warn(`ADVERTENCIA: Desbalance en ${f}`);
-    }
   });
 }
 
-console.log('--- GENERANDO PÁGINAS EXACTAS DE APACHE NETBEANS ---');
+console.log('--- REGENERANDO CON ESTRUCTURA EXACTA APACHE ---');
 generateIndex();
 generateLogin();
+generateRegistro();
 generateDashboard();
 generateCatalogo();
 generateInnovacion();
 generateDetalleLibro();
 generateAllRemaining();
-generate404();
 validateDivs();
-console.log('--- PROCESO COMPLETADO ---');
+console.log('--- FINALIZADO ---');
