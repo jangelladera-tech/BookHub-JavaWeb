@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="beans.Libro"%>
-<%@page import="beans.Usuario"%>
+<%@page import="modelo.beans.Libro"%>
+<%@page import="modelo.beans.Usuario"%>
 
 <%
     Libro libro = (Libro) request.getAttribute("libro");

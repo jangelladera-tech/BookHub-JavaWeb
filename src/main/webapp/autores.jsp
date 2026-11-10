@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
-<%@page import="beans.Autor"%>
-<%@page import="beans.Usuario"%>
+<%@page import="modelo.beans.Autor"%>
+<%@page import="modelo.beans.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%

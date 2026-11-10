@@ -479,29 +479,41 @@ classDiagram
 
 ---
 
+## 🏛️ Arquitectura MVC (Modelo - Vista - Controlador)
+
+El sistema implementa estrictamente el patrón arquitectural **MVC (Model - View - Controller)** dividiendo responsabilidades de forma desacoplada:
+
+| Componente MVC | Paquete / Directorio | Responsabilidad Técnica |
+| :--- | :--- | :--- |
+| **MODELO (M)** | `modelo.beans` | Entidades y objetos de transferencia de datos POJO (`Autor`, `Categoria`, `Donacion`, `Libro`, `Prestamo`, `Usuario`). |
+| **MODELO (M)** | `modelo.dao` | Capa de persistencia y operaciones CRUD con `PreparedStatement` hacia MySQL (`*DAO.java`). |
+| **MODELO (M)** | `modelo.conexion` | Gestión de conectividad JDBC hacia la base de datos MySQL multiescucha (`Conexion.java`). |
+| **VISTA (V)** | `src/main/webapp/` | Interfaz gráfica de usuario mediante páginas JSP (`*.jsp`) con componentes inclusivos WCAG AAA y Bootstrap 5. |
+| **CONTROLADOR (C)** | `controlador` | Servlets HTTP (`*Servlet.java`) que reciben peticiones del cliente, coordinan con el Modelo y despachan a la Vista, además del filtro `AdminFilter`. |
+
+---
+
 ## 🗂️ Estructura del Proyecto (Apache Maven Standard Layout)
 
 ```text
 BookHub/
 ├── pom.xml                          # Configuración Maven (Jakarta EE 10, MySQL Connector 8.4.0)
 ├── database/
-│   └── bookhub.sql                  # Script MySQL con tablas y datos semilla
+│   └── bookhub.sql                  # Script MySQL con esquema y datos semilla
 └── src/
-    ├── main/
-    │   ├── java/
-    │   │   ├── beans/               # Modelo de clases (Autor, Categoria, Libro, Prestamo, Usuario)
-    │   │   ├── conexion/            # Clase Conexion JDBC MySQL (puerto 3307 / 3306)
-    │   │   ├── dao/                 # Capa DAO con PreparedStatement + respaldo en memoria
-    │   │   └── servlets/            # Controladores MVC y filtro de seguridad AdminFilter
-    │   ├── resources/               # Archivos de configuración y propiedades
-    │   └── webapp/                  # Recursos Web de la aplicación
-    │       ├── img/                 # Recursos gráficos y portadas SVG
-    │       ├── META-INF/
-    │       │   └── context.xml      # Configuración de contexto Tomcat
-    │       ├── WEB-INF/
-    │       │   └── web.xml          # Descriptor de despliegue Jakarta EE 6.0
-    │       ├── *.jsp                # Vistas JSP
-    │       └── index.html           # Página de inicio
-    └── test/
-        └── java/                    # Pruebas unitarias
+    └── main/
+        ├── java/
+        │   ├── modelo/              # MODELO (M)
+        │   │   ├── beans/           # Entidades de dominio (Autor, Categoria, Donacion, Libro, Prestamo, Usuario)
+        │   │   ├── conexion/        # Conexión JDBC MySQL multiescucha (puertos 3306 / 3307)
+        │   │   └── dao/             # Acceso a Datos DAO con PreparedStatement
+        │   └── controlador/         # CONTROLADOR (C)
+        │       ├── *Servlet.java    # Controladores HTTP (Catalogo, Prestamo, Login, Registro, Reportes, etc.)
+        │       └── AdminFilter.java # Filtro perimetral de seguridad para vistas de administrador
+        └── webapp/                  # VISTA (V)
+            ├── *.jsp                # Vistas dinámicas JSP (WCAG 2.1 AAA, Bootstrap 5)
+            ├── img/                 # Logotipo vectorial, portadas de libros y diagramas UML
+            ├── favicon.ico / .svg   # Icono oficial de la aplicación
+            ├── META-INF/context.xml # Configuración de contexto Tomcat
+            └── WEB-INF/web.xml      # Descriptor de despliegue Jakarta EE 6.0
 ```

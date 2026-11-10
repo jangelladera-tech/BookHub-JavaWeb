@@ -21,7 +21,7 @@
 
     <!-- Título superior -->
     <text x="30" y="38" fill="#0f172a" font-size="18" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif">Módulo 3: Usuarios, Autenticación, Sesiones y Filtro de Seguridad</text>
-    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura Jakarta EE / MVC / DAO</text>
+    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura MVC (Modelo - Vista - Controlador)</text>
     <line x1="30" y1="68" x2="950" y2="68" stroke="#e2e8f0" stroke-width="1"/>
 
     
@@ -32,7 +32,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 254 0 C 257.3 0 260 2.7 260 6 L 260 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="130" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="130" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="130" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Usuario</text>
         
         <!-- Compartimento de Atributos -->
@@ -66,7 +66,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 254 0 C 257.3 0 260 2.7 260 6 L 260 36 L 0 36 Z" fill="#0f766e"/>
-        <text x="130" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Data Access Object&raquo;</text>
+        <text x="130" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo DAO&raquo;</text>
         <text x="130" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">UsuarioDAO</text>
         
         <!-- Compartimento de Atributos -->
@@ -93,7 +93,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 214 0 C 217.3 0 220 2.7 220 6 L 220 36 L 0 36 Z" fill="#3730a3"/>
-        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;JDBC Connection&raquo;</text>
+        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Conexión&raquo;</text>
         <text x="110" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Conexion</text>
         
         <!-- Compartimento de Atributos -->
@@ -125,7 +125,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 234 0 C 237.3 0 240 2.7 240 6 L 240 36 L 0 36 Z" fill="#991b1b"/>
-        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Filter (Seguridad)&raquo;</text>
+        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Filtro (Seguridad)&raquo;</text>
         <text x="120" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">AdminFilter</text>
         
         <!-- Compartimento de Atributos -->
@@ -149,7 +149,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 204 0 C 207.3 0 210 2.7 210 6 L 210 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet&raquo;</text>
+        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet&raquo;</text>
         <text x="105" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">LoginServlet</text>
         
         <!-- Compartimento de Atributos -->
@@ -173,7 +173,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 194 0 C 197.3 0 200 2.7 200 6 L 200 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="100" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet&raquo;</text>
+        <text x="100" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet&raquo;</text>
         <text x="100" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">LogoutServlet</text>
         
         <!-- Compartimento de Atributos -->
@@ -195,7 +195,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 204 0 C 207.3 0 210 2.7 210 6 L 210 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet&raquo;</text>
+        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet&raquo;</text>
         <text x="105" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">RegistroServlet</text>
         
         <!-- Compartimento de Atributos -->
@@ -219,7 +219,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 204 0 C 207.3 0 210 2.7 210 6 L 210 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet (Admin)&raquo;</text>
+        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet (Admin)&raquo;</text>
         <text x="105" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">UsuarioServlet</text>
         
         <!-- Compartimento de Atributos -->

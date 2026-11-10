@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="beans.Usuario"%>
+<%@page import="modelo.beans.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%

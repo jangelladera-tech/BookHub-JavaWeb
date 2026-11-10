@@ -21,7 +21,7 @@
 
     <!-- Título superior -->
     <text x="30" y="38" fill="#0f172a" font-size="18" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif">Módulo 2: Circulación, Préstamos, Devoluciones y Sanciones</text>
-    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura Jakarta EE / MVC / DAO</text>
+    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura MVC (Modelo - Vista - Controlador)</text>
     <line x1="30" y1="68" x2="1000" y2="68" stroke="#e2e8f0" stroke-width="1"/>
 
     
@@ -32,7 +32,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 224 0 C 227.3 0 230 2.7 230 6 L 230 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="115" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Usuario</text>
         
         <!-- Compartimento de Atributos -->
@@ -61,7 +61,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="140" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="140" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="140" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Prestamo</text>
         
         <!-- Compartimento de Atributos -->
@@ -97,7 +97,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 224 0 C 227.3 0 230 2.7 230 6 L 230 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="115" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Libro</text>
         
         <!-- Compartimento de Atributos -->
@@ -137,7 +137,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 36 L 0 36 Z" fill="#0f766e"/>
-        <text x="140" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Data Access Object&raquo;</text>
+        <text x="140" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo DAO&raquo;</text>
         <text x="140" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">PrestamoDAO</text>
         
         <!-- Compartimento de Atributos -->
@@ -164,7 +164,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 224 0 C 227.3 0 230 2.7 230 6 L 230 36 L 0 36 Z" fill="#3730a3"/>
-        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;JDBC Connection&raquo;</text>
+        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Conexión&raquo;</text>
         <text x="115" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Conexion</text>
         
         <!-- Compartimento de Atributos -->
@@ -196,7 +196,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 224 0 C 227.3 0 230 2.7 230 6 L 230 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet (Admin)&raquo;</text>
+        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet (Admin)&raquo;</text>
         <text x="115" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">PrestamoServlet</text>
         
         <!-- Compartimento de Atributos -->
@@ -221,7 +221,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 224 0 C 227.3 0 230 2.7 230 6 L 230 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet (Lector)&raquo;</text>
+        <text x="115" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet (Lector)&raquo;</text>
         <text x="115" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">SolicitarPrestamoServlet</text>
         
         <!-- Compartimento de Atributos -->
@@ -245,7 +245,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 204 0 C 207.3 0 210 2.7 210 6 L 210 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet (Lector)&raquo;</text>
+        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet (Lector)&raquo;</text>
         <text x="105" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">MisPrestamosServlet</text>
         
         <!-- Compartimento de Atributos -->
@@ -268,7 +268,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 204 0 C 207.3 0 210 2.7 210 6 L 210 36 L 0 36 Z" fill="#6b21a8"/>
-        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;HttpServlet (Admin)&raquo;</text>
+        <text x="105" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Controlador Servlet (Admin)&raquo;</text>
         <text x="105" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">SancionesServlet</text>
         
         <!-- Compartimento de Atributos -->

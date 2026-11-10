@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
-<%@page import="beans.Categoria"%>
-<%@page import="beans.Usuario"%>
+<%@page import="modelo.beans.Categoria"%>
+<%@page import="modelo.beans.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%

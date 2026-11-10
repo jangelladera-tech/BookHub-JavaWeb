@@ -21,7 +21,7 @@
 
     <!-- Título superior -->
     <text x="30" y="38" fill="#0f172a" font-size="18" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif">Modelo Integral de Dominio y Entidades (Beans)</text>
-    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura Jakarta EE / MVC / DAO</text>
+    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura MVC (Modelo - Vista - Controlador)</text>
     <line x1="30" y1="68" x2="830" y2="68" stroke="#e2e8f0" stroke-width="1"/>
 
     
@@ -32,7 +32,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 214 0 C 217.3 0 220 2.7 220 6 L 220 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="110" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Autor</text>
         
         <!-- Compartimento de Atributos -->
@@ -59,7 +59,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 234 0 C 237.3 0 240 2.7 240 6 L 240 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="120" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Libro</text>
         
         <!-- Compartimento de Atributos -->
@@ -96,7 +96,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 214 0 C 217.3 0 220 2.7 220 6 L 220 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="110" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Categoria</text>
         
         <!-- Compartimento de Atributos -->
@@ -123,7 +123,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 234 0 C 237.3 0 240 2.7 240 6 L 240 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="120" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Prestamo</text>
         
         <!-- Compartimento de Atributos -->
@@ -156,7 +156,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 214 0 C 217.3 0 220 2.7 220 6 L 220 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="110" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="110" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Usuario</text>
         
         <!-- Compartimento de Atributos -->
@@ -187,7 +187,7 @@
         
         <!-- Cabecera -->
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 234 0 C 237.3 0 240 2.7 240 6 L 240 36 L 0 36 Z" fill="#1e40af"/>
-        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Entity Bean&raquo;</text>
+        <text x="120" y="14" fill="#cbd5e1" font-size="10.5" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;Modelo Bean&raquo;</text>
         <text x="120" y="28" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Donacion</text>
         
         <!-- Compartimento de Atributos -->

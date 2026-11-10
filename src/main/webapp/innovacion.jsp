@@ -2,11 +2,11 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="beans.Libro"%>
-<%@page import="beans.Prestamo"%>
-<%@page import="beans.Usuario"%>
-<%@page import="dao.LibroDAO"%>
-<%@page import="dao.PrestamoDAO"%>
+<%@page import="modelo.beans.Libro"%>
+<%@page import="modelo.beans.Prestamo"%>
+<%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.dao.LibroDAO"%>
+<%@page import="modelo.dao.PrestamoDAO"%>
 
 <%
     Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");

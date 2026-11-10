@@ -1,5 +1,5 @@
 ﻿<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="beans.Usuario"%>
+<%@page import="modelo.beans.Usuario"%>
 <%
     Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
 %>

@@ -1,11 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="beans.Usuario"%>
-<%@page import="beans.Prestamo"%>
-<%@page import="beans.Libro"%>
-<%@page import="dao.PrestamoDAO"%>
-<%@page import="dao.LibroDAO"%>
+<%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.beans.Prestamo"%>
+<%@page import="modelo.beans.Libro"%>
+<%@page import="modelo.dao.PrestamoDAO"%>
+<%@page import="modelo.dao.LibroDAO"%>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuario");

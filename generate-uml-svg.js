@@ -101,7 +101,7 @@ function wrapSvg(width, height, content, title) {
 
     <!-- Título superior -->
     <text x="30" y="38" fill="#0f172a" font-size="18" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif">${title}</text>
-    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura Jakarta EE / MVC / DAO</text>
+    <text x="30" y="56" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">BookHub Biblioteca Universitaria — Arquitectura MVC (Modelo - Vista - Controlador)</text>
     <line x1="30" y1="68" x2="${width - 30}" y2="68" stroke="#e2e8f0" stroke-width="1"/>
 
     ${content}
@@ -116,7 +116,7 @@ function generarDiagramaBibliografico() {
 
     // Entidades
     content += renderClassBox({
-        x: 30, y: 90, width: 220, headerColor: '#1e40af', title: 'Autor', stereotype: 'Entity Bean',
+        x: 30, y: 90, width: 220, headerColor: '#1e40af', title: 'Autor', stereotype: 'Modelo Bean',
         attributes: [
             'idAutor : int',
             'nombre : String',
@@ -133,7 +133,7 @@ function generarDiagramaBibliografico() {
     }).svg;
 
     content += renderClassBox({
-        x: 290, y: 90, width: 250, headerColor: '#1e40af', title: 'Libro', stereotype: 'Entity Bean',
+        x: 290, y: 90, width: 250, headerColor: '#1e40af', title: 'Libro', stereotype: 'Modelo Bean',
         attributes: [
             'idLibro : int',
             'titulo : String',
@@ -159,7 +159,7 @@ function generarDiagramaBibliografico() {
     }).svg;
 
     content += renderClassBox({
-        x: 580, y: 90, width: 220, headerColor: '#1e40af', title: 'Categoria', stereotype: 'Entity Bean',
+        x: 580, y: 90, width: 220, headerColor: '#1e40af', title: 'Categoria', stereotype: 'Modelo Bean',
         attributes: [
             'idCategoria : int',
             'nombre : String',
@@ -181,7 +181,7 @@ function generarDiagramaBibliografico() {
 
     // Capa DAO
     content += renderClassBox({
-        x: 30, y: 390, width: 220, headerColor: '#0f766e', title: 'AutorDAO', stereotype: 'Data Access Object',
+        x: 30, y: 390, width: 220, headerColor: '#0f766e', title: 'AutorDAO', stereotype: 'Modelo DAO',
         attributes: [],
         methods: [
             'listar() : List<Autor>',
@@ -193,7 +193,7 @@ function generarDiagramaBibliografico() {
     }).svg;
 
     content += renderClassBox({
-        x: 290, y: 390, width: 250, headerColor: '#0f766e', title: 'LibroDAO', stereotype: 'Data Access Object',
+        x: 290, y: 390, width: 250, headerColor: '#0f766e', title: 'LibroDAO', stereotype: 'Modelo DAO',
         attributes: [],
         methods: [
             'listar() : List<Libro>',
@@ -207,7 +207,7 @@ function generarDiagramaBibliografico() {
     }).svg;
 
     content += renderClassBox({
-        x: 580, y: 390, width: 220, headerColor: '#0f766e', title: 'CategoriaDAO', stereotype: 'Data Access Object',
+        x: 580, y: 390, width: 220, headerColor: '#0f766e', title: 'CategoriaDAO', stereotype: 'Modelo DAO',
         attributes: [],
         methods: [
             'listar() : List<Categoria>',
@@ -220,7 +220,7 @@ function generarDiagramaBibliografico() {
 
     // Conexión
     content += renderClassBox({
-        x: 840, y: 390, width: 230, headerColor: '#3730a3', title: 'Conexion', stereotype: 'JDBC Connection',
+        x: 840, y: 390, width: 230, headerColor: '#3730a3', title: 'Conexion', stereotype: 'Modelo Conexión',
         attributes: [
             'URLS : String[]',
             'USER : String',
@@ -241,7 +241,7 @@ function generarDiagramaBibliografico() {
 
     // Controladores MVC (Servlets)
     content += renderClassBox({
-        x: 30, y: 560, width: 220, headerColor: '#6b21a8', title: 'AutorServlet', stereotype: 'HttpServlet',
+        x: 30, y: 560, width: 220, headerColor: '#6b21a8', title: 'AutorServlet', stereotype: 'Controlador Servlet',
         attributes: [
             'autorDAO : AutorDAO'
         ],
@@ -252,7 +252,7 @@ function generarDiagramaBibliografico() {
     }).svg;
 
     content += renderClassBox({
-        x: 290, y: 560, width: 250, headerColor: '#6b21a8', title: 'CatalogoServlet', stereotype: 'HttpServlet',
+        x: 290, y: 560, width: 250, headerColor: '#6b21a8', title: 'CatalogoServlet', stereotype: 'Controlador Servlet',
         attributes: [
             'libroDAO : LibroDAO',
             'categoriaDAO : CategoriaDAO'
@@ -263,7 +263,7 @@ function generarDiagramaBibliografico() {
     }).svg;
 
     content += renderClassBox({
-        x: 580, y: 560, width: 220, headerColor: '#6b21a8', title: 'CategoriaServlet', stereotype: 'HttpServlet',
+        x: 580, y: 560, width: 220, headerColor: '#6b21a8', title: 'CategoriaServlet', stereotype: 'Controlador Servlet',
         attributes: [
             'categoriaDAO : CategoriaDAO'
         ],
@@ -274,7 +274,7 @@ function generarDiagramaBibliografico() {
     }).svg;
 
     content += renderClassBox({
-        x: 840, y: 560, width: 230, headerColor: '#6b21a8', title: 'LibroServlet', stereotype: 'HttpServlet',
+        x: 840, y: 560, width: 230, headerColor: '#6b21a8', title: 'LibroServlet', stereotype: 'Controlador Servlet',
         attributes: [
             'libroDAO : LibroDAO',
             'autorDAO : AutorDAO',
@@ -303,7 +303,7 @@ function generarDiagramaPrestamos() {
 
     // Entidades
     content += renderClassBox({
-        x: 30, y: 90, width: 230, headerColor: '#1e40af', title: 'Usuario', stereotype: 'Entity Bean',
+        x: 30, y: 90, width: 230, headerColor: '#1e40af', title: 'Usuario', stereotype: 'Modelo Bean',
         attributes: [
             'idUsuario : int',
             'nombre : String',
@@ -319,7 +319,7 @@ function generarDiagramaPrestamos() {
     }).svg;
 
     content += renderClassBox({
-        x: 330, y: 90, width: 280, headerColor: '#1e40af', title: 'Prestamo', stereotype: 'Entity Bean',
+        x: 330, y: 90, width: 280, headerColor: '#1e40af', title: 'Prestamo', stereotype: 'Modelo Bean',
         attributes: [
             'idPrestamo : int',
             'idUsuario : int',
@@ -342,7 +342,7 @@ function generarDiagramaPrestamos() {
     }).svg;
 
     content += renderClassBox({
-        x: 680, y: 90, width: 230, headerColor: '#1e40af', title: 'Libro', stereotype: 'Entity Bean',
+        x: 680, y: 90, width: 230, headerColor: '#1e40af', title: 'Libro', stereotype: 'Modelo Bean',
         attributes: [
             'idLibro : int',
             'titulo : String',
@@ -362,7 +362,7 @@ function generarDiagramaPrestamos() {
 
     // DAO y Conexión
     content += renderClassBox({
-        x: 330, y: 370, width: 280, headerColor: '#0f766e', title: 'PrestamoDAO', stereotype: 'Data Access Object',
+        x: 330, y: 370, width: 280, headerColor: '#0f766e', title: 'PrestamoDAO', stereotype: 'Modelo DAO',
         attributes: [],
         methods: [
             'listar() : List<Prestamo>',
@@ -375,7 +375,7 @@ function generarDiagramaPrestamos() {
     }).svg;
 
     content += renderClassBox({
-        x: 680, y: 370, width: 230, headerColor: '#3730a3', title: 'Conexion', stereotype: 'JDBC Connection',
+        x: 680, y: 370, width: 230, headerColor: '#3730a3', title: 'Conexion', stereotype: 'Modelo Conexión',
         attributes: [
             'URLS : String[]',
             'USER : String'
@@ -390,7 +390,7 @@ function generarDiagramaPrestamos() {
 
     // Servlets
     content += renderClassBox({
-        x: 30, y: 540, width: 230, headerColor: '#6b21a8', title: 'PrestamoServlet', stereotype: 'HttpServlet (Admin)',
+        x: 30, y: 540, width: 230, headerColor: '#6b21a8', title: 'PrestamoServlet', stereotype: 'Controlador Servlet (Admin)',
         attributes: [
             'prestamoDAO : PrestamoDAO',
             'libroDAO : LibroDAO'
@@ -402,7 +402,7 @@ function generarDiagramaPrestamos() {
     }).svg;
 
     content += renderClassBox({
-        x: 290, y: 540, width: 230, headerColor: '#6b21a8', title: 'SolicitarPrestamoServlet', stereotype: 'HttpServlet (Lector)',
+        x: 290, y: 540, width: 230, headerColor: '#6b21a8', title: 'SolicitarPrestamoServlet', stereotype: 'Controlador Servlet (Lector)',
         attributes: [
             'prestamoDAO : PrestamoDAO',
             'libroDAO : LibroDAO'
@@ -413,7 +413,7 @@ function generarDiagramaPrestamos() {
     }).svg;
 
     content += renderClassBox({
-        x: 550, y: 540, width: 210, headerColor: '#6b21a8', title: 'MisPrestamosServlet', stereotype: 'HttpServlet (Lector)',
+        x: 550, y: 540, width: 210, headerColor: '#6b21a8', title: 'MisPrestamosServlet', stereotype: 'Controlador Servlet (Lector)',
         attributes: [
             'prestamoDAO : PrestamoDAO'
         ],
@@ -423,7 +423,7 @@ function generarDiagramaPrestamos() {
     }).svg;
 
     content += renderClassBox({
-        x: 790, y: 540, width: 210, headerColor: '#6b21a8', title: 'SancionesServlet', stereotype: 'HttpServlet (Admin)',
+        x: 790, y: 540, width: 210, headerColor: '#6b21a8', title: 'SancionesServlet', stereotype: 'Controlador Servlet (Admin)',
         attributes: [
             'prestamoDAO : PrestamoDAO'
         ],
@@ -450,7 +450,7 @@ function generarDiagramaUsuarios() {
 
     // Entidad
     content += renderClassBox({
-        x: 350, y: 90, width: 260, headerColor: '#1e40af', title: 'Usuario', stereotype: 'Entity Bean',
+        x: 350, y: 90, width: 260, headerColor: '#1e40af', title: 'Usuario', stereotype: 'Modelo Bean',
         attributes: [
             'idUsuario : int',
             'nombre : String',
@@ -472,7 +472,7 @@ function generarDiagramaUsuarios() {
 
     // DAO y Conexión
     content += renderClassBox({
-        x: 350, y: 330, width: 260, headerColor: '#0f766e', title: 'UsuarioDAO', stereotype: 'Data Access Object',
+        x: 350, y: 330, width: 260, headerColor: '#0f766e', title: 'UsuarioDAO', stereotype: 'Modelo DAO',
         attributes: [],
         methods: [
             'listar() : List<Usuario>',
@@ -485,7 +485,7 @@ function generarDiagramaUsuarios() {
     }).svg;
 
     content += renderClassBox({
-        x: 690, y: 330, width: 220, headerColor: '#3730a3', title: 'Conexion', stereotype: 'JDBC Connection',
+        x: 690, y: 330, width: 220, headerColor: '#3730a3', title: 'Conexion', stereotype: 'Modelo Conexión',
         attributes: [
             'URLS : String[]',
             'USER : String'
@@ -500,7 +500,7 @@ function generarDiagramaUsuarios() {
 
     // Filtro de Seguridad
     content += renderClassBox({
-        x: 50, y: 330, width: 240, headerColor: '#991b1b', title: 'AdminFilter', stereotype: 'Filter (Seguridad)',
+        x: 50, y: 330, width: 240, headerColor: '#991b1b', title: 'AdminFilter', stereotype: 'Controlador Filtro (Seguridad)',
         attributes: [],
         methods: [
             'init(FilterConfig) : void',
@@ -511,7 +511,7 @@ function generarDiagramaUsuarios() {
 
     // Servlets
     content += renderClassBox({
-        x: 30, y: 510, width: 210, headerColor: '#6b21a8', title: 'LoginServlet', stereotype: 'HttpServlet',
+        x: 30, y: 510, width: 210, headerColor: '#6b21a8', title: 'LoginServlet', stereotype: 'Controlador Servlet',
         attributes: [
             'usuarioDAO : UsuarioDAO'
         ],
@@ -522,7 +522,7 @@ function generarDiagramaUsuarios() {
     }).svg;
 
     content += renderClassBox({
-        x: 270, y: 510, width: 200, headerColor: '#6b21a8', title: 'LogoutServlet', stereotype: 'HttpServlet',
+        x: 270, y: 510, width: 200, headerColor: '#6b21a8', title: 'LogoutServlet', stereotype: 'Controlador Servlet',
         attributes: [],
         methods: [
             'doGet(req, resp) : void'
@@ -530,7 +530,7 @@ function generarDiagramaUsuarios() {
     }).svg;
 
     content += renderClassBox({
-        x: 500, y: 510, width: 210, headerColor: '#6b21a8', title: 'RegistroServlet', stereotype: 'HttpServlet',
+        x: 500, y: 510, width: 210, headerColor: '#6b21a8', title: 'RegistroServlet', stereotype: 'Controlador Servlet',
         attributes: [
             'usuarioDAO : UsuarioDAO'
         ],
@@ -541,7 +541,7 @@ function generarDiagramaUsuarios() {
     }).svg;
 
     content += renderClassBox({
-        x: 740, y: 510, width: 210, headerColor: '#6b21a8', title: 'UsuarioServlet', stereotype: 'HttpServlet (Admin)',
+        x: 740, y: 510, width: 210, headerColor: '#6b21a8', title: 'UsuarioServlet', stereotype: 'Controlador Servlet (Admin)',
         attributes: [
             'usuarioDAO : UsuarioDAO'
         ],
@@ -568,7 +568,7 @@ function generarDiagramaDonacionesReportes() {
 
     // Entidad Donacion
     content += renderClassBox({
-        x: 50, y: 90, width: 280, headerColor: '#1e40af', title: 'Donacion', stereotype: 'Entity Bean',
+        x: 50, y: 90, width: 280, headerColor: '#1e40af', title: 'Donacion', stereotype: 'Modelo Bean',
         attributes: [
             'idDonacion : int',
             'tituloLibro : String',
@@ -594,7 +594,7 @@ function generarDiagramaDonacionesReportes() {
 
     // DonacionDAO y Conexión
     content += renderClassBox({
-        x: 400, y: 90, width: 260, headerColor: '#0f766e', title: 'DonacionDAO', stereotype: 'Data Access Object',
+        x: 400, y: 90, width: 260, headerColor: '#0f766e', title: 'DonacionDAO', stereotype: 'Modelo DAO',
         attributes: [],
         methods: [
             'listar() : List<Donacion>',
@@ -606,7 +606,7 @@ function generarDiagramaDonacionesReportes() {
     }).svg;
 
     content += renderClassBox({
-        x: 720, y: 90, width: 220, headerColor: '#3730a3', title: 'Conexion', stereotype: 'JDBC Connection',
+        x: 720, y: 90, width: 220, headerColor: '#3730a3', title: 'Conexion', stereotype: 'Modelo Conexión',
         attributes: [
             'URLS : String[]',
             'USER : String'
@@ -621,7 +621,7 @@ function generarDiagramaDonacionesReportes() {
 
     // Servlets Donacion / Donaciones
     content += renderClassBox({
-        x: 50, y: 440, width: 230, headerColor: '#6b21a8', title: 'DonacionServlet', stereotype: 'HttpServlet (Público)',
+        x: 50, y: 440, width: 230, headerColor: '#6b21a8', title: 'DonacionServlet', stereotype: 'Controlador Servlet (Público)',
         attributes: [
             'donacionDAO : DonacionDAO'
         ],
@@ -632,7 +632,7 @@ function generarDiagramaDonacionesReportes() {
     }).svg;
 
     content += renderClassBox({
-        x: 320, y: 440, width: 240, headerColor: '#6b21a8', title: 'DonacionesServlet', stereotype: 'HttpServlet (Admin)',
+        x: 320, y: 440, width: 240, headerColor: '#6b21a8', title: 'DonacionesServlet', stereotype: 'Controlador Servlet (Admin)',
         attributes: [
             'donacionDAO : DonacionDAO'
         ],
@@ -643,7 +643,7 @@ function generarDiagramaDonacionesReportes() {
     }).svg;
 
     content += renderClassBox({
-        x: 600, y: 440, width: 220, headerColor: '#6b21a8', title: 'ReportesServlet', stereotype: 'HttpServlet (Admin)',
+        x: 600, y: 440, width: 220, headerColor: '#6b21a8', title: 'ReportesServlet', stereotype: 'Controlador Servlet (Admin)',
         attributes: [
             'prestamoDAO : PrestamoDAO',
             'libroDAO : LibroDAO',
@@ -655,7 +655,7 @@ function generarDiagramaDonacionesReportes() {
     }).svg;
 
     content += renderClassBox({
-        x: 850, y: 440, width: 220, headerColor: '#6b21a8', title: 'InnovacionServlet', stereotype: 'HttpServlet (ODS 09)',
+        x: 850, y: 440, width: 220, headerColor: '#6b21a8', title: 'InnovacionServlet', stereotype: 'Controlador Servlet (ODS 09)',
         attributes: [
             'herramientasAccesibilidad : List'
         ],
@@ -678,7 +678,7 @@ function generarDiagramaDominioGeneral() {
     let content = '';
 
     content += renderClassBox({
-        x: 30, y: 90, width: 220, headerColor: '#1e40af', title: 'Autor', stereotype: 'Entity Bean',
+        x: 30, y: 90, width: 220, headerColor: '#1e40af', title: 'Autor', stereotype: 'Modelo Bean',
         attributes: [
             'idAutor : int',
             'nombre : String',
@@ -692,7 +692,7 @@ function generarDiagramaDominioGeneral() {
     }).svg;
 
     content += renderClassBox({
-        x: 300, y: 90, width: 240, headerColor: '#1e40af', title: 'Libro', stereotype: 'Entity Bean',
+        x: 300, y: 90, width: 240, headerColor: '#1e40af', title: 'Libro', stereotype: 'Modelo Bean',
         attributes: [
             'idLibro : int',
             'titulo : String',
@@ -716,7 +716,7 @@ function generarDiagramaDominioGeneral() {
     }).svg;
 
     content += renderClassBox({
-        x: 590, y: 90, width: 220, headerColor: '#1e40af', title: 'Categoria', stereotype: 'Entity Bean',
+        x: 590, y: 90, width: 220, headerColor: '#1e40af', title: 'Categoria', stereotype: 'Modelo Bean',
         attributes: [
             'idCategoria : int',
             'nombre : String',
@@ -730,7 +730,7 @@ function generarDiagramaDominioGeneral() {
     }).svg;
 
     content += renderClassBox({
-        x: 300, y: 400, width: 240, headerColor: '#1e40af', title: 'Prestamo', stereotype: 'Entity Bean',
+        x: 300, y: 400, width: 240, headerColor: '#1e40af', title: 'Prestamo', stereotype: 'Modelo Bean',
         attributes: [
             'idPrestamo : int',
             'idUsuario : int',
@@ -750,7 +750,7 @@ function generarDiagramaDominioGeneral() {
     }).svg;
 
     content += renderClassBox({
-        x: 30, y: 400, width: 220, headerColor: '#1e40af', title: 'Usuario', stereotype: 'Entity Bean',
+        x: 30, y: 400, width: 220, headerColor: '#1e40af', title: 'Usuario', stereotype: 'Modelo Bean',
         attributes: [
             'idUsuario : int',
             'nombre : String',
@@ -768,7 +768,7 @@ function generarDiagramaDominioGeneral() {
     }).svg;
 
     content += renderClassBox({
-        x: 590, y: 400, width: 240, headerColor: '#1e40af', title: 'Donacion', stereotype: 'Entity Bean',
+        x: 590, y: 400, width: 240, headerColor: '#1e40af', title: 'Donacion', stereotype: 'Modelo Bean',
         attributes: [
             'idDonacion : int',
             'tituloLibro : String',

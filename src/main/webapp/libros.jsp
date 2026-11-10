@@ -1,10 +1,10 @@
 <%@page import="java.util.List"%>
-<%@page import="beans.Libro"%>
-<%@page import="beans.Autor"%>
-<%@page import="beans.Categoria"%>
-<%@page import="beans.Usuario"%>
-<%@page import="dao.AutorDAO"%>
-<%@page import="dao.CategoriaDAO"%>
+<%@page import="modelo.beans.Libro"%>
+<%@page import="modelo.beans.Autor"%>
+<%@page import="modelo.beans.Categoria"%>
+<%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.dao.AutorDAO"%>
+<%@page import="modelo.dao.CategoriaDAO"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
