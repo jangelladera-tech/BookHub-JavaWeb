@@ -1,6 +1,6 @@
 # 📚 BOOKHUB — Sistema Web de Gestión de Biblioteca Universitaria
 
-Aplicación web desarrollada en **Java (Jakarta EE / Servlets / JSP / MVC / DAO con JDBC y MySQL)** manteniendo la estructura original de proyecto **NetBeans / Apache Ant (`build.xml`, `nbproject/`)**, configurada para **Apache Tomcat 10** y **JDK 24**.
+Aplicación web desarrollada en **Java (Jakarta EE 10 / Servlets 6.0 / JSP / MVC / DAO con JDBC y MySQL)** bajo la arquitectura y estructura estándar de **Apache Maven**, configurada para despliegue en **Apache Tomcat 10+**.
 
 ---
 
@@ -193,20 +193,29 @@ classDiagram
 
 ---
 
-## 🗂️ Estructura del Proyecto (NetBeans / Apache Ant)
+## 🗂️ Estructura del Proyecto (Apache Maven Standard Layout)
 
 ```text
 BookHub/
-├── build.xml                        # Script de compilación Apache Ant (NetBeans)
-├── nbproject/                       # Configuración de Apache Tomcat 10 y JDK 24
+├── pom.xml                          # Configuración Maven (Jakarta EE 10, MySQL Connector 8.4.0)
 ├── database/
 │   └── bookhub.sql                  # Script MySQL con tablas y datos semilla
-├── src/
-│   ├── conf/MANIFEST.MF
-│   └── java/
-│       ├── beans/                   # Modelo de clases (Autor, Categoria, Libro, Prestamo, Usuario)
-│       ├── conexion/                # Clase Conexion JDBC MySQL (puerto 3307 / 3306)
-│       ├── dao/                     # Capa DAO con PreparedStatement + respaldo en memoria
-│       └── servlets/                # Controladores MVC y filtro de seguridad AdminFilter
-└── web/                             # Vistas JSP, index.html y configuración WEB-INF/META-INF
+└── src/
+    ├── main/
+    │   ├── java/
+    │   │   ├── beans/               # Modelo de clases (Autor, Categoria, Libro, Prestamo, Usuario)
+    │   │   ├── conexion/            # Clase Conexion JDBC MySQL (puerto 3307 / 3306)
+    │   │   ├── dao/                 # Capa DAO con PreparedStatement + respaldo en memoria
+    │   │   └── servlets/            # Controladores MVC y filtro de seguridad AdminFilter
+    │   ├── resources/               # Archivos de configuración y propiedades
+    │   └── webapp/                  # Recursos Web de la aplicación
+    │       ├── img/                 # Recursos gráficos y portadas SVG
+    │       ├── META-INF/
+    │       │   └── context.xml      # Configuración de contexto Tomcat
+    │       ├── WEB-INF/
+    │       │   └── web.xml          # Descriptor de despliegue Jakarta EE 6.0
+    │       ├── *.jsp                # Vistas JSP
+    │       └── index.html           # Página de inicio
+    └── test/
+        └── java/                    # Pruebas unitarias
 ```

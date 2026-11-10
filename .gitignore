@@ -1,1 +1,25 @@
-/dist/
+# Maven build output
+target/
+
+# NetBeans and Ant legacy
+build/
+dist/
+nbproject/private/
+.nb-gradle/
+
+# Compiled classes and packaging
+*.class
+*.war
+*.ear
+
+# IDE specific files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS files
+.DS_Store
+Thumbs.db
