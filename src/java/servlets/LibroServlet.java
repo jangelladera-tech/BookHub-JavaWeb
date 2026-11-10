@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/LibroServlet")
+@WebServlet(urlPatterns = {"/LibroServlet", "/LibrosServlet"})
 public class LibroServlet extends HttpServlet {
 
     private LibroDAO libroDAO = new LibroDAO();

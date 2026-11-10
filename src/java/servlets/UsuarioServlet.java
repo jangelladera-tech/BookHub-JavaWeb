@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/UsuarioServlet")
+@WebServlet(urlPatterns = {"/UsuarioServlet", "/UsuariosServlet"})
 public class UsuarioServlet extends HttpServlet {
 
     private UsuarioDAO usuarioDAO = new UsuarioDAO();

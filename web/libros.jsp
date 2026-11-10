@@ -24,8 +24,43 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
               rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
         <style>
+            .offcanvas-bookhub {
+                width: 320px !important;
+                background: #0f172a !important;
+                color: #f8fafc;
+                border-right: 1px solid #334155 !important;
+            }
+            .sidebar-menu-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 14px;
+                border-radius: 10px;
+                color: #e2e8f0;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                font-weight: 500;
+            }
+            .sidebar-menu-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+                transform: translateX(4px);
+            }
+            .sidebar-menu-item.active {
+                background: #2563eb;
+                color: #ffffff;
+                font-weight: 600;
+            }
+            .sidebar-subtitle {
+                font-size: 0.72rem;
+                letter-spacing: 0.08em;
+                color: #94a3b8;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
             .portada-mini {
                 width: 48px;
                 height: 68px;
@@ -54,6 +89,47 @@
 
     <body class="bg-light">
 
+        <!-- OFFCANVAS ADMIN -->
+        <div class="offcanvas offcanvas-start offcanvas-bookhub shadow-lg" tabindex="-1" id="sidebarBookHub">
+            <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fs-3">📚</span>
+                    <div>
+                        <h5 class="offcanvas-title fw-bold text-white mb-0">BookHub</h5>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Panel de Administración</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+            </div>
+
+            <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
+                <div>
+                    <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
+                    <div class="d-flex flex-column gap-1 mb-3">
+                        <a href="index.jsp" class="sidebar-menu-item"><i class="bi bi-house-door-fill text-warning fs-5"></i> Inicio</a>
+                        <a href="CatalogoServlet" class="sidebar-menu-item"><i class="bi bi-journal-bookmark-fill text-info fs-5"></i> Catálogo</a>
+                        <a href="InnovacionServlet" class="sidebar-menu-item"><i class="bi bi-universal-access-circle text-success fs-5"></i> ODS 09: Accesibilidad</a>
+                        <a href="donar.jsp" class="sidebar-menu-item"><i class="bi bi-gift-fill text-danger fs-5"></i> Donar Libros</a>
+                    </div>
+
+                    <p class="sidebar-subtitle mb-2 px-2">Gestión del Sistema</p>
+                    <div class="d-flex flex-column gap-1 mb-3">
+                        <a href="dashboard.jsp" class="sidebar-menu-item"><i class="bi bi-speedometer2 text-warning fs-5"></i> Dashboard</a>
+                        <a href="LibroServlet" class="sidebar-menu-item active"><i class="bi bi-book-half text-info fs-5"></i> Gestión de Libros</a>
+                        <a href="CategoriaServlet" class="sidebar-menu-item"><i class="bi bi-tags-fill text-warning fs-5"></i> Gestión de Categorías</a>
+                        <a href="AutorServlet" class="sidebar-menu-item"><i class="bi bi-pen-fill text-danger fs-5"></i> Gestión de Autores</a>
+                        <a href="PrestamoServlet" class="sidebar-menu-item"><i class="bi bi-card-checklist text-primary fs-5"></i> Gestión de Préstamos</a>
+                        <a href="UsuarioServlet" class="sidebar-menu-item"><i class="bi bi-people-fill text-success fs-5"></i> Gestión de Usuarios</a>
+                        <a href="DonacionesServlet" class="sidebar-menu-item"><i class="bi bi-gift-fill text-danger fs-5"></i> Donaciones de Libros</a>
+                        <a href="ReportesServlet" class="sidebar-menu-item"><i class="bi bi-graph-up-arrow text-info fs-5"></i> Reportes y Métricas</a>
+                        <a href="SancionesServlet" class="sidebar-menu-item"><i class="bi bi-exclamation-octagon-fill text-warning fs-5"></i> Sanciones y Mora</a>
+                    </div>
+                </div>
+                <div class="pt-3 border-top border-secondary border-opacity-25 text-center text-white-50 small">
+                    <span>BookHub v2.0 • Panel Administrativo</span>
+                </div>
+            </div>
+        </div>
 
         <!-- ==================== NAVBAR ==================== -->
 
@@ -61,9 +137,14 @@
 
             <div class="container">
 
-                <a class="navbar-brand fw-bold" href="dashboard.jsp">
-                    BOOKHUB
-                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-outline-light btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarBookHub">
+                        <i class="bi bi-list fs-5"></i>
+                    </button>
+                    <a class="navbar-brand fw-bold mb-0" href="dashboard.jsp">
+                        BOOKHUB
+                    </a>
+                </div>
 
                 <div class="d-flex gap-2">
                     <a href="CatalogoServlet" class="btn btn-outline-info btn-sm">
@@ -652,6 +733,8 @@
                 });
             }
         </script>
+
+        <%@include file="a11y-panel.jsp"%>
 
     </body>
 </html>

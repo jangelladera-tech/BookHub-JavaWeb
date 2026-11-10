@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/PrestamoServlet")
+@WebServlet(urlPatterns = {"/PrestamoServlet", "/PrestamosServlet"})
 public class PrestamoServlet extends HttpServlet {
 
     private PrestamoDAO prestamoDAO = new PrestamoDAO();

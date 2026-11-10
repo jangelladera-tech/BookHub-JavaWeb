@@ -67,7 +67,23 @@
     </div>
     <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
         <div>
-            <p class="text-uppercase text-secondary fw-bold small mb-2 px-2" style="font-size: 0.7rem; letter-spacing: 0.05em;">Gestión Principal</p>
+            <p class="text-uppercase text-secondary fw-bold small mb-2 px-2" style="font-size: 0.7rem; letter-spacing: 0.05em;">Apartados Principales</p>
+            <div class="d-flex flex-column gap-1 mb-3">
+                <a href="index.jsp" class="admin-nav-link">
+                    <i class="bi bi-house-door-fill text-warning"></i> Inicio
+                </a>
+                <a href="CatalogoServlet" class="admin-nav-link">
+                    <i class="bi bi-journal-bookmark-fill text-info"></i> Catálogo
+                </a>
+                <a href="InnovacionServlet" class="admin-nav-link">
+                    <i class="bi bi-universal-access-circle text-success"></i> ODS 09: Accesibilidad
+                </a>
+                <a href="donar.jsp" class="admin-nav-link">
+                    <i class="bi bi-gift-fill text-danger"></i> Donar Libros
+                </a>
+            </div>
+
+            <p class="text-uppercase text-secondary fw-bold small mb-2 px-2" style="font-size: 0.7rem; letter-spacing: 0.05em;">Gestión del Sistema</p>
             <div class="d-flex flex-column gap-1 mb-3">
                 <a href="dashboard.jsp" class="admin-nav-link">
                     <i class="bi bi-speedometer2"></i> Dashboard
@@ -87,10 +103,6 @@
                 <a href="UsuarioServlet" class="admin-nav-link">
                     <i class="bi bi-people-fill"></i> Usuarios
                 </a>
-            </div>
-
-            <p class="text-uppercase text-secondary fw-bold small mb-2 px-2" style="font-size: 0.7rem; letter-spacing: 0.05em;">Nuevos Módulos</p>
-            <div class="d-flex flex-column gap-1 mb-3">
                 <a href="DonacionesServlet" class="admin-nav-link">
                     <i class="bi bi-gift-fill text-danger"></i> Donaciones de Libros
                 </a>
@@ -250,6 +262,8 @@
 <footer class="bg-dark text-white text-center py-4 mt-5">
     <p class="mb-0 small text-white-50">© 2026 BOOKHUB - Sistema de Gestión de Biblioteca Universitaria</p>
 </footer>
+
+<%@include file="a11y-panel.jsp"%>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>

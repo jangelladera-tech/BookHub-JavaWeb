@@ -131,4 +131,16 @@ public class Donacion {
     public void setEstadoRevision(String estadoRevision) {
         this.estadoRevision = estadoRevision;
     }
+
+    public String getEstadoFisico() {
+        return estadoConservacion;
+    }
+
+    public int getCantidad() {
+        return 1;
+    }
+
+    public String getFechaDonacion() {
+        return fechaSolicitud;
+    }
 }

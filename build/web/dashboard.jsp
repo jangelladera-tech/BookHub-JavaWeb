@@ -140,7 +140,7 @@
             <!-- APARTADOS PRINCIPALES -->
             <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
             <div class="d-flex flex-column gap-1 mb-3">
-                <a href="index.html" class="sidebar-menu-item">
+                <a href="index.jsp" class="sidebar-menu-item">
                     <i class="bi bi-house-door-fill menu-icon text-warning"></i>
                     <div class="flex-grow-1">
                         <div>Inicio</div>
@@ -163,51 +163,54 @@
                         <small class="text-white-50" style="font-size: 0.72rem;">Inclusión asistiva WCAG</small>
                     </div>
                 </a>
+
+                <a href="donar.jsp" class="sidebar-menu-item">
+                    <i class="bi bi-gift-fill menu-icon text-danger"></i>
+                    <div class="flex-grow-1">
+                        <div>Donar Libros</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Dona libros a la biblioteca</small>
+                    </div>
+                </a>
             </div>
 
-            <!-- MÓDULOS DE ADMINISTRACIÓN -->
+            <!-- GESTIÓN DEL SISTEMA (UNIFICADO) -->
             <p class="sidebar-subtitle mb-2 px-2">Gestión del Sistema</p>
             <div class="d-flex flex-column gap-1 mb-3">
                 <a href="dashboard.jsp" class="sidebar-menu-item active">
                     <i class="bi bi-speedometer2 menu-icon text-warning"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="LibrosServlet" class="sidebar-menu-item">
+                <a href="LibroServlet" class="sidebar-menu-item">
                     <i class="bi bi-book-half menu-icon text-info"></i>
                     <span>Gestión de Libros</span>
                 </a>
-                <a href="PrestamosServlet" class="sidebar-menu-item">
+                <a href="CategoriaServlet" class="sidebar-menu-item">
+                    <i class="bi bi-tags-fill menu-icon text-warning"></i>
+                    <span>Gestión de Categorías</span>
+                </a>
+                <a href="AutorServlet" class="sidebar-menu-item">
+                    <i class="bi bi-pen-fill menu-icon text-danger"></i>
+                    <span>Gestión de Autores</span>
+                </a>
+                <a href="PrestamoServlet" class="sidebar-menu-item">
                     <i class="bi bi-card-checklist menu-icon text-primary"></i>
                     <span>Gestión de Préstamos</span>
                 </a>
-                <a href="UsuariosServlet" class="sidebar-menu-item">
+                <a href="UsuarioServlet" class="sidebar-menu-item">
                     <i class="bi bi-people-fill menu-icon text-success"></i>
                     <span>Gestión de Usuarios</span>
                 </a>
-                <a href="CategoriasServlet" class="sidebar-menu-item">
-                    <i class="bi bi-tags-fill menu-icon text-warning"></i>
-                    <span>Categorías</span>
-                </a>
-                <a href="AutoresServlet" class="sidebar-menu-item">
-                    <i class="bi bi-pen-fill menu-icon text-danger"></i>
-                    <span>Autores</span>
-                </a>
-            </div>
-
-            <!-- NUEVOS MÓDULOS -->
-            <p class="sidebar-subtitle mb-2 px-2">Nuevos Módulos</p>
-            <div class="d-flex flex-column gap-1 mb-3">
                 <a href="DonacionesServlet" class="sidebar-menu-item">
                     <i class="bi bi-gift-fill menu-icon text-danger"></i>
                     <span>Donaciones de Libros</span>
                 </a>
                 <a href="ReportesServlet" class="sidebar-menu-item">
                     <i class="bi bi-graph-up-arrow menu-icon text-info"></i>
-                    <span>Reportes & Métricas</span>
+                    <span>Reportes y Métricas</span>
                 </a>
                 <a href="SancionesServlet" class="sidebar-menu-item">
                     <i class="bi bi-exclamation-octagon-fill menu-icon text-warning"></i>
-                    <span>Sanciones & Mora</span>
+                    <span>Sanciones y Mora</span>
                 </a>
             </div>
         </div>
@@ -481,15 +484,15 @@
 
         <!-- 1. DONACIONES DE LIBROS -->
         <div class="col-md-6 col-lg-4">
-            <div class="card shadow-sm h-100 border-start border-danger border-4">
+            <div class="card shadow-sm h-100">
                 <div class="card-body">
-                    <h4 class="card-title text-danger">
+                    <h4 class="card-title">
                         🎁 Donaciones
                     </h4>
                     <p class="card-text">
-                        Revisa solicitudes de libros donados e incorpóralos al catálogo con 1 clic.
+                        Gestiona las solicitudes de libros donados al acervo.
                     </p>
-                    <a href="DonacionesServlet" class="btn btn-danger">
+                    <a href="DonacionesServlet" class="btn btn-primary">
                         Gestionar donaciones
                     </a>
                 </div>
@@ -498,16 +501,16 @@
 
         <!-- 2. REPORTES Y MÉTRICAS -->
         <div class="col-md-6 col-lg-4">
-            <div class="card shadow-sm h-100 border-start border-info border-4">
+            <div class="card shadow-sm h-100">
                 <div class="card-body">
-                    <h4 class="card-title text-info">
-                        📊 Reportes & KPIs
+                    <h4 class="card-title">
+                        📊 Reportes & Métricas
                     </h4>
                     <p class="card-text">
-                        Métricas de acervo, préstamos del mes, categorías y alertas de stock crítico.
+                        Consulta métricas de libros, categorías y préstamos.
                     </p>
-                    <a href="ReportesServlet" class="btn btn-info text-white">
-                        Ver métricas y reportes
+                    <a href="ReportesServlet" class="btn btn-primary">
+                        Ver reportes
                     </a>
                 </div>
             </div>
@@ -515,16 +518,16 @@
 
         <!-- 3. SANCIONES Y MORA -->
         <div class="col-md-6 col-lg-4">
-            <div class="card shadow-sm h-100 border-start border-warning border-4">
+            <div class="card shadow-sm h-100">
                 <div class="card-body">
-                    <h4 class="card-title text-warning">
+                    <h4 class="card-title">
                         ⚠️ Sanciones & Mora
                     </h4>
                     <p class="card-text">
-                        Monitorea préstamos con fecha vencida y regulariza devoluciones atrasadas.
+                        Supervisa préstamos vencidos y regularizaciones.
                     </p>
-                    <a href="SancionesServlet" class="btn btn-warning text-dark">
-                        Controlar sanciones
+                    <a href="SancionesServlet" class="btn btn-primary">
+                        Gestionar sanciones
                     </a>
                 </div>
             </div>
@@ -545,6 +548,8 @@
     </p>
 
 </footer>
+
+<%@include file="a11y-panel.jsp"%>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>

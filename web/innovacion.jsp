@@ -573,7 +573,7 @@
             <!-- APARTADOS PRINCIPALES -->
             <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
             <div class="d-flex flex-column gap-1 mb-4">
-                <a href="index.html" class="sidebar-menu-item">
+                <a href="index.jsp" class="sidebar-menu-item">
                     <i class="bi bi-house-door-fill menu-icon text-warning"></i>
                     <div class="flex-grow-1">
                         <div>Inicio</div>
@@ -650,7 +650,7 @@
                 <i class="bi bi-list fs-3"></i>
             </button>
 
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.jsp">
                 <span>BookHub</span>
             </a>
         </div>

@@ -15,11 +15,28 @@ import jakarta.servlet.http.HttpSession;
 @WebFilter(
     urlPatterns = {
         "/dashboard.jsp",
+        "/libros.jsp",
         "/LibroServlet",
+        "/LibrosServlet",
+        "/autores.jsp",
         "/AutorServlet",
+        "/AutoresServlet",
+        "/categorias.jsp",
         "/CategoriaServlet",
+        "/CategoriasServlet",
+        "/usuarios.jsp",
         "/UsuarioServlet",
-        "/PrestamoServlet"
+        "/UsuariosServlet",
+        "/prestamos.jsp",
+        "/PrestamoServlet",
+        "/PrestamosServlet",
+        "/donaciones.jsp",
+        "/DonacionesServlet",
+        "/DonacionAdminServlet",
+        "/reportes.jsp",
+        "/ReportesServlet",
+        "/sanciones.jsp",
+        "/SancionesServlet"
     }
 )
 public class AdminFilter implements Filter {

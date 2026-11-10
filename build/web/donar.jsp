@@ -124,7 +124,7 @@
         <div>
             <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
             <div class="d-flex flex-column gap-1 mb-4">
-                <a href="index.html" class="sidebar-menu-item">
+                <a href="index.jsp" class="sidebar-menu-item">
                     <i class="bi bi-house-door-fill text-warning fs-5"></i>
                     <div>Inicio</div>
                 </a>
@@ -328,5 +328,6 @@
         }
     }, { passive: true });
 </script>
+<%@include file="a11y-panel.jsp"%>
 </body>
 </html>

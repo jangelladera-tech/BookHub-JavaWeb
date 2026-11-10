@@ -188,7 +188,7 @@
 
                         <div class="text-center mt-3">
 
-                            <a href="index.html"
+                            <a href="index.jsp"
                                class="text-decoration-none">
                                 ← Volver al inicio
                             </a>
@@ -204,6 +204,8 @@
         </div>
 
     </div>
+
+    <%@include file="a11y-panel.jsp"%>
 
 </body>
 

@@ -207,7 +207,7 @@
 
                             <div class="text-center mt-3">
 
-                                <a href="index.html"
+                                <a href="index.jsp"
                                    class="text-decoration-none">
                                     ← Volver al inicio
                                 </a>
@@ -235,6 +235,8 @@
                 input.type = (input.type === 'password') ? 'text' : 'password';
             }
         </script>
+
+        <%@include file="a11y-panel.jsp"%>
 
     </body>
 </html>

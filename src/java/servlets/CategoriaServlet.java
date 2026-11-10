@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/CategoriaServlet")
+@WebServlet(urlPatterns = {"/CategoriaServlet", "/CategoriasServlet"})
 public class CategoriaServlet extends HttpServlet {
 
     private CategoriaDAO categoriaDAO = new CategoriaDAO();

@@ -141,7 +141,7 @@
             <!-- APARTADOS PRINCIPALES -->
             <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
             <div class="d-flex flex-column gap-1 mb-4">
-                <a href="index.html" class="sidebar-menu-item">
+                <a href="index.jsp" class="sidebar-menu-item">
                     <i class="bi bi-house-door-fill menu-icon text-warning"></i>
                     <div class="flex-grow-1">
                         <div>Inicio</div>
@@ -168,6 +168,18 @@
                 <a href="MisPrestamosServlet" class="sidebar-menu-item">
                     <i class="bi bi-clock-history menu-icon text-warning"></i>
                     <div class="flex-grow-1">
+                        <div>Mis Préstamos</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
+                    </div>
+                </a>
+
+                <a href="donar.jsp" class="sidebar-menu-item">
+                    <i class="bi bi-gift-fill menu-icon text-danger"></i>
+                    <div class="flex-grow-1">
+                        <div>Donar Libros</div>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Dona libros a la biblioteca</small>
+                    </div>
+                </a>
                         <div>Mis Préstamos</div>
                         <small class="text-white-50" style="font-size: 0.72rem;">Libros prestados y fechas</small>
                     </div>
@@ -207,7 +219,7 @@
                 <i class="bi bi-list fs-3"></i>
             </button>
 
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.html">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2 m-0" href="index.jsp">
                 <span>BookHub</span>
             </a>
         </div>
@@ -446,6 +458,8 @@
         }
     }, { passive: true });
 </script>
+
+<%@include file="a11y-panel.jsp"%>
 
 </body>
 
