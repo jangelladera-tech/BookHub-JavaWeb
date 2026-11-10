@@ -557,6 +557,15 @@
     <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
         <div>
             
+                <div id="sidebarUserSessionBox" style="display:none;" class="p-3 mb-3 rounded-3 bg-secondary bg-opacity-25 border border-secondary border-opacity-25">
+                    <div class="d-flex align-items-center gap-2">
+                        <i id="sidebarUserIcon" class="bi bi-person-circle text-info fs-3"></i>
+                        <div class="overflow-hidden">
+                            <div id="sidebarUserName" class="fw-semibold text-white text-truncate">Usuario</div>
+                            <span id="sidebarUserRole" class="badge bg-primary" style="font-size: 0.68rem;">LECTOR</span>
+                        </div>
+                    </div>
+                </div>
 
             <!-- APARTADOS PRINCIPALES -->
             <p class="sidebar-subtitle mb-2 px-2">Apartados Principales</p>
@@ -647,17 +656,8 @@
             </a>
         </div>
 
-        <!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión / Registrarse (o Perfil / Salir) -->
-        
-    <div class="d-flex align-items-center gap-2 ms-auto">
-        <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
-            <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
-        </a>
-        <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
-            <i class="bi bi-person-plus"></i> <span>Registrarse</span>
-        </a>
+        <!-- Lado derecho -->
     </div>
-</div>
 </nav>
 
 
@@ -692,7 +692,7 @@
                     Búsqueda y Filtros
                 </h6>
                 <span class="badge bg-light text-dark border" id="contadorResultados">
-                     ejemplares
+                    <%= totalLibros %> ejemplares
                 </span>
             </div>
 
@@ -704,7 +704,7 @@
                         <input type="text"
                                id="buscador"
                                name="busqueda"
-                               value=""
+                               value="<%= busqueda %>"
                                class="form-control"
                                placeholder="Escribe para buscar...">
                         <button class="btn btn-outline-secondary"
@@ -722,11 +722,15 @@
                     <label class="form-label small text-muted mb-1">Categoría</label>
                     <select name="categoria" id="filtroCategoria" class="form-select">
                         <option value="">Todas las categorías</option>
-                        
-                            <option value="" >
-                                
+                        <% if (categorias != null) {
+                                for (Categoria cat : categorias) {
+                                    boolean sel = cat.getNombre().equalsIgnoreCase(categoriaSeleccionada);
+                        %>
+                            <option value="<%= cat.getNombre() %>" <%= sel ? "selected" : "" %>>
+                                <%= cat.getNombre() %>
                             </option>
-                        
+                        <%     }
+                           } %>
                     </select>
                 </div>
 
@@ -801,16 +805,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Cien años de soledad</h6>
                   <p class="text-muted small mb-1">Gabriel García Márquez</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Novela cumbre del realismo mágico sobre la saga de la familia Buendía en Macondo.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=1" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Cien años de soledad. De Gabriel García Márquez. Novela cumbre del realismo mágico sobre la saga de la familia Buendía en Macondo.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Cien años de soledad. De Gabriel García Márquez. Novela cumbre del realismo mágico sobre la saga de la familia Buendía en Macondo.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=1" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=1&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -844,16 +851,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Don Quijote de la Mancha</h6>
                   <p class="text-muted small mb-1">Miguel de Cervantes</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Obra maestra de la literatura universal que narra las andanzas del ingenioso hidalgo.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=2" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Don Quijote de la Mancha. De Miguel de Cervantes. Obra maestra de la literatura universal que narra las andanzas del ingenioso hidalgo.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Don Quijote de la Mancha. De Miguel de Cervantes. Obra maestra de la literatura universal que narra las andanzas del ingenioso hidalgo.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=2" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=2&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -887,16 +897,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">El Principito</h6>
                   <p class="text-muted small mb-1">Antoine de Saint-Exupéry</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Obra poética y filosófica sobre el sentido del amor, la amistad y la naturaleza humana.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=3" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El Principito. De Antoine de Saint-Exupéry. Obra poética y filosófica sobre el sentido del amor, la amistad y la naturaleza humana.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('El Principito. De Antoine de Saint-Exupéry. Obra poética y filosófica sobre el sentido del amor, la amistad y la naturaleza humana.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=3" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=3&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -930,16 +943,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Clean Code: Manual de desarrollo ágil de software</h6>
                   <p class="text-muted small mb-1">Robert C. Martin</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Principios, patrones y mejores prácticas para escribir código limpio, legible y robusto.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=4" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Clean Code: Manual de desarrollo ágil de software. De Robert C. Martin. Principios, patrones y mejores prácticas para escribir código limpio, legible y robusto.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Clean Code: Manual de desarrollo ágil de software. De Robert C. Martin. Principios, patrones y mejores prácticas para escribir código limpio, legible y robusto.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=4" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=4&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -973,16 +989,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">The Pragmatic Programmer</h6>
                   <p class="text-muted small mb-1">Andrew Hunt &amp; David Thomas</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Guía de maestría profesional para desarrolladores de software modernos y eficientes.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=5" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('The Pragmatic Programmer. De Andrew Hunt &amp; David Thomas. Guía de maestría profesional para desarrolladores de software modernos y eficientes.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('The Pragmatic Programmer. De Andrew Hunt &amp; David Thomas. Guía de maestría profesional para desarrolladores de software modernos y eficientes.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=5" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=5&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1016,16 +1035,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Design Patterns: Elements of Reusable Object-Oriented Software</h6>
                   <p class="text-muted small mb-1">Erich Gamma et al. (GoF)</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       El catálogo fundamental de 23 patrones de diseño orientados a objetos de la Gang of Four.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=6" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Design Patterns: Elements of Reusable Object-Oriented Software. De Erich Gamma et al. (GoF). El catálogo fundamental de 23 patrones de diseño orientados a objetos de la Gang of Four.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Design Patterns: Elements of Reusable Object-Oriented Software. De Erich Gamma et al. (GoF). El catálogo fundamental de 23 patrones de diseño orientados a objetos de la Gang of Four.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=6" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=6&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1059,16 +1081,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Refactoring: Improving the Design of Existing Code</h6>
                   <p class="text-muted small mb-1">Martin Fowler</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Técnicas comprobadas para reestructurar código existente sin cambiar su comportamiento.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=7" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Refactoring: Improving the Design of Existing Code. De Martin Fowler. Técnicas comprobadas para reestructurar código existente sin cambiar su comportamiento.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Refactoring: Improving the Design of Existing Code. De Martin Fowler. Técnicas comprobadas para reestructurar código existente sin cambiar su comportamiento.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=7" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=7&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1102,16 +1127,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Introduction to Algorithms (CLRS)</h6>
                   <p class="text-muted small mb-1">Thomas H. Cormen</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       La biblia académica de los algoritmos y estructuras de datos para ciencias de la computación.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=8" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Introduction to Algorithms (CLRS). De Thomas H. Cormen. La biblia académica de los algoritmos y estructuras de datos para ciencias de la computación.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Introduction to Algorithms (CLRS). De Thomas H. Cormen. La biblia académica de los algoritmos y estructuras de datos para ciencias de la computación.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=8" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=8&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1145,16 +1173,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Breve historia del tiempo</h6>
                   <p class="text-muted small mb-1">Stephen Hawking</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Fascinante viaje por el origen del universo, agujeros negros y la física cuántica.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=9" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Breve historia del tiempo. De Stephen Hawking. Fascinante viaje por el origen del universo, agujeros negros y la física cuántica.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Breve historia del tiempo. De Stephen Hawking. Fascinante viaje por el origen del universo, agujeros negros y la física cuántica.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=9" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=9&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1188,16 +1219,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Cosmos</h6>
                   <p class="text-muted small mb-1">Carl Sagan</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Monumental obra de divulgación científica sobre el cosmos, la ciencia y la civilización.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=10" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Cosmos. De Carl Sagan. Monumental obra de divulgación científica sobre el cosmos, la ciencia y la civilización.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Cosmos. De Carl Sagan. Monumental obra de divulgación científica sobre el cosmos, la ciencia y la civilización.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=10" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=10&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1231,16 +1265,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">El gen egoísta</h6>
                   <p class="text-muted small mb-1">Richard Dawkins</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Una visión revolucionaria de la evolución centrada en la perspectiva del gen.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=11" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El gen egoísta. De Richard Dawkins. Una visión revolucionaria de la evolución centrada en la perspectiva del gen.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('El gen egoísta. De Richard Dawkins. Una visión revolucionaria de la evolución centrada en la perspectiva del gen.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=11" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=11&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1274,16 +1311,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Física Universitaria con Física Moderna</h6>
                   <p class="text-muted small mb-1">Francis Sears &amp; Mark Zemansky</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Texto estándar de física para estudiantes de ingeniería y ciencias exactas.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=12" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Física Universitaria con Física Moderna. De Francis Sears &amp; Mark Zemansky. Texto estándar de física para estudiantes de ingeniería y ciencias exactas.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Física Universitaria con Física Moderna. De Francis Sears &amp; Mark Zemansky. Texto estándar de física para estudiantes de ingeniería y ciencias exactas.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=12" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=12&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1317,16 +1357,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Cálculo de una variable: Trascendentes tempranas</h6>
                   <p class="text-muted small mb-1">James Stewart</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Tratado pedagógico integral sobre límites, derivadas, integrales y series.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=13" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Cálculo de una variable: Trascendentes tempranas. De James Stewart. Tratado pedagógico integral sobre límites, derivadas, integrales y series.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Cálculo de una variable: Trascendentes tempranas. De James Stewart. Tratado pedagógico integral sobre límites, derivadas, integrales y series.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=13" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=13&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1360,16 +1403,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Inteligencia Artificial: Un Enfoque Moderno</h6>
                   <p class="text-muted small mb-1">Stuart Russell &amp; Peter Norvig</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       El texto de referencia global sobre agentes inteligentes, aprendizaje profundo y robótica.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=14" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Inteligencia Artificial: Un Enfoque Moderno. De Stuart Russell &amp; Peter Norvig. El texto de referencia global sobre agentes inteligentes, aprendizaje profundo y robótica.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Inteligencia Artificial: Un Enfoque Moderno. De Stuart Russell &amp; Peter Norvig. El texto de referencia global sobre agentes inteligentes, aprendizaje profundo y robótica.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=14" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=14&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1403,16 +1449,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Sapiens: De animales a dioses</h6>
                   <p class="text-muted small mb-1">Yuval Noah Harari</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Breve historia de la humanidad desde los primeros cazadores hasta la revolución biotecnológica.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=15" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Sapiens: De animales a dioses. De Yuval Noah Harari. Breve historia de la humanidad desde los primeros cazadores hasta la revolución biotecnológica.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Sapiens: De animales a dioses. De Yuval Noah Harari. Breve historia de la humanidad desde los primeros cazadores hasta la revolución biotecnológica.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=15" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=15&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1446,16 +1495,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">1984</h6>
                   <p class="text-muted small mb-1">George Orwell</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Inmortal novela distópica sobre el Gran Hermano, la vigilancia masiva y el autoritarismo.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=16" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('1984. De George Orwell. Inmortal novela distópica sobre el Gran Hermano, la vigilancia masiva y el autoritarismo.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('1984. De George Orwell. Inmortal novela distópica sobre el Gran Hermano, la vigilancia masiva y el autoritarismo.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=16" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=16&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1489,16 +1541,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Un mundo feliz</h6>
                   <p class="text-muted small mb-1">Aldous Huxley</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Profética sátira sobre una sociedad futurista condicionada tecnológicamente.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=17" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Un mundo feliz. De Aldous Huxley. Profética sátira sobre una sociedad futurista condicionada tecnológicamente.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Un mundo feliz. De Aldous Huxley. Profética sátira sobre una sociedad futurista condicionada tecnológicamente.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=17" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=17&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1532,16 +1587,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Crónica de una muerte anunciada</h6>
                   <p class="text-muted small mb-1">Gabriel García Márquez</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Reconstrucción casi periodística del fatídico asesinato de Santiago Nasar.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=18" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Crónica de una muerte anunciada. De Gabriel García Márquez. Reconstrucción casi periodística del fatídico asesinato de Santiago Nasar.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Crónica de una muerte anunciada. De Gabriel García Márquez. Reconstrucción casi periodística del fatídico asesinato de Santiago Nasar.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=18" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=18&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1575,16 +1633,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Rayuela</h6>
                   <p class="text-muted small mb-1">Julio Cortázar</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Contranovela revolucionaria de Julio Cortázar que puede leerse en múltiples órdenes.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=19" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Rayuela. De Julio Cortázar. Contranovela revolucionaria de Julio Cortázar que puede leerse en múltiples órdenes.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Rayuela. De Julio Cortázar. Contranovela revolucionaria de Julio Cortázar que puede leerse en múltiples órdenes.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=19" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=19&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1618,16 +1679,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Ficciones</h6>
                   <p class="text-muted small mb-1">Jorge Luis Borges</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Colección de cuentos laberínticos sobre espejos, bibliotecas infinitas y paradojas.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=20" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Ficciones. De Jorge Luis Borges. Colección de cuentos laberínticos sobre espejos, bibliotecas infinitas y paradojas.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Ficciones. De Jorge Luis Borges. Colección de cuentos laberínticos sobre espejos, bibliotecas infinitas y paradojas.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=20" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=20&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1661,16 +1725,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Hábitos Atómicos</h6>
                   <p class="text-muted small mb-1">James Clear</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Método comprobado para crear buenos hábitos y romper los malos mediante pequeños cambios.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=21" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Hábitos Atómicos. De James Clear. Método comprobado para crear buenos hábitos y romper los malos mediante pequeños cambios.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Hábitos Atómicos. De James Clear. Método comprobado para crear buenos hábitos y romper los malos mediante pequeños cambios.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=21" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=21&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1704,16 +1771,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">El hombre en busca de sentido</h6>
                   <p class="text-muted small mb-1">Viktor Frankl</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Sobrecogedor testimonio de Viktor Frankl en campos de concentración y base de la logoterapia.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=22" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El hombre en busca de sentido. De Viktor Frankl. Sobrecogedor testimonio de Viktor Frankl en campos de concentración y base de la logoterapia.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('El hombre en busca de sentido. De Viktor Frankl. Sobrecogedor testimonio de Viktor Frankl en campos de concentración y base de la logoterapia.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=22" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=22&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1747,16 +1817,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Pensar rápido, pensar despacio</h6>
                   <p class="text-muted small mb-1">Daniel Kahneman</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Análisis magistral de los dos sistemas que dirigen nuestra mente y toma de decisiones.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=23" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Pensar rápido, pensar despacio. De Daniel Kahneman. Análisis magistral de los dos sistemas que dirigen nuestra mente y toma de decisiones.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Pensar rápido, pensar despacio. De Daniel Kahneman. Análisis magistral de los dos sistemas que dirigen nuestra mente y toma de decisiones.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=23" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=23&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1790,16 +1863,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">El arte de la guerra</h6>
                   <p class="text-muted small mb-1">Sun Tzu</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Tratado milenario de estrategia, liderazgo, resolución de conflictos y táctica militar.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=24" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El arte de la guerra. De Sun Tzu. Tratado milenario de estrategia, liderazgo, resolución de conflictos y táctica militar.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('El arte de la guerra. De Sun Tzu. Tratado milenario de estrategia, liderazgo, resolución de conflictos y táctica militar.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=24" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=24&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1833,16 +1909,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Meditaciones</h6>
                   <p class="text-muted small mb-1">Marco Aurelio</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Reflexiones íntimas del emperador filósofo Marco Aurelio sobre el deber y la resiliencia.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=25" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Meditaciones. De Marco Aurelio. Reflexiones íntimas del emperador filósofo Marco Aurelio sobre el deber y la resiliencia.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Meditaciones. De Marco Aurelio. Reflexiones íntimas del emperador filósofo Marco Aurelio sobre el deber y la resiliencia.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=25" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=25&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1876,16 +1955,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Clean Architecture: Guía para el especialista en software</h6>
                   <p class="text-muted small mb-1">Robert C. Martin</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Reglas universales de arquitectura de software para crear sistemas desacoplados y testeables.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=26" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Clean Architecture: Guía para el especialista en software. De Robert C. Martin. Reglas universales de arquitectura de software para crear sistemas desacoplados y testeables.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Clean Architecture: Guía para el especialista en software. De Robert C. Martin. Reglas universales de arquitectura de software para crear sistemas desacoplados y testeables.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=26" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=26&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1919,16 +2001,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Head First Java: Aprende Java con programación orientada a objetos</h6>
                   <p class="text-muted small mb-1">Kathy Sierra &amp; Bert Bates</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Método multisensorial y visual para dominar Java, POO, hilos y programación concurrente.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=27" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Head First Java: Aprende Java con programación orientada a objetos. De Kathy Sierra &amp; Bert Bates. Método multisensorial y visual para dominar Java, POO, hilos y programación concurrente.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Head First Java: Aprende Java con programación orientada a objetos. De Kathy Sierra &amp; Bert Bates. Método multisensorial y visual para dominar Java, POO, hilos y programación concurrente.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=27" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=27&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -1962,16 +2047,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Fundamentos de Sistemas de Bases de Datos</h6>
                   <p class="text-muted small mb-1">Abraham Silberschatz &amp; Henry Korth</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Conceptos esenciales del modelo relacional, SQL, normalización, índices y transacciones ACID.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=28" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Fundamentos de Sistemas de Bases de Datos. De Abraham Silberschatz &amp; Henry Korth. Conceptos esenciales del modelo relacional, SQL, normalización, índices y transacciones ACID.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Fundamentos de Sistemas de Bases de Datos. De Abraham Silberschatz &amp; Henry Korth. Conceptos esenciales del modelo relacional, SQL, normalización, índices y transacciones ACID.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=28" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=28&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -2005,16 +2093,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Redes de Computadoras</h6>
                   <p class="text-muted small mb-1">Andrew S. Tanenbaum</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Tratado clásico de arquitectura de redes, capa de transporte, protocolos TCP/IP e Internet.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=29" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Redes de Computadoras. De Andrew S. Tanenbaum. Tratado clásico de arquitectura de redes, capa de transporte, protocolos TCP/IP e Internet.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Redes de Computadoras. De Andrew S. Tanenbaum. Tratado clásico de arquitectura de redes, capa de transporte, protocolos TCP/IP e Internet.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=29" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=29&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -2048,16 +2139,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">El nombre de la rosa</h6>
                   <p class="text-muted small mb-1">Umberto Eco</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Fascinante novela histórica de intriga monástica, herejías y manuscritos prohibidos.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=30" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('El nombre de la rosa. De Umberto Eco. Fascinante novela histórica de intriga monástica, herejías y manuscritos prohibidos.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('El nombre de la rosa. De Umberto Eco. Fascinante novela histórica de intriga monástica, herejías y manuscritos prohibidos.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=30" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=30&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -2091,16 +2185,19 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">La metamorfosis</h6>
                   <p class="text-muted small mb-1">Franz Kafka</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Relato existencial sobre la soledad y alienación a través de la transformación de Gregor Samsa.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=31" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('La metamorfosis. De Franz Kafka. Relato existencial sobre la soledad y alienación a través de la transformación de Gregor Samsa.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('La metamorfosis. De Franz Kafka. Relato existencial sobre la soledad y alienación a través de la transformación de Gregor Samsa.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=31" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=31&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -2134,23 +2231,26 @@
                   </div>
                   <h6 class="card-title fw-bold mb-1">Ensayo sobre la ceguera</h6>
                   <p class="text-muted small mb-1">José Saramago</p>
-                  <p class="card-text text-secondary small mb-3 flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <p class="card-text text-secondary small mb-3 lh-sm" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                       Parábola conmovedora sobre la condición humana y la solidaridad, pionera en inclusión y empatía.
                   </p>
-                  <div class="d-flex gap-2 align-items-center mt-auto">
-                      <a href="detalleLibro.html?id=32" class="btn btn-outline-primary btn-sm flex-grow-1">
-                          <i class="bi bi-eye"></i> Ver detalles
-                      </a>
-                      <button type="button" class="btn-audio-detailed" onclick="reproducirAudio('Ensayo sobre la ceguera. De José Saramago. Parábola conmovedora sobre la condición humana y la solidaridad, pionera en inclusión y empatía.')">
-                          <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
-                      </button>
+                  <div class="mt-auto pt-2 border-top">
+                      <div class="d-grid gap-2">
+                          <button type="button" class="btn-audio-detailed w-100" onclick="reproducirAudio('Ensayo sobre la ceguera. De José Saramago. Parábola conmovedora sobre la condición humana y la solidaridad, pionera en inclusión y empatía.')">
+                              <i class="bi bi-volume-up-fill"></i> <span>Audio</span>
+                          </button>
+                          <div class="d-flex gap-2">
+                              <a href="detalleLibro.html?id=32" class="btn btn-primary btn-sm flex-grow-1">Detalles</a>
+                              <a href="detalleLibro.html?id=32&prestamo=1" class="btn btn-outline-primary btn-sm">Préstamo</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
       </div>
     </div>
-  </div>
-  <!-- MODAL DE VISTA RÁPIDA -->
+</div>
+<!-- MODAL DE VISTA RÁPIDA -->
 <div class="modal fade" id="modalVistaRapida" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -2719,6 +2819,68 @@
         aplicarFiltrosInteractivos();
     });
   </script>
-  </body>
+  
+<script id="bookhubSessionScript">
+function sincronizarSesionUI() {
+    let user = null;
+    try {
+        const userStr = localStorage.getItem('bookhub_user');
+        if (userStr) user = JSON.parse(userStr);
+    } catch (e) {}
+
+    const loginBtn = document.getElementById('navBtnLogin');
+    const regBtn = document.getElementById('navBtnRegister');
+    const adminBtn = document.getElementById('navBtnAdmin');
+    const userBtn = document.getElementById('navBtnUser');
+    const logoutBtn = document.getElementById('navBtnLogout');
+    const sideBox = document.getElementById('sidebarUserSessionBox');
+    const sideName = document.getElementById('sidebarUserName');
+    const sideRole = document.getElementById('sidebarUserRole');
+    const sideIcon = document.getElementById('sidebarUserIcon');
+    const navName = document.getElementById('navUserName');
+
+    if (user && user.nombre) {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (regBtn) regBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline-flex';
+
+        if (user.rol === 'ADMIN') {
+            if (adminBtn) adminBtn.style.display = 'inline-flex';
+            if (userBtn) userBtn.style.display = 'none';
+        } else {
+            if (adminBtn) adminBtn.style.display = 'none';
+            if (userBtn) userBtn.style.display = 'inline-flex';
+            if (navName) navName.textContent = user.nombre;
+        }
+
+        if (sideBox) {
+            sideBox.style.display = 'block';
+            if (sideName) sideName.textContent = user.nombre;
+            if (sideRole) {
+                sideRole.textContent = user.rol;
+                sideRole.className = 'badge ' + (user.rol === 'ADMIN' ? 'bg-danger' : 'bg-primary');
+            }
+            if (sideIcon) {
+                sideIcon.className = 'bi ' + (user.rol === 'ADMIN' ? 'bi-shield-lock-fill text-danger' : 'bi-person-circle text-info') + ' fs-3';
+            }
+        }
+    } else {
+        if (loginBtn) loginBtn.style.display = 'inline-flex';
+        if (regBtn) regBtn.style.display = 'inline-flex';
+        if (adminBtn) adminBtn.style.display = 'none';
+        if (userBtn) userBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (sideBox) sideBox.style.display = 'none';
+    }
+}
+
+function cerrarSesion() {
+    localStorage.removeItem('bookhub_user');
+    window.location.href = 'index.html';
+}
+
+document.addEventListener('DOMContentLoaded', sincronizarSesionUI);
+</script>
+</body>
 
 </html>

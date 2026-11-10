@@ -591,14 +591,33 @@
             </div>
 
             <!-- Lado derecho: EXCLUSIVAMENTE Iniciar Sesión / Registrarse (o Perfil / Salir) -->
-            
-    <div class="d-flex align-items-center gap-2 ms-auto">
-        <a href="catalogo.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
-            <i class="bi bi-arrow-left"></i> <span>Volver al Catálogo</span>
-        </a>
-    </div>
-</div>
-</nav>
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                
+                    
+                        <a href="dashboard.html" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+                            <i class="bi bi-speedometer2"></i> <span class="d-none d-sm-inline">Panel Admin</span>
+                        </a>
+                    
+                        <a href="usuario.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                            <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline"></span>
+                        </a>
+                    
+                    <a href="login.html" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
+                    </a>
+                
+                    <a href="login.html" class="btn btn-light btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-box-arrow-in-right"></i> <span>Iniciar sesión</span>
+                    </a>
+                    <a href="registro.html" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+                        <i class="bi bi-person-plus"></i> <span>Registrarse</span>
+                    </a>
+                
+            </div>
+
+        </div>
+
+    </nav>
 
 
     <div class="container py-4">
@@ -1173,8 +1192,76 @@
                 reproducirAudio(libro.titulo + ". De " + libro.autor + ". " + libro.descripcion);
             };
         }
+
+        if (urlParams.get('prestamo') === '1') {
+            setTimeout(() => {
+                alert("¡Solicitud de préstamo procesada para: " + libro.titulo + "! Puedes recoger el ejemplar en el mostrador central.");
+            }, 300);
+        }
     });
   </script>
-  </body>
+  
+<script id="bookhubSessionScript">
+function sincronizarSesionUI() {
+    let user = null;
+    try {
+        const userStr = localStorage.getItem('bookhub_user');
+        if (userStr) user = JSON.parse(userStr);
+    } catch (e) {}
+
+    const loginBtn = document.getElementById('navBtnLogin');
+    const regBtn = document.getElementById('navBtnRegister');
+    const adminBtn = document.getElementById('navBtnAdmin');
+    const userBtn = document.getElementById('navBtnUser');
+    const logoutBtn = document.getElementById('navBtnLogout');
+    const sideBox = document.getElementById('sidebarUserSessionBox');
+    const sideName = document.getElementById('sidebarUserName');
+    const sideRole = document.getElementById('sidebarUserRole');
+    const sideIcon = document.getElementById('sidebarUserIcon');
+    const navName = document.getElementById('navUserName');
+
+    if (user && user.nombre) {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (regBtn) regBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline-flex';
+
+        if (user.rol === 'ADMIN') {
+            if (adminBtn) adminBtn.style.display = 'inline-flex';
+            if (userBtn) userBtn.style.display = 'none';
+        } else {
+            if (adminBtn) adminBtn.style.display = 'none';
+            if (userBtn) userBtn.style.display = 'inline-flex';
+            if (navName) navName.textContent = user.nombre;
+        }
+
+        if (sideBox) {
+            sideBox.style.display = 'block';
+            if (sideName) sideName.textContent = user.nombre;
+            if (sideRole) {
+                sideRole.textContent = user.rol;
+                sideRole.className = 'badge ' + (user.rol === 'ADMIN' ? 'bg-danger' : 'bg-primary');
+            }
+            if (sideIcon) {
+                sideIcon.className = 'bi ' + (user.rol === 'ADMIN' ? 'bi-shield-lock-fill text-danger' : 'bi-person-circle text-info') + ' fs-3';
+            }
+        }
+    } else {
+        if (loginBtn) loginBtn.style.display = 'inline-flex';
+        if (regBtn) regBtn.style.display = 'inline-flex';
+        if (adminBtn) adminBtn.style.display = 'none';
+        if (userBtn) userBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (sideBox) sideBox.style.display = 'none';
+    }
+}
+
+function cerrarSesion() {
+    localStorage.removeItem('bookhub_user');
+    window.location.href = 'index.html';
+}
+
+document.addEventListener('DOMContentLoaded', sincronizarSesionUI);
+</script>
+</body>
 
 </html>

@@ -119,7 +119,7 @@
                 <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-shield-lock-fill fs-3 text-danger"></i>
                     <div class="overflow-hidden">
-                        <div class="fw-semibold text-white text-truncate"></div>
+                        <div class="fw-semibold text-white text-truncate">Administrador</div>
                         <span class="badge bg-danger" style="font-size: 0.68rem;">ADMINISTRADOR</span>
                     </div>
                 </div>
@@ -234,10 +234,10 @@
         <!-- Lado derecho: EXCLUSIVAMENTE sesión -->
         <div class="d-flex align-items-center gap-2 ms-auto">
             <span class="text-white small d-none d-sm-inline">
-                Admin: <strong></strong>
+                Admin: <strong>Administrador</strong>
             </span>
 
-            <a href="login.html" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+            <a href="javascript:void(0)" onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
                 <i class="bi bi-box-arrow-left"></i> <span>Salir</span>
             </a>
         </div>
@@ -1078,6 +1078,68 @@
     }, { passive: true });
 </script>
 
+
+<script id="bookhubSessionScript">
+function sincronizarSesionUI() {
+    let user = null;
+    try {
+        const userStr = localStorage.getItem('bookhub_user');
+        if (userStr) user = JSON.parse(userStr);
+    } catch (e) {}
+
+    const loginBtn = document.getElementById('navBtnLogin');
+    const regBtn = document.getElementById('navBtnRegister');
+    const adminBtn = document.getElementById('navBtnAdmin');
+    const userBtn = document.getElementById('navBtnUser');
+    const logoutBtn = document.getElementById('navBtnLogout');
+    const sideBox = document.getElementById('sidebarUserSessionBox');
+    const sideName = document.getElementById('sidebarUserName');
+    const sideRole = document.getElementById('sidebarUserRole');
+    const sideIcon = document.getElementById('sidebarUserIcon');
+    const navName = document.getElementById('navUserName');
+
+    if (user && user.nombre) {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (regBtn) regBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline-flex';
+
+        if (user.rol === 'ADMIN') {
+            if (adminBtn) adminBtn.style.display = 'inline-flex';
+            if (userBtn) userBtn.style.display = 'none';
+        } else {
+            if (adminBtn) adminBtn.style.display = 'none';
+            if (userBtn) userBtn.style.display = 'inline-flex';
+            if (navName) navName.textContent = user.nombre;
+        }
+
+        if (sideBox) {
+            sideBox.style.display = 'block';
+            if (sideName) sideName.textContent = user.nombre;
+            if (sideRole) {
+                sideRole.textContent = user.rol;
+                sideRole.className = 'badge ' + (user.rol === 'ADMIN' ? 'bg-danger' : 'bg-primary');
+            }
+            if (sideIcon) {
+                sideIcon.className = 'bi ' + (user.rol === 'ADMIN' ? 'bi-shield-lock-fill text-danger' : 'bi-person-circle text-info') + ' fs-3';
+            }
+        }
+    } else {
+        if (loginBtn) loginBtn.style.display = 'inline-flex';
+        if (regBtn) regBtn.style.display = 'inline-flex';
+        if (adminBtn) adminBtn.style.display = 'none';
+        if (userBtn) userBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (sideBox) sideBox.style.display = 'none';
+    }
+}
+
+function cerrarSesion() {
+    localStorage.removeItem('bookhub_user');
+    window.location.href = 'index.html';
+}
+
+document.addEventListener('DOMContentLoaded', sincronizarSesionUI);
+</script>
 </body>
 
 </html>
