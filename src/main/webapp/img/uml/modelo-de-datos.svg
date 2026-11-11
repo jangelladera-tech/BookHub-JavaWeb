@@ -1,136 +1,321 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
-    <defs>
-        <filter id="dropShadow" x="-5%" y="-5%" width="112%" height="115%">
-            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.12"/>
-        </filter>
-        <marker id="crow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
-            <path d="M 0 0 L 10 6 L 0 12 M 10 0 L 10 12" fill="none" stroke="#0f766e" stroke-width="1.6"/>
-        </marker>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 820" width="1260" height="820">
+    <rect width="1260" height="820" fill="#ffffff"/>
 
-    <rect width="1200" height="750" fill="#f8fafc"/>
-    <rect x="8" y="8" width="1184" height="734" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.2"/>
-
-    <!-- Título y Subtítulo -->
-    <text x="35" y="42" fill="#0f172a" font-size="20" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif">Modelo de Datos Relacional (Base de Datos MySQL: bookhub)</text>
-    <text x="35" y="64" fill="#64748b" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Esquema Físico de Tablas, Claves Primarias (PK), Claves Foráneas (FK) y Cardinalidades</text>
-    <line x1="35" y1="74" x2="1165" y2="74" stroke="#cbd5e1" stroke-width="1"/>
+    <!-- Título superior -->
+    <text x="630" y="42" fill="#1e1b4b" font-size="20" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Modelo de Datos Relacional (Base de Datos MySQL: bookhub)</text>
 
     
-    <!-- Tabla: autores -->
-    <g transform="translate(50, 100)" filter="url(#dropShadow)">
-        <rect width="280" height="100" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 28 L 0 28 Z" fill="#0f766e"/>
-        <text x="140" y="18" fill="#ffffff" font-size="12" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">autores</text>
-        <line x1="0" y1="28" x2="280" y2="28" stroke="#cbd5e1" stroke-width="1"/>
-        <g transform="translate(10, 42)">
-        <g transform="translate(0, 0)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#ef4444"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">PK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_autor</text><text x="260" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO_INC)</text></g>
-    <g transform="translate(0, 20)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre</text><text x="260" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text></g>
-    <g transform="translate(0, 40)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nacionalidad</text><text x="260" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(80)</text></g>
-    </g>
+    <!-- Tabla ERD: autores -->
+    <g transform="translate(60, 70)">
+        <!-- Contenedor general -->
+        <rect width="280" height="104" rx="4" fill="#ffffff" stroke="#2d3748" stroke-width="1.4"/>
+        
+        <!-- Cabecera morada pastel -->
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 276 0 C 278.2 0 280 1.8 280 4 L 280 28 L 0 28 Z" fill="#c4b5fd"/>
+        <text x="140" y="19" fill="#1e1b4b" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">autores</text>
+        
+        <line x1="0" y1="28" x2="280" y2="28" stroke="#2d3748" stroke-width="1.2"/>
+
+        <!-- Líneas divisorias de columnas internas (PK/FK | Nombre | Tipo) -->
+        <line x1="42" y1="28" x2="42" y2="104" stroke="#cbd5e1" stroke-width="1"/>
+        <line x1="185" y1="28" x2="185" y2="104" stroke="#cbd5e1" stroke-width="1"/>
+
+        <!-- Filas de atributos -->
+        <g transform="translate(0, 44)">
+    
+        <!-- Fila id_autor -->
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_autor</text>
+        <text x="265" y="0" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila nombre -->
+        <text x="21" y="22" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="22" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre</text>
+        <text x="265" y="22" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        
+        <!-- Fila nacionalidad -->
+        <text x="21" y="44" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="44" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nacionalidad</text>
+        <text x="265" y="44" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(80)</text>
+            </g>
     </g>
 
-    <!-- Tabla: categorias -->
-    <g transform="translate(50, 280)" filter="url(#dropShadow)">
-        <rect width="280" height="100" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 28 L 0 28 Z" fill="#0f766e"/>
-        <text x="140" y="18" fill="#ffffff" font-size="12" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">categorias</text>
-        <line x1="0" y1="28" x2="280" y2="28" stroke="#cbd5e1" stroke-width="1"/>
-        <g transform="translate(10, 42)">
-        <g transform="translate(0, 0)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#ef4444"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">PK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_categoria</text><text x="260" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO_INC)</text></g>
-    <g transform="translate(0, 20)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre</text><text x="260" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(100)</text></g>
-    <g transform="translate(0, 40)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">descripcion</text><text x="260" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(255)</text></g>
-    </g>
+    <!-- Tabla ERD: libros -->
+    <g transform="translate(440, 70)">
+        <!-- Contenedor general -->
+        <rect width="340" height="192" rx="4" fill="#ffffff" stroke="#2d3748" stroke-width="1.4"/>
+        
+        <!-- Cabecera morada pastel -->
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 336 0 C 338.2 0 340 1.8 340 4 L 340 28 L 0 28 Z" fill="#c4b5fd"/>
+        <text x="170" y="19" fill="#1e1b4b" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">libros</text>
+        
+        <line x1="0" y1="28" x2="340" y2="28" stroke="#2d3748" stroke-width="1.2"/>
+
+        <!-- Líneas divisorias de columnas internas (PK/FK | Nombre | Tipo) -->
+        <line x1="42" y1="28" x2="42" y2="192" stroke="#cbd5e1" stroke-width="1"/>
+        <line x1="245" y1="28" x2="245" y2="192" stroke="#cbd5e1" stroke-width="1"/>
+
+        <!-- Filas de atributos -->
+        <g transform="translate(0, 44)">
+    
+        <!-- Fila id_libro -->
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_libro</text>
+        <text x="325" y="0" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila titulo -->
+        <text x="21" y="22" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="22" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">titulo</text>
+        <text x="325" y="22" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(200)</text>
+        
+        <!-- Fila isbn -->
+        <text x="21" y="44" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="44" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">isbn</text>
+        <text x="325" y="44" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
+        
+        <!-- Fila anio -->
+        <text x="21" y="66" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="66" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">anio</text>
+        <text x="325" y="66" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila stock -->
+        <text x="21" y="88" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="88" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">stock</text>
+        <text x="325" y="88" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila id_autor -->
+        <text x="21" y="110" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK1</text>
+        <text x="50" y="110" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_autor</text>
+        <text x="325" y="110" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila id_categoria -->
+        <text x="21" y="132" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK2</text>
+        <text x="50" y="132" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_categoria</text>
+        <text x="325" y="132" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+            </g>
     </g>
 
-    <!-- Tabla: libros -->
-    <g transform="translate(430, 100)" filter="url(#dropShadow)">
-        <rect width="330" height="220" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 324 0 C 327.3 0 330 2.7 330 6 L 330 28 L 0 28 Z" fill="#0f766e"/>
-        <text x="165" y="18" fill="#ffffff" font-size="12" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">libros</text>
-        <line x1="0" y1="28" x2="330" y2="28" stroke="#cbd5e1" stroke-width="1"/>
-        <g transform="translate(10, 42)">
-        <g transform="translate(0, 0)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#ef4444"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">PK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_libro</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO_INC)</text></g>
-    <g transform="translate(0, 20)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">titulo</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(200)</text></g>
-    <g transform="translate(0, 40)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">isbn</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text></g>
-    <g transform="translate(0, 60)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">anio</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text></g>
-    <g transform="translate(0, 80)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">descripcion</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">TEXT</text></g>
-    <g transform="translate(0, 100)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">stock</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT DEFAULT 0</text></g>
-    <g transform="translate(0, 120)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#0ea5e9"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">FK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_autor</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (autores)</text></g>
-    <g transform="translate(0, 140)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#0ea5e9"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">FK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_categoria</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (categorias)</text></g>
-    <g transform="translate(0, 160)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">imagen_portada</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">LONGTEXT</text></g>
-    </g>
+    <!-- Tabla ERD: categorias -->
+    <g transform="translate(60, 270)">
+        <!-- Contenedor general -->
+        <rect width="280" height="104" rx="4" fill="#ffffff" stroke="#2d3748" stroke-width="1.4"/>
+        
+        <!-- Cabecera morada pastel -->
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 276 0 C 278.2 0 280 1.8 280 4 L 280 28 L 0 28 Z" fill="#c4b5fd"/>
+        <text x="140" y="19" fill="#1e1b4b" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">categorias</text>
+        
+        <line x1="0" y1="28" x2="280" y2="28" stroke="#2d3748" stroke-width="1.2"/>
+
+        <!-- Líneas divisorias de columnas internas (PK/FK | Nombre | Tipo) -->
+        <line x1="42" y1="28" x2="42" y2="104" stroke="#cbd5e1" stroke-width="1"/>
+        <line x1="185" y1="28" x2="185" y2="104" stroke="#cbd5e1" stroke-width="1"/>
+
+        <!-- Filas de atributos -->
+        <g transform="translate(0, 44)">
+    
+        <!-- Fila id_categoria -->
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_categoria</text>
+        <text x="265" y="0" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila nombre -->
+        <text x="21" y="22" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="22" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre</text>
+        <text x="265" y="22" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(100)</text>
+        
+        <!-- Fila descripcion -->
+        <text x="21" y="44" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="44" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">descripcion</text>
+        <text x="265" y="44" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(255)</text>
+            </g>
     </g>
 
-    <!-- Tabla: prestamos -->
-    <g transform="translate(430, 460)" filter="url(#dropShadow)">
-        <rect width="330" height="160" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 324 0 C 327.3 0 330 2.7 330 6 L 330 28 L 0 28 Z" fill="#0f766e"/>
-        <text x="165" y="18" fill="#ffffff" font-size="12" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">prestamos</text>
-        <line x1="0" y1="28" x2="330" y2="28" stroke="#cbd5e1" stroke-width="1"/>
-        <g transform="translate(10, 42)">
-        <g transform="translate(0, 0)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#ef4444"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">PK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_prestamo</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO_INC)</text></g>
-    <g transform="translate(0, 20)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#0ea5e9"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">FK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_usuario</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (usuarios)</text></g>
-    <g transform="translate(0, 40)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#0ea5e9"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">FK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_libro</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (libros)</text></g>
-    <g transform="translate(0, 60)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_prestamo</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text></g>
-    <g transform="translate(0, 80)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_devolucion</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text></g>
-    <g transform="translate(0, 100)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado</text><text x="310" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text></g>
-    </g>
+    <!-- Tabla ERD: prestamos -->
+    <g transform="translate(440, 390)">
+        <!-- Contenedor general -->
+        <rect width="340" height="170" rx="4" fill="#ffffff" stroke="#2d3748" stroke-width="1.4"/>
+        
+        <!-- Cabecera morada pastel -->
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 336 0 C 338.2 0 340 1.8 340 4 L 340 28 L 0 28 Z" fill="#c4b5fd"/>
+        <text x="170" y="19" fill="#1e1b4b" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">prestamos</text>
+        
+        <line x1="0" y1="28" x2="340" y2="28" stroke="#2d3748" stroke-width="1.2"/>
+
+        <!-- Líneas divisorias de columnas internas (PK/FK | Nombre | Tipo) -->
+        <line x1="42" y1="28" x2="42" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+        <line x1="245" y1="28" x2="245" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+
+        <!-- Filas de atributos -->
+        <g transform="translate(0, 44)">
+    
+        <!-- Fila id_prestamo -->
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_prestamo</text>
+        <text x="325" y="0" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila id_usuario -->
+        <text x="21" y="22" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK1</text>
+        <text x="50" y="22" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_usuario</text>
+        <text x="325" y="22" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila id_libro -->
+        <text x="21" y="44" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK2</text>
+        <text x="50" y="44" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_libro</text>
+        <text x="325" y="44" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila fecha_prestamo -->
+        <text x="21" y="66" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="66" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_prestamo</text>
+        <text x="325" y="66" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        
+        <!-- Fila fecha_devolucion -->
+        <text x="21" y="88" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="88" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_devolucion</text>
+        <text x="325" y="88" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        
+        <!-- Fila estado -->
+        <text x="21" y="110" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="110" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado</text>
+        <text x="325" y="110" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+            </g>
     </g>
 
-    <!-- Tabla: usuarios -->
-    <g transform="translate(860, 100)" filter="url(#dropShadow)">
-        <rect width="290" height="160" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 284 0 C 287.3 0 290 2.7 290 6 L 290 28 L 0 28 Z" fill="#0f766e"/>
-        <text x="145" y="18" fill="#ffffff" font-size="12" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">usuarios</text>
-        <line x1="0" y1="28" x2="290" y2="28" stroke="#cbd5e1" stroke-width="1"/>
-        <g transform="translate(10, 42)">
-        <g transform="translate(0, 0)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#ef4444"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">PK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_usuario</text><text x="270" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO_INC)</text></g>
-    <g transform="translate(0, 20)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre</text><text x="270" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text></g>
-    <g transform="translate(0, 40)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">correo</text><text x="270" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120) UNIQUE</text></g>
-    <g transform="translate(0, 60)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">password</text><text x="270" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text></g>
-    <g transform="translate(0, 80)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">rol</text><text x="270" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text></g>
-    <g transform="translate(0, 100)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado</text><text x="270" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text></g>
-    </g>
+    <!-- Tabla ERD: usuarios -->
+    <g transform="translate(880, 70)">
+        <!-- Contenedor general -->
+        <rect width="310" height="170" rx="4" fill="#ffffff" stroke="#2d3748" stroke-width="1.4"/>
+        
+        <!-- Cabecera morada pastel -->
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 306 0 C 308.2 0 310 1.8 310 4 L 310 28 L 0 28 Z" fill="#c4b5fd"/>
+        <text x="155" y="19" fill="#1e1b4b" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">usuarios</text>
+        
+        <line x1="0" y1="28" x2="310" y2="28" stroke="#2d3748" stroke-width="1.2"/>
+
+        <!-- Líneas divisorias de columnas internas (PK/FK | Nombre | Tipo) -->
+        <line x1="42" y1="28" x2="42" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+        <line x1="215" y1="28" x2="215" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+
+        <!-- Filas de atributos -->
+        <g transform="translate(0, 44)">
+    
+        <!-- Fila id_usuario -->
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_usuario</text>
+        <text x="295" y="0" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila nombre -->
+        <text x="21" y="22" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="22" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre</text>
+        <text x="295" y="22" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        
+        <!-- Fila correo -->
+        <text x="21" y="44" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="44" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">correo</text>
+        <text x="295" y="44" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        
+        <!-- Fila password -->
+        <text x="21" y="66" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="66" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">password</text>
+        <text x="295" y="66" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        
+        <!-- Fila rol -->
+        <text x="21" y="88" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="88" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">rol</text>
+        <text x="295" y="88" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        
+        <!-- Fila estado -->
+        <text x="21" y="110" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="110" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado</text>
+        <text x="295" y="110" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+            </g>
     </g>
 
-    <!-- Tabla: donaciones -->
-    <g transform="translate(860, 370)" filter="url(#dropShadow)">
-        <rect width="310" height="280" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 304 0 C 307.3 0 310 2.7 310 6 L 310 28 L 0 28 Z" fill="#0f766e"/>
-        <text x="155" y="18" fill="#ffffff" font-size="12" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">donaciones</text>
-        <line x1="0" y1="28" x2="310" y2="28" stroke="#cbd5e1" stroke-width="1"/>
-        <g transform="translate(10, 42)">
-        <g transform="translate(0, 0)"><rect x="0" y="-10" width="24" height="15" rx="3" fill="#ef4444"/><text x="12" y="1" fill="#ffffff" font-size="9" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">PK</text><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_donacion</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO_INC)</text></g>
-    <g transform="translate(0, 20)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">titulo_libro</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(200)</text></g>
-    <g transform="translate(0, 40)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">autor</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text></g>
-    <g transform="translate(0, 60)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">categoria</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(100)</text></g>
-    <g transform="translate(0, 80)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">anio</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text></g>
-    <g transform="translate(0, 100)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado_conservacion</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(50)</text></g>
-    <g transform="translate(0, 120)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre_donante</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text></g>
-    <g transform="translate(0, 140)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">correo_donante</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text></g>
-    <g transform="translate(0, 160)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">telefono_donante</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text></g>
-    <g transform="translate(0, 180)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">motivo_mensaje</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">TEXT</text></g>
-    <g transform="translate(0, 200)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_solicitud</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text></g>
-    <g transform="translate(0, 220)"><text x="32" y="1" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado_revision</text><text x="290" y="1" fill="#64748b" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text></g>
-    </g>
-    </g>
-<path d="M 330 142 L 380 142 L 380 264 L 430 264" fill="none" stroke="#475569" stroke-width="1.6"  marker-end="url(#crow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="380" y="200" fill="#0f172a" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">fk_libro_autor (1:N)</text>
-<text x="346" y="136" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="408" y="270" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">N</text>
-<path d="M 330 322 L 400 322 L 400 284 L 430 284" fill="none" stroke="#475569" stroke-width="1.6"  marker-end="url(#crow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="375" y="345" fill="#0f172a" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">fk_libro_categoria (1:N)</text>
-<text x="346" y="316" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="408" y="290" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">N</text>
-<path d="M 540 385 L 540 460" fill="none" stroke="#475569" stroke-width="1.6"  marker-end="url(#crow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="605" y="422" fill="#0f172a" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">fk_prestamo_libro (1:N)</text>
-<text x="554" y="401" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="526" y="440" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">N</text>
-<path d="M 860 142 L 810 142 L 810 502 L 760 502" fill="none" stroke="#475569" stroke-width="1.6"  marker-end="url(#crow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="810" y="300" fill="#0f172a" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">fk_prestamo_usuario (1:N)</text>
-<text x="844" y="136" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="782" y="508" fill="#0284c7" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">N</text>
+    <!-- Tabla ERD: donaciones -->
+    <g transform="translate(880, 390)">
+        <!-- Contenedor general -->
+        <rect width="310" height="192" rx="4" fill="#ffffff" stroke="#2d3748" stroke-width="1.4"/>
+        
+        <!-- Cabecera morada pastel -->
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 306 0 C 308.2 0 310 1.8 310 4 L 310 28 L 0 28 Z" fill="#c4b5fd"/>
+        <text x="155" y="19" fill="#1e1b4b" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">donaciones</text>
+        
+        <line x1="0" y1="28" x2="310" y2="28" stroke="#2d3748" stroke-width="1.2"/>
 
+        <!-- Líneas divisorias de columnas internas (PK/FK | Nombre | Tipo) -->
+        <line x1="42" y1="28" x2="42" y2="192" stroke="#cbd5e1" stroke-width="1"/>
+        <line x1="215" y1="28" x2="215" y2="192" stroke="#cbd5e1" stroke-width="1"/>
+
+        <!-- Filas de atributos -->
+        <g transform="translate(0, 44)">
+    
+        <!-- Fila id_donacion -->
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#0f172a" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_donacion</text>
+        <text x="295" y="0" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila titulo_libro -->
+        <text x="21" y="22" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="22" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">titulo_libro</text>
+        <text x="295" y="22" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(200)</text>
+        
+        <!-- Fila autor -->
+        <text x="21" y="44" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="44" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">autor</text>
+        <text x="295" y="44" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        
+        <!-- Fila categoria -->
+        <text x="21" y="66" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="66" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">categoria</text>
+        <text x="295" y="66" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(100)</text>
+        
+        <!-- Fila anio -->
+        <text x="21" y="88" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="88" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">anio</text>
+        <text x="295" y="88" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <!-- Fila nombre_donante -->
+        <text x="21" y="110" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="110" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre_donante</text>
+        <text x="295" y="110" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        
+        <!-- Fila estado_revision -->
+        <text x="21" y="132" fill="#4b5563" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="132" fill="#0f172a" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado_revision</text>
+        <text x="295" y="132" fill="#4b5563" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
+            </g>
+    </g>
+
+    <!-- autores -> libros -->
+    <path d="M 340 114 L 390 114 L 390 206 L 440 206" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo PK (Uno): Barra vertical -->
+    <line x1="348" y1="108" x2="348" y2="120" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo FK (Muchos): Círculo + Pata de gallo -->
+    <circle cx="426" cy="206" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+    <path d="M 440 200 L 430 206 L 440 212" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    
+    <!-- categorias -> libros -->
+    <path d="M 340 314 L 390 314 L 390 228 L 440 228" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo PK (Uno): Barra vertical -->
+    <line x1="348" y1="308" x2="348" y2="320" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo FK (Muchos): Círculo + Pata de gallo -->
+    <circle cx="426" cy="228" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+    <path d="M 440 222 L 430 228 L 440 234" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    
+    <!-- libros -> prestamos (Vertical puro hacia abajo) -->
+    <line x1="560" y1="262" x2="560" y2="390" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo PK (Uno): Barra horizontal -->
+    <line x1="554" y1="270" x2="566" y2="270" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo FK (Muchos): Círculo + Pata de gallo -->
+    <circle cx="560" cy="376" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+    <path d="M 554 390 L 560 380 L 566 390" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    
+    <!-- usuarios -> prestamos (Canal limpio a la derecha) -->
+    <path d="M 880 114 L 830 114 L 830 436 L 780 436" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo PK (Uno): Barra vertical -->
+    <line x1="872" y1="108" x2="872" y2="120" stroke="#1e293b" stroke-width="1.8"/>
+    <!-- Extremo FK (Muchos): Círculo + Pata de gallo -->
+    <circle cx="794" cy="436" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+    <path d="M 780 430 L 790 436 L 780 442" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    
 </svg>

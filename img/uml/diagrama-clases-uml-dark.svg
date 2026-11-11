@@ -1,335 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 980" width="1240" height="980">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="1200" height="780">
     <defs>
-        <filter id="dropShadow" x="-5%" y="-5%" width="112%" height="115%">
-            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.4"/>
-        </filter>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 1 L 9 5 L 0 9 z" fill="#8b949e"/>
+        <marker id="arrowSimple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M 0 1 L 9 5 L 0 9 z" fill="#c9d1d9"/>
         </marker>
     </defs>
 
-    <rect width="1240" height="980" fill="#0d1117"/>
-    <rect x="8" y="8" width="1224" height="964" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <rect width="1200" height="780" fill="#0d1117"/>
 
-    <!-- Título y Subtítulo -->
-    <text x="35" y="42" fill="#f0f6fc" font-size="20" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif">Diagrama de Clases UML del Sistema BookHub</text>
-    <text x="35" y="64" fill="#8b949e" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Arquitectura MVC • Entidades de Dominio (modelo.beans) y Capa DAO (modelo.dao)</text>
-    <line x1="35" y1="74" x2="1205" y2="74" stroke="#30363d" stroke-width="1"/>
+    <!-- Título idéntico al formato del ejemplo -->
+    <text x="600" y="50" fill="#f0f6fc" font-size="22" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Diagrama de clases de un sistema de servicios bibliotecarios</text>
 
     
-    <!-- Clase: Autor -->
-    <g transform="translate(50, 90)" filter="url(#dropShadow)">
-        <rect width="250" height="168" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 244 0 C 247.3 0 250 2.7 250 6 L 250 36 L 0 36 Z" fill="#1f6feb"/>
-        <text x="125" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="125" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Autor</text>
+    <!-- Clase: Lector -->
+    <g transform="translate(60, 100)">
+        <rect width="220" height="170" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <rect width="220" height="32" fill="#1f6feb"/>
+        <text x="110" y="21" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Lector</text>
         
-        <line x1="0" y1="36" x2="250" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-            <text x="0" y="0" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idAutor : int</text>
-        <text x="0" y="18" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">nombre : String</text>
-        <text x="0" y="36" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">nacionalidad : String</text>
+        <line x1="0" y1="32" x2="220" y2="32" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 47)">
+            <text x="0" y="0" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">ID de usuario : int</text>
+        <text x="0" y="19" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Nombre : String</text>
+        <text x="0" y="38" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Correo : String</text>
+        <text x="0" y="57" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Telefono : String</text>
     </g>
 
-        <line x1="0" y1="102" x2="250" y2="102" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 116)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdAutor() : int</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getNombre() : String</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getNacionalidad() : String</text>
-    </g>
-    </g>
-
-    <!-- Clase: Categoria -->
-    <g transform="translate(50, 310)" filter="url(#dropShadow)">
-        <rect width="250" height="168" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 244 0 C 247.3 0 250 2.7 250 6 L 250 36 L 0 36 Z" fill="#1f6feb"/>
-        <text x="125" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="125" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Categoria</text>
-        
-        <line x1="0" y1="36" x2="250" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-            <text x="0" y="0" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idCategoria : int</text>
-        <text x="0" y="18" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">nombre : String</text>
-        <text x="0" y="36" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">descripcion : String</text>
-    </g>
-
-        <line x1="0" y1="102" x2="250" y2="102" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 116)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdCategoria() : int</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getNombre() : String</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getDescripcion() : String</text>
-    </g>
-    </g>
-
-    <!-- Clase: AutorDAO -->
-    <g transform="translate(50, 530)" filter="url(#dropShadow)">
-        <rect width="250" height="154" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 244 0 C 247.3 0 250 2.7 250 6 L 250 36 L 0 36 Z" fill="#238636"/>
-        <text x="125" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.dao&#187;</text>
-        <text x="125" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">AutorDAO</text>
-        
-        <line x1="0" y1="36" x2="250" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-        </g>
-
-        <line x1="0" y1="52" x2="250" y2="52" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 66)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listar() : List&lt;Autor&gt;</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">obtenerPorId(int) : Autor</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">agregar(Autor) : void</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">actualizar(Autor) : void</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">eliminar(int) : void</text>
-    </g>
-    </g>
-
-    <!-- Clase: CategoriaDAO -->
-    <g transform="translate(50, 730)" filter="url(#dropShadow)">
-        <rect width="250" height="154" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 244 0 C 247.3 0 250 2.7 250 6 L 250 36 L 0 36 Z" fill="#238636"/>
-        <text x="125" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.dao&#187;</text>
-        <text x="125" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">CategoriaDAO</text>
-        
-        <line x1="0" y1="36" x2="250" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-        </g>
-
-        <line x1="0" y1="52" x2="250" y2="52" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 66)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listar() : List&lt;Categoria&gt;</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">obtenerPorId(int) : Categoria</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">agregar(Categoria) : void</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">actualizar(Categoria) : void</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">eliminar(int) : void</text>
-    </g>
-    </g>
-
-    <!-- Clase: Libro -->
-    <g transform="translate(430, 90)" filter="url(#dropShadow)">
-        <rect width="300" height="366" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 294 0 C 297.3 0 300 2.7 300 6 L 300 36 L 0 36 Z" fill="#1f6feb"/>
-        <text x="150" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="150" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Libro</text>
-        
-        <line x1="0" y1="36" x2="300" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-            <text x="0" y="0" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idLibro : int</text>
-        <text x="0" y="18" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">titulo : String</text>
-        <text x="0" y="36" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">isbn : String</text>
-        <text x="0" y="54" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">anio : int</text>
-        <text x="0" y="72" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">descripcion : String</text>
-        <text x="0" y="90" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">stock : int</text>
-        <text x="0" y="108" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idAutor : int</text>
-        <text x="0" y="126" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idCategoria : int</text>
-        <text x="0" y="144" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">imagenPortada : String</text>
-        <text x="0" y="162" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">autor : Autor</text>
-        <text x="0" y="180" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">categoria : Categoria</text>
-    </g>
-
-        <line x1="0" y1="246" x2="300" y2="246" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 260)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdLibro() : int</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getTitulo() : String</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getStock() : int</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getAutor() : Autor</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getCategoria() : Categoria</text>
-        <text x="0" y="90" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">setStock(int) : void</text>
-    </g>
-    </g>
-
-    <!-- Clase: Donacion -->
-    <g transform="translate(430, 490)" filter="url(#dropShadow)">
-        <rect width="300" height="294" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 294 0 C 297.3 0 300 2.7 300 6 L 300 36 L 0 36 Z" fill="#1f6feb"/>
-        <text x="150" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="150" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Donacion</text>
-        
-        <line x1="0" y1="36" x2="300" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-            <text x="0" y="0" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idDonacion : int</text>
-        <text x="0" y="18" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">tituloLibro : String</text>
-        <text x="0" y="36" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">autor : String</text>
-        <text x="0" y="54" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">categoria : String</text>
-        <text x="0" y="72" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">anio : int</text>
-        <text x="0" y="90" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">estadoConservacion : String</text>
-        <text x="0" y="108" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">nombreDonante : String</text>
-        <text x="0" y="126" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">correoDonante : String</text>
-        <text x="0" y="144" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">estadoRevision : String</text>
-    </g>
-
-        <line x1="0" y1="210" x2="300" y2="210" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 224)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdDonacion() : int</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getTituloLibro() : String</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getEstadoRevision() : String</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">setEstadoRevision(String) : void</text>
-    </g>
-    </g>
-
-    <!-- Clase: LibroDAO -->
-    <g transform="translate(430, 760)" filter="url(#dropShadow)">
-        <rect width="300" height="172" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 294 0 C 297.3 0 300 2.7 300 6 L 300 36 L 0 36 Z" fill="#238636"/>
-        <text x="150" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.dao&#187;</text>
-        <text x="150" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">LibroDAO</text>
-        
-        <line x1="0" y1="36" x2="300" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-        </g>
-
-        <line x1="0" y1="52" x2="300" y2="52" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 66)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listar() : List&lt;Libro&gt;</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">obtenerPorId(int) : Libro</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">buscar(String, String) : List&lt;Libro&gt;</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">agregar(Libro) : void</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">actualizar(Libro) : void</text>
-        <text x="0" y="90" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">actualizarStock(int, int) : void</text>
-    </g>
-    </g>
-
-    <!-- Clase: Usuario -->
-    <g transform="translate(860, 90)" filter="url(#dropShadow)">
-        <rect width="280" height="258" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 36 L 0 36 Z" fill="#1f6feb"/>
-        <text x="140" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="140" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Usuario</text>
-        
-        <line x1="0" y1="36" x2="280" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-            <text x="0" y="0" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idUsuario : int</text>
-        <text x="0" y="18" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">nombre : String</text>
-        <text x="0" y="36" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">correo : String</text>
-        <text x="0" y="54" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">password : String</text>
-        <text x="0" y="72" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">rol : String</text>
-        <text x="0" y="90" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">estado : String</text>
-    </g>
-
-        <line x1="0" y1="156" x2="280" y2="156" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 170)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdUsuario() : int</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getNombre() : String</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getCorreo() : String</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getRol() : String</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getEstado() : String</text>
+        <line x1="0" y1="120" x2="220" y2="120" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 135)">
+                <text x="0" y="0" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Reservar(material)</text>
+        <text x="0" y="19" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Entregar(material)</text>
     </g>
     </g>
 
     <!-- Clase: Prestamo -->
-    <g transform="translate(860, 360)" filter="url(#dropShadow)">
-        <rect width="280" height="294" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 36 L 0 36 Z" fill="#1f6feb"/>
-        <text x="140" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="140" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Prestamo</text>
+    <g transform="translate(420, 100)">
+        <rect width="230" height="170" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <rect width="230" height="32" fill="#1f6feb"/>
+        <text x="115" y="21" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Prestamo</text>
         
-        <line x1="0" y1="36" x2="280" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-            <text x="0" y="0" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idPrestamo : int</text>
-        <text x="0" y="18" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idUsuario : int</text>
-        <text x="0" y="36" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">idLibro : int</text>
-        <text x="0" y="54" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">fechaPrestamo : String</text>
-        <text x="0" y="72" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">fechaDevolucion : String</text>
-        <text x="0" y="90" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">estado : String</text>
-        <text x="0" y="108" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">usuario : Usuario</text>
-        <text x="0" y="126" fill="#e6edf3" font-size="11" font-family="'Consolas', 'Courier New', monospace">libro : Libro</text>
+        <line x1="0" y1="32" x2="230" y2="32" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 47)">
+            <text x="0" y="0" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">ID de prestamo : int</text>
+        <text x="0" y="19" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">ID del usuario : int</text>
+        <text x="0" y="38" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Titulo material : String</text>
+        <text x="0" y="57" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Codigo material : int</text>
     </g>
 
-        <line x1="0" y1="192" x2="280" y2="192" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 206)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdPrestamo() : int</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdUsuario() : int</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getIdLibro() : int</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">getEstado() : String</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">setEstado(String) : void</text>
+        <line x1="0" y1="120" x2="230" y2="120" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 135)">
+                <text x="0" y="0" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Reservar(fecha)</text>
+        <text x="0" y="19" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Entregar(fecha)</text>
     </g>
     </g>
 
-    <!-- Clase: UsuarioDAO -->
-    <g transform="translate(860, 640)" filter="url(#dropShadow)">
-        <rect width="280" height="154" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 36 L 0 36 Z" fill="#238636"/>
-        <text x="140" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.dao&#187;</text>
-        <text x="140" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">UsuarioDAO</text>
+    <!-- Clase: Bibliotecario -->
+    <g transform="translate(420, 350)">
+        <rect width="230" height="151" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <rect width="230" height="32" fill="#1f6feb"/>
+        <text x="115" y="21" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Bibliotecario</text>
         
-        <line x1="0" y1="36" x2="280" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-        </g>
+        <line x1="0" y1="32" x2="230" y2="32" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 47)">
+            <text x="0" y="0" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">ID de personal : int</text>
+        <text x="0" y="19" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Nombre : String</text>
+        <text x="0" y="38" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Turno : String</text>
+    </g>
 
-        <line x1="0" y1="52" x2="280" y2="52" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 66)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listar() : List&lt;Usuario&gt;</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">obtenerPorId(int) : Usuario</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">autenticar(String, String) : Usuario</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">agregar(Usuario) : void</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">actualizar(Usuario) : void</text>
+        <line x1="0" y1="101" x2="230" y2="101" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 116)">
+                <text x="0" y="0" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Reserva(fecha)</text>
+        <text x="0" y="19" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Entrega(fecha)</text>
     </g>
     </g>
 
-    <!-- Clase: PrestamoDAO -->
-    <g transform="translate(860, 810)" filter="url(#dropShadow)">
-        <rect width="280" height="172" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 274 0 C 277.3 0 280 2.7 280 6 L 280 36 L 0 36 Z" fill="#238636"/>
-        <text x="140" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.dao&#187;</text>
-        <text x="140" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">PrestamoDAO</text>
+    <!-- Clase: Libro -->
+    <g transform="translate(730, 240)">
+        <rect width="190" height="189" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <rect width="190" height="32" fill="#1f6feb"/>
+        <text x="95" y="21" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Libro</text>
         
-        <line x1="0" y1="36" x2="280" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-        </g>
+        <line x1="0" y1="32" x2="190" y2="32" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 47)">
+            <text x="0" y="0" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Titulo del libro : String</text>
+        <text x="0" y="19" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Tipo de libro : String</text>
+        <text x="0" y="38" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Autor : String</text>
+        <text x="0" y="57" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Editorial : String</text>
+        <text x="0" y="76" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Stock : int</text>
+    </g>
 
-        <line x1="0" y1="52" x2="280" y2="52" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 66)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listar() : List&lt;Prestamo&gt;</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listarMorosos() : List&lt;Prestamo&gt;</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listarPorUsuario(int) : List&lt;Prestamo&gt;</text>
-        <text x="0" y="54" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">obtenerPorId(int) : Prestamo</text>
-        <text x="0" y="72" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">agregar(Prestamo) : void</text>
-        <text x="0" y="90" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">actualizar(Prestamo) : void</text>
+        <line x1="0" y1="139" x2="190" y2="139" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 154)">
+                <text x="0" y="0" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Reservar(fecha)</text>
+        <text x="0" y="19" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Entregar(fecha)</text>
     </g>
     </g>
 
-    <!-- Clase: DonacionDAO -->
-    <g transform="translate(430, 940)" filter="url(#dropShadow)">
-        <rect width="300" height="118" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
-        <path d="M 0 6 C 0 2.7 2.7 0 6 0 L 294 0 C 297.3 0 300 2.7 300 6 L 300 36 L 0 36 Z" fill="#238636"/>
-        <text x="150" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;modelo.dao&#187;</text>
-        <text x="150" y="28" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">DonacionDAO</text>
+    <!-- Clase: Donacion -->
+    <g transform="translate(970, 240)">
+        <rect width="190" height="170" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <rect width="190" height="32" fill="#1f6feb"/>
+        <text x="95" y="21" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Donacion</text>
         
-        <line x1="0" y1="36" x2="300" y2="36" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 50)">
-        </g>
+        <line x1="0" y1="32" x2="190" y2="32" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 47)">
+            <text x="0" y="0" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Titulo material : String</text>
+        <text x="0" y="19" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Tipo de material : String</text>
+        <text x="0" y="38" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Donante : String</text>
+        <text x="0" y="57" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Estado revision : String</text>
+    </g>
 
-        <line x1="0" y1="52" x2="300" y2="52" stroke="#30363d" stroke-width="1"/>
-        <g transform="translate(10, 66)">
-                <text x="0" y="0" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">listar() : List&lt;Donacion&gt;</text>
-        <text x="0" y="18" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">obtenerPorId(int) : Donacion</text>
-        <text x="0" y="36" fill="#79c0ff" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">agregar(Donacion) : void</text>
+        <line x1="0" y1="120" x2="190" y2="120" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 135)">
+                <text x="0" y="0" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Registrar(fecha)</text>
+        <text x="0" y="19" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Validar(estado)</text>
     </g>
     </g>
-<path d="M 300 170 L 430 170" fill="none" stroke="#8b949e" stroke-width="1.6"  marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="365" y="162" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">escrito por</text>
-<text x="316" y="164" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="408" y="176" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">*</text>
-<path d="M 300 370 L 360 370 L 360 250 L 430 250" fill="none" stroke="#8b949e" stroke-width="1.6"  marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="375" y="310" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">clasificado en</text>
-<text x="316" y="364" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="408" y="256" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">*</text>
-<path d="M 1000 310 L 1000 360" fill="none" stroke="#8b949e" stroke-width="1.6"  marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="1040" y="335" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">solicita</text>
-<text x="1014" y="326" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="986" y="340" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">*</text>
-<path d="M 730 220 L 790 220 L 790 440 L 860 440" fill="none" stroke="#8b949e" stroke-width="1.6"  marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="790" y="330" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">incluye ejemplar</text>
-<text x="746" y="214" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="838" y="446" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">*</text>
-<path d="M 860 280 L 800 280 L 800 550 L 730 550" fill="none" stroke="#8b949e" stroke-width="1.6"  marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="800" y="415" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">dona</text>
-<text x="844" y="274" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<text x="752" y="556" fill="#79c0ff" font-size="11.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">*</text>
-<path d="M 175 530 L 175 265" fill="none" stroke="#8b949e" stroke-width="1.6" stroke-dasharray="5,5" marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="225" y="395" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">«administra»</text>
-<path d="M 580 760 L 580 456" fill="none" stroke="#8b949e" stroke-width="1.6" stroke-dasharray="5,5" marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="630" y="620" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">«administra»</text>
-<path d="M 1000 640 L 1000 595" fill="none" stroke="#8b949e" stroke-width="1.6" stroke-dasharray="5,5" marker-end="url(#arrow)" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="1045" y="620" fill="#f0f6fc" font-size="11" font-weight="600" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">«persiste»</text>
 
+    <!-- Clase: Estudiante -->
+    <g transform="translate(40, 560)">
+        <rect width="190" height="132" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <rect width="190" height="32" fill="#238636"/>
+        <text x="95" y="21" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Estudiante</text>
+        
+        <line x1="0" y1="32" x2="190" y2="32" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 47)">
+            <text x="0" y="0" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Codigo estudiante : String</text>
+        <text x="0" y="19" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Carrera : String</text>
+    </g>
+
+        <line x1="0" y1="82" x2="190" y2="82" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 97)">
+                <text x="0" y="0" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Reservar(libro)</text>
+        <text x="0" y="19" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Entregar(libro)</text>
+    </g>
+    </g>
+
+    <!-- Clase: Docente -->
+    <g transform="translate(250, 560)">
+        <rect width="190" height="132" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <rect width="190" height="32" fill="#238636"/>
+        <text x="95" y="21" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Docente</text>
+        
+        <line x1="0" y1="32" x2="190" y2="32" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 47)">
+            <text x="0" y="0" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Codigo docente : String</text>
+        <text x="0" y="19" fill="#e6edf3" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Departamento : String</text>
+    </g>
+
+        <line x1="0" y1="82" x2="190" y2="82" stroke="#30363d" stroke-width="1.2"/>
+        <g transform="translate(10, 97)">
+                <text x="0" y="0" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Reservar(libro)</text>
+        <text x="0" y="19" fill="#79c0ff" font-size="12" font-family="'Segoe UI', Roboto, sans-serif">Entregar(libro)</text>
+    </g>
+    </g>
+
+    <!-- Rombo negro en Lector -->
+    <polygon points="280,140 295,133 310,140 295,147" fill="#f0f6fc" stroke="#c9d1d9" stroke-width="1.5"/>
+    <line x1="310" y1="140" x2="420" y2="140" stroke="#c9d1d9" stroke-width="1.8"/>
+    <text x="395" y="130" fill="#f0f6fc" font-size="12" font-weight="700" font-family="'Segoe UI', sans-serif">1...*</text>
+    
+    <line x1="535" y1="262" x2="535" y2="350" stroke="#c9d1d9" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrowSimple)"/>
+    <text x="548" y="310" fill="#f0f6fc" font-size="12" font-weight="700" font-family="'Segoe UI', sans-serif">1...*</text>
+    
+    <path d="M 420 420 L 320 420 L 320 220 L 280 220" fill="none" stroke="#c9d1d9" stroke-width="1.8"/>
+    <text x="330" y="325" fill="#f0f6fc" font-size="11.5" font-weight="600" font-family="'Segoe UI', sans-serif">Entrega,</text>
+    <text x="330" y="342" fill="#f0f6fc" font-size="11.5" font-weight="600" font-family="'Segoe UI', sans-serif">recibe</text>
+    
+    <!-- Rama hacia Libro -->
+    <path d="M 650 170 L 825 170 L 825 240" fill="none" stroke="#c9d1d9" stroke-width="1.8"/>
+    <text x="715" y="160" fill="#f0f6fc" font-size="12" font-weight="600" font-family="'Segoe UI', sans-serif">necesita</text>
+    <text x="812" y="230" fill="#f0f6fc" font-size="12" font-weight="700" font-family="'Segoe UI', sans-serif">1</text>
+
+    <!-- Rama hacia Donacion / Revista -->
+    <path d="M 825 170 L 1065 170 L 1065 240" fill="none" stroke="#c9d1d9" stroke-width="1.8"/>
+    <text x="940" y="160" fill="#f0f6fc" font-size="12" font-weight="600" font-family="'Segoe UI', sans-serif">necesita</text>
+    <text x="1052" y="230" fill="#f0f6fc" font-size="12" font-weight="700" font-family="'Segoe UI', sans-serif">1</text>
+    
+    <!-- Hacia Estudiante -->
+    <line x1="135" y1="280" x2="135" y2="560" stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#arrowSimple)"/>
+    <text x="145" y="540" fill="#f0f6fc" font-size="12" font-weight="700" font-family="'Segoe UI', sans-serif">1</text>
+
+    <!-- Hacia Docente -->
+    <path d="M 230 280 L 230 500 L 345 500 L 345 560" fill="none" stroke="#c9d1d9" stroke-width="1.8" marker-end="url(#arrowSimple)"/>
+    <text x="355" y="540" fill="#f0f6fc" font-size="12" font-weight="700" font-family="'Segoe UI', sans-serif">1</text>
+    
 </svg>
