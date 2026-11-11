@@ -18,7 +18,7 @@ function renderClassBox({ x, y, width, headerColor = '#1e40af', title, stereotyp
     <g transform="translate(${x}, ${y})" filter="url(#dropShadow)">
         <rect width="${width}" height="${totalHeight}" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
         <path d="M 0 6 C 0 2.7 2.7 0 6 0 L ${width - 6} 0 C ${width - 2.7} 0 ${width} 2.7 ${width} 6 L ${width} ${headerHeight} L 0 ${headerHeight} Z" fill="${headerColor}"/>
-        ${stereotype ? `<text x="${width/2}" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&laquo;${stereotype}&raquo;</text>` : ''}
+        ${stereotype ? `<text x="${width/2}" y="14" fill="#cbd5e1" font-size="10" font-family="'Segoe UI', Roboto, sans-serif" font-style="italic" text-anchor="middle">&#171;${stereotype}&#187;</text>` : ''}
         <text x="${width/2}" y="${stereotype ? 28 : 18}" fill="#ffffff" font-size="12.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">${title}</text>
         
         <line x1="0" y1="${headerHeight}" x2="${width}" y2="${headerHeight}" stroke="#cbd5e1" stroke-width="1"/>
@@ -26,7 +26,8 @@ function renderClassBox({ x, y, width, headerColor = '#1e40af', title, stereotyp
     `;
 
     attributes.forEach((attr, i) => {
-        svg += `        <text x="0" y="${i * lineHeight}" fill="#1e293b" font-size="11" font-family="'Consolas', 'Courier New', monospace">${attr}</text>\n`;
+        const safeAttr = String(attr).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        svg += `        <text x="0" y="${i * lineHeight}" fill="#1e293b" font-size="11" font-family="'Consolas', 'Courier New', monospace">${safeAttr}</text>\n`;
     });
 
     svg += `    </g>\n`;
@@ -38,7 +39,8 @@ function renderClassBox({ x, y, width, headerColor = '#1e40af', title, stereotyp
         <g transform="translate(10, ${methodStartY + 14})">
         `;
         methods.forEach((meth, i) => {
-            svg += `        <text x="0" y="${i * lineHeight}" fill="#334155" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">${meth}</text>\n`;
+            const safeMeth = String(meth).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            svg += `        <text x="0" y="${i * lineHeight}" fill="#334155" font-size="10.5" font-family="'Consolas', 'Courier New', monospace">${safeMeth}</text>\n`;
         });
         svg += `    </g>\n`;
     }
