@@ -28,25 +28,25 @@ public class SancionesServlet extends HttpServlet {
 
         String accion = request.getParameter("accion");
         if ("regularizar".equals(accion)) {
-            int idPrestamo = Integer.parseInt(request.getParameter("id"));
-            Prestamo p = prestamoDAO.obtenerPorId(idPrestamo);
-            if (p != null) {
-                p.setEstado("DEVUELTO");
-                prestamoDAO.actualizar(p);
-                libroDAO.ajustarStock(p.getIdLibro(), 1);
+            String idStr = request.getParameter("id");
+            if (idStr != null && !idStr.trim().isEmpty()) {
+                try {
+                    int idPrestamo = Integer.parseInt(idStr.trim());
+                    Prestamo p = prestamoDAO.obtenerPorId(idPrestamo);
+                    if (p != null) {
+                        p.setEstado("DEVUELTO");
+                        prestamoDAO.actualizar(p);
+                        libroDAO.ajustarStock(p.getIdLibro(), 1);
+                    }
+                } catch (NumberFormatException ignored) {}
             }
             response.sendRedirect("SancionesServlet?exito=regularizado");
             return;
         }
 
-        List<Prestamo> todos = prestamoDAO.listar();
-        List<Prestamo> prestamosMorosos = new ArrayList<>();
-
-        // Prestamos cuyo estado es PRESTADO y cuya fecha de devolución fue en octubre o primeros días de noviembre
-        for (Prestamo p : todos) {
-            if ("PRESTADO".equalsIgnoreCase(p.getEstado())) {
-                prestamosMorosos.add(p);
-            }
+        List<Prestamo> prestamosMorosos = prestamoDAO.listarMorosos();
+        if (prestamosMorosos == null) {
+            prestamosMorosos = new ArrayList<>();
         }
 
         request.setAttribute("prestamosMorosos", prestamosMorosos);

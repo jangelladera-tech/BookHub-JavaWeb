@@ -62,6 +62,32 @@ public class PrestamoDAO {
         return prestamos;
     }
 
+    public List<Prestamo> listarMorosos() {
+        List<Prestamo> todos = listar();
+        List<Prestamo> morosos = new ArrayList<>();
+        if (todos != null) {
+            for (Prestamo p : todos) {
+                if ("PRESTADO".equalsIgnoreCase(p.getEstado())) {
+                    morosos.add(p);
+                }
+            }
+        }
+        return morosos;
+    }
+
+    public List<Prestamo> listarPorUsuario(int idUsuario) {
+        List<Prestamo> todos = listar();
+        List<Prestamo> resultado = new ArrayList<>();
+        if (todos != null) {
+            for (Prestamo p : todos) {
+                if (p.getIdUsuario() == idUsuario) {
+                    resultado.add(p);
+                }
+            }
+        }
+        return resultado;
+    }
+
     public Prestamo obtenerPorId(int id) {
         String sql = "SELECT id_prestamo, id_usuario, id_libro, fecha_prestamo, fecha_devolucion, estado FROM prestamos WHERE id_prestamo = ?";
         try (Connection con = Conexion.conectar()) {

@@ -18,6 +18,9 @@
         PrestamoDAO prestamoDAO = new PrestamoDAO();
         prestamosMorosos = prestamoDAO.listarMorosos();
     }
+    if (prestamosMorosos == null) {
+        prestamosMorosos = new java.util.ArrayList<>();
+    }
 
     UsuarioDAO usuarioDAO = (UsuarioDAO) request.getAttribute("usuarioDAO");
     if (usuarioDAO == null) usuarioDAO = new UsuarioDAO();
@@ -25,7 +28,7 @@
     if (libroDAO == null) libroDAO = new LibroDAO();
 
     String exito = request.getParameter("exito");
-    int totalMorosos = prestamosMorosos.size();
+    int totalMorosos = prestamosMorosos != null ? prestamosMorosos.size() : 0;
 %>
 <!DOCTYPE html>
 <html lang="es">
