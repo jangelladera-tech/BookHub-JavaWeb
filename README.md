@@ -47,16 +47,16 @@ Además, cualquier nuevo lector puede crear su cuenta desde el apartado **Regist
 
 ---
 
-## 📐 Diagramas de Clases UML Modulares (Arquitectura Completa)
+## 📐 Diagrama de Clases UML y Modelo de Datos
 
-Los diagramas de clases han sido organizados y actualizados cubriendo **todos los apartados del sistema**, estructurados por capas (**Entidades / Beans**, **Acceso a Datos DAO / JDBC** y **Controladores MVC / Servlets**) con una notación ejecutiva y profesional (sin la sobrecarga visual de símbolos `+` o `-`), separados en imágenes de alta resolución:
+A continuación se presentan los dos diagramas oficiales del sistema, separados en imágenes de alta resolución independientes y con una notación limpia y profesional (sin la presencia de símbolos `+` o `-`):
 
 ---
 
-### 1. Módulo Bibliográfico y Catálogo (Libros, Autores, Categorías)
-Gestiona el fondo bibliográfico, clasificación por categorías, autores, stock físico y búsqueda multicriterio con portadas digitales.
+### 1. Diagrama de Clases UML del Sistema
+Representa la arquitectura de software en capas (**Modelo de Dominio / Beans**, **Acceso a Datos DAO** y **Conectividad JDBC**), detallando las entidades del sistema, sus atributos, métodos y relaciones de asociación y dependencia.
 
-![Módulo 1: Gestión Bibliográfica y Catálogo](img/uml/diagrama-1-bibliografico.svg)
+![Diagrama de Clases UML](img/uml/diagrama-clases-uml.svg)
 
 ```mermaid
 classDiagram
@@ -68,8 +68,6 @@ classDiagram
         setIdAutor(int) void
         getNombre() String
         setNombre(String) void
-        getNacionalidad() String
-        setNacionalidad(String) void
     }
 
     class Categoria {
@@ -80,8 +78,6 @@ classDiagram
         setIdCategoria(int) void
         getNombre() String
         setNombre(String) void
-        getDescripcion() String
-        setDescripcion(String) void
     }
 
     class Libro {
@@ -98,11 +94,55 @@ classDiagram
         Categoria categoria
         getIdLibro() int
         getTitulo() String
-        getIsbn() String
         getStock() int
         getAutor() Autor
         getCategoria() Categoria
         setStock(int) void
+    }
+
+    class Usuario {
+        int idUsuario
+        String nombre
+        String correo
+        String password
+        String rol
+        String estado
+        getIdUsuario() int
+        getNombre() String
+        getCorreo() String
+        getRol() String
+    }
+
+    class Prestamo {
+        int idPrestamo
+        int idUsuario
+        int idLibro
+        String fechaPrestamo
+        String fechaDevolucion
+        String estado
+        Usuario usuario
+        Libro libro
+        getIdPrestamo() int
+        getIdUsuario() int
+        getIdLibro() int
+        getEstado() String
+        setEstado(String) void
+    }
+
+    class Donacion {
+        int idDonacion
+        String tituloLibro
+        String autor
+        String categoria
+        int anio
+        String estadoConservacion
+        String nombreDonante
+        String correoDonante
+        String estadoRevision
+        getIdDonacion() int
+        getTituloLibro() String
+        getEstadoRevision() String
+        setEstadoRevision(String) void
     }
 
     class AutorDAO {
@@ -127,160 +167,7 @@ classDiagram
         buscar(String, String) List~Libro~
         agregar(Libro) void
         actualizar(Libro) void
-        eliminar(int) void
         actualizarStock(int, int) void
-    }
-
-    class Conexion {
-        String[] URLS
-        String USER
-        String[] PASSWORDS
-        conectar() Connection
-    }
-
-    class CatalogoServlet {
-        doGet(req, resp) void
-    }
-
-    class LibroServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    class AutorServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    class CategoriaServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    Autor "1" <-- "*" Libro : escrito por
-    Categoria "1" <-- "*" Libro : pertenece a
-    LibroDAO ..> Conexion : usa
-    AutorDAO ..> Conexion : usa
-    CategoriaDAO ..> Conexion : usa
-    CatalogoServlet ..> LibroDAO : usa
-    LibroServlet ..> LibroDAO : usa
-    AutorServlet ..> AutorDAO : usa
-    CategoriaServlet ..> CategoriaDAO : usa
-```
-
----
-
-### 2. Módulo de Circulación, Préstamos y Sanciones
-Controla las solicitudes de préstamos por lectores, aprobaciones administrativas, devoluciones, cálculo de atrasos y emisión de sanciones.
-
-![Módulo 2: Circulación, Préstamos y Sanciones](img/uml/diagrama-2-prestamos-sanciones.svg)
-
-```mermaid
-classDiagram
-    class Usuario {
-        int idUsuario
-        String nombre
-        String correo
-        String rol
-        String estado
-        getIdUsuario() int
-        getNombre() String
-        getRol() String
-    }
-
-    class Libro {
-        int idLibro
-        String titulo
-        int stock
-        String isbn
-        getIdLibro() int
-        getTitulo() String
-        getStock() int
-    }
-
-    class Prestamo {
-        int idPrestamo
-        int idUsuario
-        int idLibro
-        String fechaPrestamo
-        String fechaDevolucion
-        String estado
-        Usuario usuario
-        Libro libro
-        getIdPrestamo() int
-        getIdUsuario() int
-        getIdLibro() int
-        getFechaPrestamo() String
-        getFechaDevolucion() String
-        getEstado() String
-        setEstado(String) void
-    }
-
-    class PrestamoDAO {
-        listar() List~Prestamo~
-        listarPorUsuario(int) List~Prestamo~
-        obtenerPorId(int) Prestamo
-        agregar(Prestamo) void
-        actualizar(Prestamo) void
-        eliminar(int) void
-    }
-
-    class Conexion {
-        String[] URLS
-        String USER
-        conectar() Connection
-    }
-
-    class PrestamoServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    class SolicitarPrestamoServlet {
-        doPost(req, resp) void
-    }
-
-    class MisPrestamosServlet {
-        doGet(req, resp) void
-    }
-
-    class SancionesServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    Usuario "1" <-- "*" Prestamo : solicita
-    Libro "1" <-- "*" Prestamo : ejemplar prestado
-    PrestamoDAO ..> Conexion : usa
-    PrestamoServlet ..> PrestamoDAO : gestiona
-    SolicitarPrestamoServlet ..> PrestamoDAO : solicita
-    MisPrestamosServlet ..> PrestamoDAO : consulta
-    SancionesServlet ..> PrestamoDAO : audita atrasos
-```
-
----
-
-### 3. Módulo de Usuarios, Autenticación y Seguridad
-Maneja el registro de lectores, inicio de sesión seguro, control de sesiones HTTP y filtro perimetral de seguridad para rutas administrativas.
-
-![Módulo 3: Usuarios, Autenticación y Seguridad](img/uml/diagrama-3-usuarios-seguridad.svg)
-
-```mermaid
-classDiagram
-    class Usuario {
-        int idUsuario
-        String nombre
-        String correo
-        String password
-        String rol
-        String estado
-        getIdUsuario() int
-        getNombre() String
-        getCorreo() String
-        getPassword() String
-        getRol() String
-        getEstado() String
-        setEstado(String) void
     }
 
     class UsuarioDAO {
@@ -292,71 +179,13 @@ classDiagram
         eliminar(int) void
     }
 
-    class Conexion {
-        String[] URLS
-        String USER
-        conectar() Connection
-    }
-
-    class AdminFilter {
-        init(FilterConfig) void
-        doFilter(ServletRequest, ServletResponse, FilterChain) void
-        destroy() void
-    }
-
-    class LoginServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    class LogoutServlet {
-        doGet(req, resp) void
-    }
-
-    class RegistroServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    class UsuarioServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    UsuarioDAO ..> Conexion : usa
-    LoginServlet ..> UsuarioDAO : autentica
-    RegistroServlet ..> UsuarioDAO : registra
-    UsuarioServlet ..> UsuarioDAO : administra
-    AdminFilter ..> Usuario : verifica rol ADMIN
-```
-
----
-
-### 4. Módulo de Donaciones Comunitarias, Reportes e Innovación ODS 09
-Permite la postulación ciudadana de donaciones de libros, panel de auditoría y revisión de ejemplares donados, reportes gerenciales e integración del laboratorio accesible de tecnologías de asistencia ODS 09.
-
-![Módulo 4: Donaciones, Reportes e Innovación ODS 09](img/uml/diagrama-4-donaciones-reportes.svg)
-
-```mermaid
-classDiagram
-    class Donacion {
-        int idDonacion
-        String tituloLibro
-        String autor
-        String categoria
-        int anio
-        String estadoConservacion
-        String nombreDonante
-        String correoDonante
-        String telefonoDonante
-        String motivoMensaje
-        String fechaSolicitud
-        String estadoRevision
-        getIdDonacion() int
-        getTituloLibro() String
-        getAutor() String
-        getEstadoRevision() String
-        setEstadoRevision(String) void
+    class PrestamoDAO {
+        listar() List~Prestamo~
+        listarPorUsuario(int) List~Prestamo~
+        obtenerPorId(int) Prestamo
+        agregar(Prestamo) void
+        actualizar(Prestamo) void
+        eliminar(int) void
     }
 
     class DonacionDAO {
@@ -370,111 +199,92 @@ classDiagram
     class Conexion {
         String[] URLS
         String USER
+        String[] PASSWORDS
         conectar() Connection
-    }
-
-    class DonacionServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    class DonacionesServlet {
-        doGet(req, resp) void
-        doPost(req, resp) void
-    }
-
-    class ReportesServlet {
-        doGet(req, resp) void
-    }
-
-    class InnovacionServlet {
-        doGet(req, resp) void
-    }
-
-    DonacionDAO ..> Conexion : usa
-    DonacionServlet ..> DonacionDAO : registra postulacion
-    DonacionesServlet ..> DonacionDAO : aprueba o rechaza
-    ReportesServlet ..> Conexion : compila metricas
-```
-
----
-
-### 5. Modelo General Integral de Entidades de Dominio
-Visión holística de las 6 entidades de datos del ecosistema BookHub y sus relaciones de cardinalidad.
-
-![Modelo General de Entidades de Dominio](img/uml/diagrama-5-dominio-general.svg)
-
-```mermaid
-classDiagram
-    class Autor {
-        int idAutor
-        String nombre
-        String nacionalidad
-        getIdAutor() int
-        getNombre() String
-    }
-
-    class Categoria {
-        int idCategoria
-        String nombre
-        String descripcion
-        getIdCategoria() int
-        getNombre() String
-    }
-
-    class Libro {
-        int idLibro
-        String titulo
-        String isbn
-        int anio
-        int stock
-        int idAutor
-        int idCategoria
-        getIdLibro() int
-        getTitulo() String
-        getStock() int
-    }
-
-    class Usuario {
-        int idUsuario
-        String nombre
-        String correo
-        String rol
-        String estado
-        getIdUsuario() int
-        getNombre() String
-        getRol() String
-    }
-
-    class Prestamo {
-        int idPrestamo
-        int idUsuario
-        int idLibro
-        String fechaPrestamo
-        String fechaDevolucion
-        String estado
-        getIdPrestamo() int
-        getEstado() String
-    }
-
-    class Donacion {
-        int idDonacion
-        String tituloLibro
-        String autor
-        String categoria
-        int anio
-        String estadoConservacion
-        String nombreDonante
-        String estadoRevision
-        getIdDonacion() int
-        getTituloLibro() String
-        getEstadoRevision() String
     }
 
     Autor "1" <-- "*" Libro : escrito por
     Categoria "1" <-- "*" Libro : clasificado en
     Libro "1" <-- "*" Prestamo : ejemplar prestado
     Usuario "1" <-- "*" Prestamo : solicitado por
+    LibroDAO ..> Conexion : usa
+    AutorDAO ..> Conexion : usa
+    CategoriaDAO ..> Conexion : usa
+    UsuarioDAO ..> Conexion : usa
+    PrestamoDAO ..> Conexion : usa
+    DonacionDAO ..> Conexion : usa
+```
+
+---
+
+### 2. Modelo de Datos (Base de Datos Relacional MySQL: `bookhub`)
+Representa la estructura física y relacional de la base de datos `bookhub`, con sus 6 tablas, claves primarias (`PK`), claves foráneas (`FK`), tipos de datos y cardinalidades `1:N`.
+
+![Modelo de Datos - Base de Datos MySQL](img/uml/modelo-de-datos.svg)
+
+```mermaid
+erDiagram
+    AUTORES ||--o{ LIBROS : "1:N (fk_libro_autor)"
+    CATEGORIAS ||--o{ LIBROS : "1:N (fk_libro_categoria)"
+    USUARIOS ||--o{ PRESTAMOS : "1:N (fk_prestamo_usuario)"
+    LIBROS ||--o{ PRESTAMOS : "1:N (fk_prestamo_libro)"
+
+    AUTORES {
+        int id_autor PK
+        varchar nombre
+        varchar nacionalidad
+    }
+
+    CATEGORIAS {
+        int id_categoria PK
+        varchar nombre
+        varchar descripcion
+    }
+
+    LIBROS {
+        int id_libro PK
+        varchar titulo
+        varchar isbn
+        int anio
+        text descripcion
+        int stock
+        int id_autor FK
+        int id_categoria FK
+        longtext imagen_portada
+    }
+
+    USUARIOS {
+        int id_usuario PK
+        varchar nombre
+        varchar correo
+        varchar password
+        varchar rol
+        varchar estado
+    }
+
+    PRESTAMOS {
+        int id_prestamo PK
+        int id_usuario FK
+        int id_libro FK
+        varchar fecha_prestamo
+        varchar fecha_devolucion
+        varchar estado
+    }
+
+    DONACIONES {
+        int id_donacion PK
+        varchar titulo_libro
+        varchar autor
+        varchar categoria
+        int anio
+        varchar estado_conservacion
+        varchar nombre_donante
+        varchar correo_donante
+        varchar telefono_donante
+        text motivo_mensaje
+        varchar fecha_solicitud
+        varchar estado_revision
+    }
 ```
 
 ---
