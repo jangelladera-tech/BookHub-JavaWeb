@@ -5,12 +5,13 @@
 <%@page import="modelo.beans.Libro"%>
 <%@page import="modelo.dao.UsuarioDAO"%>
 <%@page import="modelo.dao.LibroDAO"%>
+<%@page import="modelo.dao.PrestamoDAO"%>
 
 <%
     Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
     List<Prestamo> prestamos = (List<Prestamo>) request.getAttribute("prestamos");
     if (prestamos == null) {
-        dao.PrestamoDAO pdao = new dao.PrestamoDAO();
+        PrestamoDAO pdao = new PrestamoDAO();
         prestamos = pdao.listar();
     }
 

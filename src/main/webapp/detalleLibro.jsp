@@ -1,9 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="modelo.beans.Libro"%>
 <%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.dao.LibroDAO"%>
 
 <%
     Libro libro = (Libro) request.getAttribute("libro");
+    if (libro == null) {
+        String idParam = request.getParameter("id");
+        if (idParam != null && !idParam.trim().isEmpty()) {
+            try {
+                int id = Integer.parseInt(idParam.trim());
+                LibroDAO libroDAO = new LibroDAO();
+                libro = libroDAO.obtenerPorId(id);
+            } catch (Exception ignored) {}
+        }
+    }
     if (libro == null) {
         response.sendRedirect("CatalogoServlet");
         return;

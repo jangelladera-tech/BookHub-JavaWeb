@@ -4,6 +4,7 @@
 <%@page import="modelo.beans.Usuario"%>
 <%@page import="modelo.beans.Libro"%>
 <%@page import="modelo.dao.LibroDAO"%>
+<%@page import="modelo.dao.PrestamoDAO"%>
 
 <%
     Usuario usuario =
@@ -17,7 +18,12 @@
     List<Prestamo> misPrestamos =
             (List<Prestamo>) request.getAttribute("misPrestamos");
 
+    PrestamoDAO prestamoDAO = new PrestamoDAO();
     LibroDAO libroDAO = new LibroDAO();
+
+    if (misPrestamos == null) {
+        misPrestamos = prestamoDAO.listarPorUsuario(usuario.getIdUsuario());
+    }
 %>
 
 <!DOCTYPE html>

@@ -5,6 +5,7 @@
 <%@page import="modelo.beans.Usuario"%>
 <%@page import="modelo.dao.AutorDAO"%>
 <%@page import="modelo.dao.CategoriaDAO"%>
+<%@page import="modelo.dao.LibroDAO"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -608,6 +609,10 @@
 
                                     List<Libro> libros
                                             = (List<Libro>) request.getAttribute("libros");
+                                    if (libros == null) {
+                                        LibroDAO ldao = new LibroDAO();
+                                        libros = ldao.listar();
+                                    }
 
                                     if (libros != null && !libros.isEmpty()) {
 

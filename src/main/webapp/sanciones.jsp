@@ -5,6 +5,7 @@
 <%@page import="modelo.beans.Usuario"%>
 <%@page import="modelo.dao.LibroDAO"%>
 <%@page import="modelo.dao.UsuarioDAO"%>
+<%@page import="modelo.dao.PrestamoDAO"%>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     if (usuario == null || !"ADMIN".equals(usuario.getRol())) {
@@ -14,8 +15,8 @@
 
     List<Prestamo> prestamosMorosos = (List<Prestamo>) request.getAttribute("prestamosMorosos");
     if (prestamosMorosos == null) {
-        response.sendRedirect("SancionesServlet");
-        return;
+        PrestamoDAO prestamoDAO = new PrestamoDAO();
+        prestamosMorosos = prestamoDAO.listarMorosos();
     }
 
     UsuarioDAO usuarioDAO = (UsuarioDAO) request.getAttribute("usuarioDAO");

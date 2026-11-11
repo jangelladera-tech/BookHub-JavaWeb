@@ -1,9 +1,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="modelo.beans.Libro"%>
 <%@page import="modelo.beans.Prestamo"%>
 <%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.beans.Categoria"%>
+<%@page import="modelo.beans.Donacion"%>
+<%@page import="modelo.dao.LibroDAO"%>
+<%@page import="modelo.dao.PrestamoDAO"%>
+<%@page import="modelo.dao.UsuarioDAO"%>
+<%@page import="modelo.dao.CategoriaDAO"%>
+<%@page import="modelo.dao.DonacionDAO"%>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     if (usuario == null || !"ADMIN".equals(usuario.getRol())) {
@@ -11,22 +19,92 @@
         return;
     }
 
-    Integer totalLibros = (Integer) request.getAttribute("totalLibros");
-    if (totalLibros == null) {
-        response.sendRedirect("ReportesServlet");
-        return;
-    }
-
-    int totalEjemplares = (Integer) request.getAttribute("totalEjemplares");
-    int librosAgotados = (Integer) request.getAttribute("librosAgotados");
-    int librosBajoStock = (Integer) request.getAttribute("librosBajoStock");
-    int totalPrestamos = (Integer) request.getAttribute("totalPrestamos");
-    int prestamosActivos = (Integer) request.getAttribute("prestamosActivos");
-    int prestamosDevueltos = (Integer) request.getAttribute("prestamosDevueltos");
-    int totalUsuarios = (Integer) request.getAttribute("totalUsuarios");
-    int donacionesPendientes = (Integer) request.getAttribute("donacionesPendientes");
+    Integer totalLibrosAttr = (Integer) request.getAttribute("totalLibros");
+    Integer totalEjemplaresAttr = (Integer) request.getAttribute("totalEjemplares");
+    Integer librosAgotadosAttr = (Integer) request.getAttribute("librosAgotados");
+    Integer librosBajoStockAttr = (Integer) request.getAttribute("librosBajoStock");
+    Integer totalPrestamosAttr = (Integer) request.getAttribute("totalPrestamos");
+    Integer prestamosActivosAttr = (Integer) request.getAttribute("prestamosActivos");
+    Integer prestamosDevueltosAttr = (Integer) request.getAttribute("prestamosDevueltos");
+    Integer totalUsuariosAttr = (Integer) request.getAttribute("totalUsuarios");
+    Integer donacionesPendientesAttr = (Integer) request.getAttribute("donacionesPendientes");
     Map<String, Integer> librosPorCat = (Map<String, Integer>) request.getAttribute("librosPorCat");
     List<Libro> libros = (List<Libro>) request.getAttribute("libros");
+
+    // Respaldo por si se ingresa directamente sin pasar por ReportesServlet
+    if (totalLibrosAttr == null || libros == null) {
+        LibroDAO libroDAO = new LibroDAO();
+        PrestamoDAO prestamoDAO = new PrestamoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        DonacionDAO donacionDAO = new DonacionDAO();
+
+        libros = libroDAO.listar();
+        List<Prestamo> prestamos = prestamoDAO.listar();
+        List<Usuario> usuarios = usuarioDAO.listar();
+        List<Categoria> categorias = categoriaDAO.listar();
+
+        int tLib = libros != null ? libros.size() : 0;
+        int tEjemp = 0, lAgot = 0, lBajo = 0;
+        if (libros != null) {
+            for (Libro l : libros) {
+                tEjemp += l.getStock();
+                if (l.getStock() <= 0) lAgot++;
+                else if (l.getStock() <= 2) lBajo++;
+            }
+        }
+        totalLibrosAttr = tLib;
+        totalEjemplaresAttr = tEjemp;
+        librosAgotadosAttr = lAgot;
+        librosBajoStockAttr = lBajo;
+
+        int tPrest = prestamos != null ? prestamos.size() : 0;
+        int pAct = 0, pDev = 0;
+        if (prestamos != null) {
+            for (Prestamo p : prestamos) {
+                if ("PRESTADO".equalsIgnoreCase(p.getEstado())) pAct++;
+                else if ("DEVUELTO".equalsIgnoreCase(p.getEstado())) pDev++;
+            }
+        }
+        totalPrestamosAttr = tPrest;
+        prestamosActivosAttr = pAct;
+        prestamosDevueltosAttr = pDev;
+
+        totalUsuariosAttr = usuarios != null ? usuarios.size() : 0;
+
+        int dPend = 0;
+        List<Donacion> dons = donacionDAO.listar();
+        if (dons != null) {
+            for (Donacion d : dons) {
+                if ("PENDIENTE".equalsIgnoreCase(d.getEstadoRevision())) dPend++;
+            }
+        }
+        donacionesPendientesAttr = dPend;
+
+        librosPorCat = new HashMap<>();
+        if (categorias != null) {
+            for (Categoria c : categorias) librosPorCat.put(c.getNombre(), 0);
+        }
+        if (libros != null) {
+            for (Libro l : libros) {
+                String cat = l.getNombreCategoria();
+                if (cat != null) {
+                    librosPorCat.put(cat, librosPorCat.getOrDefault(cat, 0) + 1);
+                }
+            }
+        }
+    }
+
+    int totalLibros = totalLibrosAttr != null ? totalLibrosAttr : 0;
+    int totalEjemplares = totalEjemplaresAttr != null ? totalEjemplaresAttr : 0;
+    int librosAgotados = librosAgotadosAttr != null ? librosAgotadosAttr : 0;
+    int librosBajoStock = librosBajoStockAttr != null ? librosBajoStockAttr : 0;
+    int totalPrestamos = totalPrestamosAttr != null ? totalPrestamosAttr : 0;
+    int prestamosActivos = prestamosActivosAttr != null ? prestamosActivosAttr : 0;
+    int prestamosDevueltos = prestamosDevueltosAttr != null ? prestamosDevueltosAttr : 0;
+    int totalUsuarios = totalUsuariosAttr != null ? totalUsuariosAttr : 0;
+    int donacionesPendientes = donacionesPendientesAttr != null ? donacionesPendientesAttr : 0;
+    if (librosPorCat == null) librosPorCat = new HashMap<>();
 %>
 <!DOCTYPE html>
 <html lang="es">

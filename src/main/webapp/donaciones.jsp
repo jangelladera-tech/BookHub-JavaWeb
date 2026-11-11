@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page import="modelo.beans.Donacion"%>
 <%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.dao.DonacionDAO"%>
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     if (usuario == null || !"ADMIN".equals(usuario.getRol())) {
@@ -11,7 +12,7 @@
 
     List<Donacion> donaciones = (List<Donacion>) request.getAttribute("donaciones");
     if (donaciones == null) {
-        dao.DonacionDAO ddao = new dao.DonacionDAO();
+        DonacionDAO ddao = new DonacionDAO();
         donaciones = ddao.listar();
     }
 

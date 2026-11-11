@@ -1,13 +1,14 @@
 <%@page import="java.util.List"%>
 <%@page import="modelo.beans.Autor"%>
 <%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.dao.AutorDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
     List<Autor> autores = (List<Autor>) request.getAttribute("autores");
     if (autores == null) {
-        dao.AutorDAO adao = new dao.AutorDAO();
+        AutorDAO adao = new AutorDAO();
         autores = adao.listar();
     }
 

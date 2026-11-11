@@ -3,6 +3,8 @@
 <%@page import="modelo.beans.Libro"%>
 <%@page import="modelo.beans.Categoria"%>
 <%@page import="modelo.beans.Usuario"%>
+<%@page import="modelo.dao.LibroDAO"%>
+<%@page import="modelo.dao.CategoriaDAO"%>
 
 <%
     List<Libro> libros =
@@ -10,6 +12,13 @@
 
     List<Categoria> categorias =
             (List<Categoria>) request.getAttribute("categorias");
+
+    if (libros == null || categorias == null) {
+        LibroDAO ldao = new LibroDAO();
+        CategoriaDAO cdao = new CategoriaDAO();
+        if (libros == null) libros = ldao.listar();
+        if (categorias == null) categorias = cdao.listar();
+    }
 
     String busqueda =
             (String) request.getAttribute("busqueda");
