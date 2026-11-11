@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 860" width="1420" height="860">
     <rect width="1420" height="860" fill="#0d1117"/>
-    <text x="710" y="45" fill="#f0f6fc" font-size="22" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Modelo de Datos Relacional (Base de Datos MySQL: bookhub)</text>
-    <text x="710" y="68" fill="#8b949e" font-size="12.5" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Esquema Completo de Tablas • Claves Primarias (PK), Claves Foráneas (FK) y Cardinalidad Crow's Foot (1:N)</text>
+    <text x="710" y="38" fill="#f0f6fc" font-size="22" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Modelo Relacional de Base de Datos (ERD) - BookHub</text>
+    <text x="710" y="60" fill="#8b949e" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Cardinalidad 1 a Muchos (1:N) con Notación Pata de Gallo (Crow's Foot) • Módulo Completo de Donaciones</text>
     
     <!-- Tabla ERD: autores -->
     <g transform="translate(50, 80)">
@@ -58,204 +58,278 @@
 
     <!-- Tabla ERD: libros -->
     <g transform="translate(430, 80)">
-        <rect width="350" height="236" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
-        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 346 0 C 348.2 0 350 1.8 350 4 L 350 28 L 0 28 Z" fill="#4338ca"/>
-        <text x="175" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">libros</text>
+        <rect width="300" height="236" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 296 0 C 298.2 0 300 1.8 300 4 L 300 28 L 0 28 Z" fill="#4338ca"/>
+        <text x="150" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">libros</text>
         
-        <line x1="0" y1="28" x2="350" y2="28" stroke="#30363d" stroke-width="1.2"/>
+        <line x1="0" y1="28" x2="300" y2="28" stroke="#30363d" stroke-width="1.2"/>
         <line x1="42" y1="28" x2="42" y2="236" stroke="#30363d" stroke-width="1"/>
-        <line x1="250" y1="28" x2="250" y2="236" stroke="#30363d" stroke-width="1"/>
+        <line x1="200" y1="28" x2="200" y2="236" stroke="#30363d" stroke-width="1"/>
 
         <g transform="translate(0, 44)">
     
         <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
         <text x="50" y="0" fill="#f0f6fc" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_libro</text>
-        <text x="338" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
+        <text x="288" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
         
         <text x="21" y="22" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="22" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">titulo</text>
-        <text x="338" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(200)</text>
+        <text x="288" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(180)</text>
         
         <text x="21" y="44" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="44" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">isbn</text>
-        <text x="338" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
+        <text x="288" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
         
         <text x="21" y="66" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="66" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">anio</text>
-        <text x="338" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        <text x="288" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="88" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="88" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">descripcion</text>
-        <text x="338" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">TEXT</text>
+        <text x="288" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">TEXT</text>
         
         <text x="21" y="110" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="110" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">stock</text>
-        <text x="338" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT DEFAULT 0</text>
+        <text x="288" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="132" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK1</text>
         <text x="50" y="132" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_autor</text>
-        <text x="338" y="132" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (autores)</text>
+        <text x="288" y="132" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="154" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK2</text>
         <text x="50" y="154" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_categoria</text>
-        <text x="338" y="154" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (categorias)</text>
+        <text x="288" y="154" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="176" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="176" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">imagen_portada</text>
-        <text x="338" y="176" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">LONGTEXT</text>
+        <text x="288" y="176" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(255)</text>
             </g>
     </g>
 
     <!-- Tabla ERD: prestamos -->
-    <g transform="translate(430, 450)">
-        <rect width="350" height="170" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
-        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 346 0 C 348.2 0 350 1.8 350 4 L 350 28 L 0 28 Z" fill="#4338ca"/>
-        <text x="175" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">prestamos</text>
+    <g transform="translate(430, 460)">
+        <rect width="300" height="170" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 296 0 C 298.2 0 300 1.8 300 4 L 300 28 L 0 28 Z" fill="#4338ca"/>
+        <text x="150" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">prestamos</text>
         
-        <line x1="0" y1="28" x2="350" y2="28" stroke="#30363d" stroke-width="1.2"/>
+        <line x1="0" y1="28" x2="300" y2="28" stroke="#30363d" stroke-width="1.2"/>
         <line x1="42" y1="28" x2="42" y2="170" stroke="#30363d" stroke-width="1"/>
-        <line x1="250" y1="28" x2="250" y2="170" stroke="#30363d" stroke-width="1"/>
+        <line x1="200" y1="28" x2="200" y2="170" stroke="#30363d" stroke-width="1"/>
 
         <g transform="translate(0, 44)">
     
         <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
         <text x="50" y="0" fill="#f0f6fc" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_prestamo</text>
-        <text x="338" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
+        <text x="288" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
         
         <text x="21" y="22" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK1</text>
         <text x="50" y="22" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_usuario</text>
-        <text x="338" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (usuarios)</text>
+        <text x="288" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="44" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK2</text>
         <text x="50" y="44" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_libro</text>
-        <text x="338" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (libros)</text>
+        <text x="288" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="66" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="66" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_prestamo</text>
-        <text x="338" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        <text x="288" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">DATETIME</text>
         
         <text x="21" y="88" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="88" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_devolucion</text>
-        <text x="338" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        <text x="288" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">DATETIME</text>
         
         <text x="21" y="110" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="110" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado</text>
-        <text x="338" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        <text x="288" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
             </g>
     </g>
 
     <!-- Tabla ERD: usuarios -->
-    <g transform="translate(910, 80)">
-        <rect width="320" height="170" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
-        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 316 0 C 318.2 0 320 1.8 320 4 L 320 28 L 0 28 Z" fill="#4338ca"/>
-        <text x="160" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">usuarios</text>
+    <g transform="translate(830, 80)">
+        <rect width="280" height="192" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 276 0 C 278.2 0 280 1.8 280 4 L 280 28 L 0 28 Z" fill="#4338ca"/>
+        <text x="140" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">usuarios</text>
         
-        <line x1="0" y1="28" x2="320" y2="28" stroke="#30363d" stroke-width="1.2"/>
-        <line x1="42" y1="28" x2="42" y2="170" stroke="#30363d" stroke-width="1"/>
-        <line x1="220" y1="28" x2="220" y2="170" stroke="#30363d" stroke-width="1"/>
+        <line x1="0" y1="28" x2="280" y2="28" stroke="#30363d" stroke-width="1.2"/>
+        <line x1="42" y1="28" x2="42" y2="192" stroke="#30363d" stroke-width="1"/>
+        <line x1="180" y1="28" x2="180" y2="192" stroke="#30363d" stroke-width="1"/>
 
         <g transform="translate(0, 44)">
     
         <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
         <text x="50" y="0" fill="#f0f6fc" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_usuario</text>
-        <text x="308" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
+        <text x="268" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
         
         <text x="21" y="22" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="22" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre</text>
-        <text x="308" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        <text x="268" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
         
         <text x="21" y="44" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="44" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">correo</text>
-        <text x="308" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120) UNIQUE</text>
+        <text x="268" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
         
         <text x="21" y="66" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="66" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">password</text>
-        <text x="308" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        <text x="268" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(255)</text>
         
         <text x="21" y="88" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="88" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">rol</text>
-        <text x="308" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        <text x="268" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
         
         <text x="21" y="110" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="110" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado</text>
-        <text x="308" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
+        <text x="268" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
+        
+        <text x="21" y="132" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="132" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">creado_en</text>
+        <text x="268" y="132" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">DATETIME</text>
             </g>
     </g>
 
     <!-- Tabla ERD: donaciones -->
-    <g transform="translate(910, 390)">
-        <rect width="350" height="324" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
-        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 346 0 C 348.2 0 350 1.8 350 4 L 350 28 L 0 28 Z" fill="#4338ca"/>
-        <text x="175" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">donaciones</text>
+    <g transform="translate(1160, 80)">
+        <rect width="230" height="280" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 226 0 C 228.2 0 230 1.8 230 4 L 230 28 L 0 28 Z" fill="#4338ca"/>
+        <text x="115" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">donaciones</text>
         
-        <line x1="0" y1="28" x2="350" y2="28" stroke="#30363d" stroke-width="1.2"/>
-        <line x1="42" y1="28" x2="42" y2="324" stroke="#30363d" stroke-width="1"/>
-        <line x1="250" y1="28" x2="250" y2="324" stroke="#30363d" stroke-width="1"/>
+        <line x1="0" y1="28" x2="230" y2="28" stroke="#30363d" stroke-width="1.2"/>
+        <line x1="42" y1="28" x2="42" y2="280" stroke="#30363d" stroke-width="1"/>
+        <line x1="130" y1="28" x2="130" y2="280" stroke="#30363d" stroke-width="1"/>
 
         <g transform="translate(0, 44)">
     
         <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
         <text x="50" y="0" fill="#f0f6fc" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_donacion</text>
-        <text x="338" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
+        <text x="218" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
         
         <text x="21" y="22" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK1</text>
         <text x="50" y="22" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_usuario</text>
-        <text x="338" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (usuarios)</text>
+        <text x="218" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="44" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="44" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">titulo_libro</text>
-        <text x="338" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(200)</text>
+        <text x="218" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(180)</text>
         
         <text x="21" y="66" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="66" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">autor</text>
-        <text x="338" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        <text x="218" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
         
         <text x="21" y="88" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="88" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">categoria</text>
-        <text x="338" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(100)</text>
+        <text x="218" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(100)</text>
         
         <text x="21" y="110" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="110" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">anio</text>
-        <text x="338" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        <text x="218" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
         
         <text x="21" y="132" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="132" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado_conservacion</text>
-        <text x="338" y="132" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(50)</text>
+        <text x="218" y="132" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(50)</text>
         
         <text x="21" y="154" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="154" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">nombre_donante</text>
-        <text x="338" y="154" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        <text x="218" y="154" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
         
         <text x="21" y="176" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
         <text x="50" y="176" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">correo_donante</text>
-        <text x="338" y="176" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
+        <text x="218" y="176" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(120)</text>
         
         <text x="21" y="198" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
-        <text x="50" y="198" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">telefono_donante</text>
-        <text x="338" y="198" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
+        <text x="50" y="198" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado_revision</text>
+        <text x="218" y="198" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
         
         <text x="21" y="220" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
-        <text x="50" y="220" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">motivo_mensaje</text>
-        <text x="338" y="220" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">TEXT</text>
-        
-        <text x="21" y="242" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
-        <text x="50" y="242" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_solicitud</text>
-        <text x="338" y="242" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(20)</text>
-        
-        <text x="21" y="264" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
-        <text x="50" y="264" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado_revision</text>
-        <text x="338" y="264" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
+        <text x="50" y="220" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">creado_en</text>
+        <text x="218" y="220" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">DATETIME</text>
             </g>
     </g>
-<path d="M 330 124 L 380 124 L 380 248 L 430 248" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-<line x1="338" y1="117" x2="338" y2="131" stroke="#c9d1d9" stroke-width="2"/><circle cx="416" cy="248" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 430 241 L 420 248 L 430 255" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="325" y="168" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="380" y="179" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">fk_libro_autor (1:N)</text>
-<path d="M 330 304 L 380 304 L 380 270 L 430 270" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-<line x1="338" y1="297" x2="338" y2="311" stroke="#c9d1d9" stroke-width="2"/><circle cx="416" cy="270" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 430 263 L 420 270 L 430 277" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="325" y="269" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="380" y="280" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">fk_libro_categoria (1:N)</text>
-<path d="M 550 310 L 550 450" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-<line x1="543" y1="318" x2="557" y2="318" stroke="#c9d1d9" stroke-width="2"/><circle cx="550" cy="436" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 543 450 L 550 440 L 557 450" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="495" y="362" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="550" y="373" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">fk_prestamo_libro (1:N)</text>
-<path d="M 910 124 L 840 124 L 840 494 L 780 494" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-<line x1="902" y1="117" x2="902" y2="131" stroke="#c9d1d9" stroke-width="2"/><circle cx="794" cy="494" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 780 487 L 790 494 L 780 501" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="785" y="291" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="840" y="302" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">fk_prestamo_usuario (1:N)</text>
-<path d="M 1060 245 L 1060 390" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-<line x1="1053" y1="253" x2="1067" y2="253" stroke="#c9d1d9" stroke-width="2"/><circle cx="1060" cy="376" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 1053 390 L 1060 380 L 1067 390" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="1005" y="299.5" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="1060" y="310.5" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">fk_donacion_usuario (1:N)</text>
+
+    <!-- Tabla ERD: sanciones -->
+    <g transform="translate(830, 460)">
+        <rect width="280" height="192" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 276 0 C 278.2 0 280 1.8 280 4 L 280 28 L 0 28 Z" fill="#4338ca"/>
+        <text x="140" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">sanciones</text>
+        
+        <line x1="0" y1="28" x2="280" y2="28" stroke="#30363d" stroke-width="1.2"/>
+        <line x1="42" y1="28" x2="42" y2="192" stroke="#30363d" stroke-width="1"/>
+        <line x1="180" y1="28" x2="180" y2="192" stroke="#30363d" stroke-width="1"/>
+
+        <g transform="translate(0, 44)">
+    
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#f0f6fc" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_sancion</text>
+        <text x="268" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
+        
+        <text x="21" y="22" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK1</text>
+        <text x="50" y="22" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_usuario</text>
+        <text x="268" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <text x="21" y="44" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK2</text>
+        <text x="50" y="44" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_prestamo</text>
+        <text x="268" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <text x="21" y="66" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="66" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">monto_mora</text>
+        <text x="268" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">DECIMAL(8,2)</text>
+        
+        <text x="21" y="88" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="88" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">dias_retraso</text>
+        <text x="268" y="88" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <text x="21" y="110" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="110" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">estado_pago</text>
+        <text x="268" y="110" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(30)</text>
+        
+        <text x="21" y="132" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="132" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_sancion</text>
+        <text x="268" y="132" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">DATETIME</text>
+            </g>
+    </g>
+
+    <!-- Tabla ERD: historial_prestamos -->
+    <g transform="translate(1160, 460)">
+        <rect width="230" height="126" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.4"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 226 0 C 228.2 0 230 1.8 230 4 L 230 28 L 0 28 Z" fill="#4338ca"/>
+        <text x="115" y="19" fill="#ffffff" font-size="13" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">historial_prestamos</text>
+        
+        <line x1="0" y1="28" x2="230" y2="28" stroke="#30363d" stroke-width="1.2"/>
+        <line x1="42" y1="28" x2="42" y2="126" stroke="#30363d" stroke-width="1"/>
+        <line x1="130" y1="28" x2="130" y2="126" stroke="#30363d" stroke-width="1"/>
+
+        <g transform="translate(0, 44)">
+    
+        <text x="21" y="0" fill="#b91c1c" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">PK</text>
+        <text x="50" y="0" fill="#f0f6fc" font-size="11.5" font-weight="700" font-family="'Consolas', monospace">id_historial</text>
+        <text x="218" y="0" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT (AUTO)</text>
+        
+        <text x="21" y="22" fill="#0369a1" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">FK1</text>
+        <text x="50" y="22" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">id_prestamo</text>
+        <text x="218" y="22" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">INT</text>
+        
+        <text x="21" y="44" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="44" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">fecha_registro</text>
+        <text x="218" y="44" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">DATETIME</text>
+        
+        <text x="21" y="66" fill="#8b949e" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle"></text>
+        <text x="50" y="66" fill="#f0f6fc" font-size="11.5" font-weight="500" font-family="'Consolas', monospace">observaciones</text>
+        <text x="218" y="66" fill="#8b949e" font-size="11" font-family="'Consolas', monospace" text-anchor="end">VARCHAR(255)</text>
+            </g>
+    </g>
+<path d="M 330 125 L 430 125" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="338" y1="118" x2="338" y2="132" stroke="#c9d1d9" stroke-width="2"/><circle cx="416" cy="125" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 430 118 L 420 125 L 430 132" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="325" y="107" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="380" y="118" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
+<path d="M 330 305 L 380 305 L 380 225 L 430 225" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="338" y1="298" x2="338" y2="312" stroke="#c9d1d9" stroke-width="2"/><circle cx="416" cy="225" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 430 218 L 420 225 L 430 232" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="325" y="247" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="380" y="258" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
+<path d="M 580 306 L 580 460" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="573" y1="314" x2="587" y2="314" stroke="#c9d1d9" stroke-width="2"/><circle cx="580" cy="446" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 573 460 L 580 450 L 587 460" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="525" y="365" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="580" y="376" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
+<path d="M 830 245 L 770 245 L 770 510 L 730 510" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="822" y1="238" x2="822" y2="252" stroke="#c9d1d9" stroke-width="2"/><circle cx="744" cy="510" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 730 503 L 740 510 L 730 517" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="715" y="359.5" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="770" y="370.5" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
+<path d="M 1110 130 L 1160 130" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="1118" y1="123" x2="1118" y2="137" stroke="#c9d1d9" stroke-width="2"/><circle cx="1146" cy="130" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 1160 123 L 1150 130 L 1160 137" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="1080" y="112" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="1135" y="123" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
+<path d="M 970 254 L 970 460" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="963" y1="262" x2="977" y2="262" stroke="#c9d1d9" stroke-width="2"/><circle cx="970" cy="446" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 963 460 L 970 450 L 977 460" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="915" y="339" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="970" y="350" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
+<path d="M 730 560 L 830 560" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="738" y1="553" x2="738" y2="567" stroke="#c9d1d9" stroke-width="2"/><circle cx="816" cy="560" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 830 553 L 820 560 L 830 567" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="725" y="542" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="780" y="553" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
+<path d="M 580 622 L 580 730 L 1275 730 L 1275 590" fill="none" stroke="#c9d1d9" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="573" y1="630" x2="587" y2="630" stroke="#c9d1d9" stroke-width="2"/><circle cx="1275" cy="604" r="4" fill="#0d1117" stroke="#c9d1d9" stroke-width="1.8"/><path d="M 1268 590 L 1275 600 L 1282 590" fill="none" stroke="#c9d1d9" stroke-width="1.8"/><rect x="872.5" y="712" width="110" height="15" rx="3" fill="#161b22" stroke="#0284c7" stroke-width="1"/><text x="927.5" y="723" fill="#0284c7" font-size="10.5" font-weight="700" font-family="'Consolas', monospace" text-anchor="middle">1 : N</text>
 
 </svg>

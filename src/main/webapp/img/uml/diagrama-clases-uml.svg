@@ -1,287 +1,297 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 940" width="1480" height="940">
-    <rect width="1480" height="940" fill="#ffffff"/>
-    <text x="740" y="45" fill="#111827" font-size="22" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Diagrama de Clases UML - Sistema Bibliotecario BookHub</text>
-    <text x="740" y="68" fill="#4b5563" font-size="12.5" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Relaciones 1 a Muchos (1...*) • Arquitectura de Dominio, Catálogo, Préstamos y Donaciones</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1680 1000" width="1680" height="1000">
+    <rect width="1680" height="1000" fill="#ffffff"/>
+    <text x="840" y="32" fill="#111827" font-size="22" font-weight="800" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Diagrama de Clases UML - Sistema Bibliotecario BookHub</text>
+    <text x="840" y="52" fill="#4b5563" font-size="12" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Relaciones 1 a Muchos (1...*) • Arquitectura de Servicios Bibliotecarios, Catálogo y Usuarios</text>
     
-    <!-- Clase: Autor -->
-    <g transform="translate(50, 90)">
-        <rect width="260" height="176" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="260" height="38" fill="#5b9bd5"/>
-        <text x="130" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="130" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Autor</text>
+    <!-- Clase: Lector -->
+    <g transform="translate(60, 135)">
+        <rect width="270" height="218" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 266 0 C 268.2 0 270 1.8 270 4 L 270 36 L 0 36 Z" fill="#5b9bd5"/>
+        <text x="135" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;Usuario Lector&#187;</text>
+        <text x="135" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Lector</text>
         
-        <line x1="0" y1="38" x2="260" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idAutor : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nombre : String</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nacionalidad : String</text>
+        <line x1="0" y1="36" x2="270" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idUsuario : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- nombre : String</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- correo : String</text>
+        <text x="0" y="54" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- rol : String = "USUARIO"</text>
+        <text x="0" y="72" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- estado : String = "ACTIVO"</text>
+        <text x="0" y="90" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- limitePrestamos : int = 3</text>
     </g>
 
-        <line x1="0" y1="107" x2="260" y2="107" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 122)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdAutor() : int</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getNombre() : String</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getNacionalidad() : String</text>
-    </g>
-    </g>
-
-    <!-- Clase: Categoria -->
-    <g transform="translate(50, 290)">
-        <rect width="260" height="176" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="260" height="38" fill="#5b9bd5"/>
-        <text x="130" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="130" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Categoria</text>
-        
-        <line x1="0" y1="38" x2="260" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idCategoria : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nombre : String</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">descripcion : String</text>
-    </g>
-
-        <line x1="0" y1="107" x2="260" y2="107" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 122)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdCategoria() : int</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getNombre() : String</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getDescripcion() : String</text>
-    </g>
-    </g>
-
-    <!-- Clase: Libro -->
-    <g transform="translate(410, 90)">
-        <rect width="310" height="385" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="310" height="38" fill="#5b9bd5"/>
-        <text x="155" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="155" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Libro</text>
-        
-        <line x1="0" y1="38" x2="310" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idLibro : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">titulo : String</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">isbn : String</text>
-        <text x="0" y="57" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">anio : int</text>
-        <text x="0" y="76" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">descripcion : String</text>
-        <text x="0" y="95" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">stock : int</text>
-        <text x="0" y="114" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idAutor : int</text>
-        <text x="0" y="133" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idCategoria : int</text>
-        <text x="0" y="152" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">imagenPortada : String</text>
-        <text x="0" y="171" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">autor : Autor</text>
-        <text x="0" y="190" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">categoria : Categoria</text>
-    </g>
-
-        <line x1="0" y1="259" x2="310" y2="259" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 274)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdLibro() : int</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getTitulo() : String</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getStock() : int</text>
-        <text x="0" y="57" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">setStock(int) : void</text>
-        <text x="0" y="76" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getAutor() : Autor</text>
-        <text x="0" y="95" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getCategoria() : Categoria</text>
+        <line x1="0" y1="154" x2="270" y2="154" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 168)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ solicitarPrestamo(Libro) : void</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ donarLibro(Donacion) : void</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ consultarHistorial() : List</text>
     </g>
     </g>
 
     <!-- Clase: Prestamo -->
-    <g transform="translate(410, 470)">
-        <rect width="310" height="347" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="310" height="38" fill="#5b9bd5"/>
-        <text x="155" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="155" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Prestamo</text>
+    <g transform="translate(460, 135)">
+        <rect width="290" height="290" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 286 0 C 288.2 0 290 1.8 290 4 L 290 36 L 0 36 Z" fill="#5b9bd5"/>
+        <text x="145" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
+        <text x="145" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Prestamo</text>
         
-        <line x1="0" y1="38" x2="310" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idPrestamo : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idUsuario : int</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idLibro : int</text>
-        <text x="0" y="57" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">fechaPrestamo : String</text>
-        <text x="0" y="76" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">fechaDevolucion : String</text>
-        <text x="0" y="95" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">estado : String</text>
-        <text x="0" y="114" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">usuario : Usuario</text>
-        <text x="0" y="133" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">libro : Libro</text>
+        <line x1="0" y1="36" x2="290" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idPrestamo : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idUsuario : int</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idLibro : int</text>
+        <text x="0" y="54" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- fechaPrestamo : Date</text>
+        <text x="0" y="72" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- fechaDevolucion : Date</text>
+        <text x="0" y="90" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- estado : String</text>
+        <text x="0" y="108" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- usuario : Usuario</text>
+        <text x="0" y="126" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- libro : Libro</text>
     </g>
 
-        <line x1="0" y1="202" x2="310" y2="202" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 217)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdPrestamo() : int</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdUsuario() : int</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdLibro() : int</text>
-        <text x="0" y="57" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getEstado() : String</text>
-        <text x="0" y="76" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">setEstado(String) : void</text>
-        <text x="0" y="95" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">calcularMora() : double</text>
-        <text x="0" y="114" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">regularizarDevolucion() : void</text>
-    </g>
-    </g>
-
-    <!-- Clase: Donacion -->
-    <g transform="translate(810, 90)">
-        <rect width="300" height="347" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="300" height="38" fill="#5b9bd5"/>
-        <text x="150" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
-        <text x="150" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Donacion</text>
-        
-        <line x1="0" y1="38" x2="300" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idDonacion : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idUsuario : int</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">tituloLibro : String</text>
-        <text x="0" y="57" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">autor : String</text>
-        <text x="0" y="76" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">categoria : String</text>
-        <text x="0" y="95" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">anio : int</text>
-        <text x="0" y="114" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">estadoConservacion : String</text>
-        <text x="0" y="133" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nombreDonante : String</text>
-        <text x="0" y="152" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">correoDonante : String</text>
-        <text x="0" y="171" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">estadoRevision : String</text>
-    </g>
-
-        <line x1="0" y1="240" x2="300" y2="240" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 255)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdDonacion() : int</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getEstadoRevision() : String</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">setEstadoRevision(String) : void</text>
-        <text x="0" y="57" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">aprobarDonacion() : void</text>
-        <text x="0" y="76" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">rechazarDonacion() : void</text>
-    </g>
-    </g>
-
-    <!-- Clase: Lector -->
-    <g transform="translate(810, 470)">
-        <rect width="300" height="233" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="300" height="38" fill="#41719c"/>
-        <text x="150" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;Usuario Lector&#187;</text>
-        <text x="150" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Lector</text>
-        
-        <line x1="0" y1="38" x2="300" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idUsuario : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nombre : String</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">correo : String</text>
-        <text x="0" y="57" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">rol : String = "USUARIO"</text>
-        <text x="0" y="76" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">estado : String = "ACTIVO"</text>
-        <text x="0" y="95" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">limitePrestamos : int = 3</text>
-    </g>
-
-        <line x1="0" y1="164" x2="300" y2="164" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 179)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">solicitarPrestamo(Libro) : void</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">donarLibro(Donacion) : void</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">consultarHistorial() : List</text>
+        <line x1="0" y1="190" x2="290" y2="190" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 204)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getIdPrestamo() : int</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getEstado() : String</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ setEstado(String) : void</text>
+        <text x="0" y="54" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ calcularMora() : double</text>
+        <text x="0" y="72" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ regularizarDevolucion() : void</text>
     </g>
     </g>
 
     <!-- Clase: Bibliotecario -->
-    <g transform="translate(1190, 470)">
-        <rect width="250" height="252" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="250" height="38" fill="#41719c"/>
-        <text x="125" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;Usuario Admin&#187;</text>
-        <text x="125" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Bibliotecario</text>
+    <g transform="translate(460, 520)">
+        <rect width="290" height="236" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 286 0 C 288.2 0 290 1.8 290 4 L 290 36 L 0 36 Z" fill="#5b9bd5"/>
+        <text x="145" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;Usuario Admin&#187;</text>
+        <text x="145" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Bibliotecario</text>
         
-        <line x1="0" y1="38" x2="250" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idPersonal : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nombre : String</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">correo : String</text>
-        <text x="0" y="57" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">rol : String = "ADMIN"</text>
-        <text x="0" y="76" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">turno : String</text>
-        <text x="0" y="95" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nivelAcceso : String</text>
+        <line x1="0" y1="36" x2="290" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idPersonal : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- nombre : String</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- correo : String</text>
+        <text x="0" y="54" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- rol : String = "ADMIN"</text>
+        <text x="0" y="72" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- turno : String</text>
+        <text x="0" y="90" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- nivelAcceso : String</text>
     </g>
 
-        <line x1="0" y1="164" x2="250" y2="164" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 179)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">aprobarPrestamo(Prestamo) : void</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">validarDonacion(Donacion) : void</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">regularizarMora(int) : void</text>
-        <text x="0" y="57" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">gestionarCatalogo() : void</text>
+        <line x1="0" y1="154" x2="290" y2="154" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 168)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ aprobarPrestamo(Prestamo) : void</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ validarDonacion(Donacion) : void</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ regularizarMora(int) : void</text>
+        <text x="0" y="54" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ gestionarCatalogo() : void</text>
     </g>
     </g>
 
     <!-- Clase: Usuario -->
-    <g transform="translate(970, 750)">
-        <rect width="280" height="252" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="280" height="38" fill="#2b579a"/>
-        <text x="140" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans [Superclase]&#187;</text>
-        <text x="140" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Usuario</text>
+    <g transform="translate(60, 520)">
+        <rect width="270" height="236" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 266 0 C 268.2 0 270 1.8 270 4 L 270 36 L 0 36 Z" fill="#2b579a"/>
+        <text x="135" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans [Superclase]&#187;</text>
+        <text x="135" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Usuario</text>
         
-        <line x1="0" y1="38" x2="280" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">idUsuario : int</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">nombre : String</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">correo : String</text>
-        <text x="0" y="57" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">password : String</text>
-        <text x="0" y="76" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">rol : String</text>
-        <text x="0" y="95" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">estado : String</text>
+        <line x1="0" y1="36" x2="270" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idUsuario : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- nombre : String</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- correo : String</text>
+        <text x="0" y="54" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- password : String</text>
+        <text x="0" y="72" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- rol : String</text>
+        <text x="0" y="90" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- estado : String</text>
     </g>
 
-        <line x1="0" y1="164" x2="280" y2="164" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 179)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getIdUsuario() : int</text>
-        <text x="0" y="19" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getNombre() : String</text>
-        <text x="0" y="38" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">getCorreo() : String</text>
-        <text x="0" y="57" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">autenticar() : boolean</text>
+        <line x1="0" y1="154" x2="270" y2="154" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 168)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getIdUsuario() : int</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getNombre() : String</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getCorreo() : String</text>
+        <text x="0" y="54" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ autenticar() : boolean</text>
     </g>
     </g>
 
     <!-- Clase: Conexion -->
-    <g transform="translate(410, 770)">
-        <rect width="310" height="138" fill="#ffffff" stroke="#2b579a" stroke-width="1.5"/>
-        <rect width="310" height="38" fill="#2b579a"/>
-        <text x="155" y="15" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.conexion&#187;</text>
-        <text x="155" y="30" fill="#ffffff" font-size="14" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Conexion</text>
+    <g transform="translate(60, 815)">
+        <rect width="270" height="146" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 266 0 C 268.2 0 270 1.8 270 4 L 270 36 L 0 36 Z" fill="#2b579a"/>
+        <text x="135" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.conexion&#187;</text>
+        <text x="135" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Conexion</text>
         
-        <line x1="0" y1="38" x2="310" y2="38" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 53)">
-            <text x="0" y="0" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">URLS : String[]</text>
-        <text x="0" y="19" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">USER : String</text>
-        <text x="0" y="38" fill="#1e293b" font-size="11.5" font-family="'Segoe UI', Roboto, sans-serif">PASSWORDS : String[]</text>
+        <line x1="0" y1="36" x2="270" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- URLS : String[]</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- USER : String</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- PASSWORDS : String[]</text>
     </g>
 
-        <line x1="0" y1="107" x2="310" y2="107" stroke="#94a3b8" stroke-width="1.2"/>
-        <g transform="translate(10, 122)">
-                <text x="0" y="0" fill="#0f766e" font-size="11" font-family="'Consolas', monospace">conectar() : Connection</text>
+        <line x1="0" y1="100" x2="270" y2="100" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 114)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ conectar() : Connection</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ cerrar(Connection) : void</text>
     </g>
     </g>
-<path d="M 310 160 L 410 160" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
-<path d="400.78939005997114 163.8941834230865 L 410 160 L 400.78939005997114 156.1058165769135" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-<rect x="320" y="141" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="330" y="152" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<rect x="364" y="157" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="382" y="168" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1...*</text>
-<text x="360" y="152" fill="#0f172a" font-size="11" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">escrito por</text>
-<path d="M 310 350 L 360 350 L 360 240 L 410 240" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
-<path d="400.78939005997114 243.8941834230865 L 410 240 L 400.78939005997114 236.1058165769135" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-<rect x="320" y="331" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="330" y="342" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<rect x="364" y="237" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="382" y="248" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1...*</text>
-<text x="360" y="287" fill="#0f172a" font-size="11" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">clasificado en</text>
-<path d="M 565 382 L 565 470" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
-<path d="561.1058165769135 460.78939005997114 L 565 470 L 568.8941834230865 460.78939005997114" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-<rect x="571" y="387" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="581" y="398" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<rect x="531" y="437" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="549" y="448" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1...*</text>
-<text x="565" y="418" fill="#0f172a" font-size="11" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">ejemplar prestado</text>
-<path d="M 810 530 L 720 530" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
-<polygon points="810,530 795.9586790097541,537.6708086176673 789.2,530 795.9586790097541,522.3291913823327" fill="#1e293b" stroke="#1e293b" stroke-width="1.5"/>
-<path d="729.2106099400288 526.1058165769135 L 720 530 L 729.2106099400288 533.8941834230865" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-<rect x="780" y="511" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="790" y="522" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<rect x="730" y="527" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="748" y="538" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1...*</text>
-<text x="765" y="522" fill="#0f172a" font-size="11" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">solicita</text>
-<path d="M 960 470 L 960 360" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
-<path d="963.8941834230865 369.21060994002886 L 960 360 L 956.1058165769135 369.21060994002886" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-<rect x="966" y="443" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="976" y="454" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<rect x="926" y="371" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="944" y="382" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1...*</text>
-<text x="960" y="407" fill="#0f172a" font-size="11" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">dona libro</text>
-<path d="M 1190 590 L 1150 590 L 1150 680 L 565 680 L 565 640" fill="none" stroke="#1e293b" stroke-width="1.8" stroke-dasharray="6,4" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="568.8941834230865 649.2106099400288 L 565 640 L 561.1058165769135 649.2106099400288" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-<rect x="1160" y="571" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="1170" y="582" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<rect x="531" y="651" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="549" y="662" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1...*</text>
-<text x="1150" y="627" fill="#0f172a" font-size="11" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">Entrega, recibe y regulariza mora</text>
-<path d="M 1315 470 L 1315 210 L 1110 210" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
-<path d="1119.210609940029 206.1058165769135 L 1110 210 L 1119.210609940029 213.8941834230865" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-<rect x="1321" y="443" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="1331" y="454" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1</text>
-<rect x="1120" y="207" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1"/><text x="1138" y="218" fill="#0369a1" font-size="11.5" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle">1...*</text>
-<text x="1315" y="332" fill="#0f172a" font-size="11" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">valida donación</text>
+
+    <!-- Clase: Libro -->
+    <g transform="translate(880, 135)">
+        <rect width="300" height="326" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 296 0 C 298.2 0 300 1.8 300 4 L 300 36 L 0 36 Z" fill="#5b9bd5"/>
+        <text x="150" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
+        <text x="150" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Libro</text>
+        
+        <line x1="0" y1="36" x2="300" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idLibro : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- titulo : String</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- isbn : String</text>
+        <text x="0" y="54" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- anio : int</text>
+        <text x="0" y="72" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- stock : int</text>
+        <text x="0" y="90" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idAutor : int</text>
+        <text x="0" y="108" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idCategoria : int</text>
+        <text x="0" y="126" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- autor : Autor</text>
+        <text x="0" y="144" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- categoria : Categoria</text>
+    </g>
+
+        <line x1="0" y1="208" x2="300" y2="208" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 222)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getIdLibro() : int</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getTitulo() : String</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getStock() : int</text>
+        <text x="0" y="54" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ setStock(int) : void</text>
+        <text x="0" y="72" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getAutor() : Autor</text>
+        <text x="0" y="90" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getCategoria() : Categoria</text>
+    </g>
+    </g>
+
+    <!-- Clase: Donacion -->
+    <g transform="translate(1300, 135)">
+        <rect width="300" height="290" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 296 0 C 298.2 0 300 1.8 300 4 L 300 36 L 0 36 Z" fill="#5b9bd5"/>
+        <text x="150" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
+        <text x="150" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Donacion</text>
+        
+        <line x1="0" y1="36" x2="300" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idDonacion : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idUsuario : int</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- tituloLibro : String</text>
+        <text x="0" y="54" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- autor : String</text>
+        <text x="0" y="72" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- categoria : String</text>
+        <text x="0" y="90" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- anio : int</text>
+        <text x="0" y="108" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- estadoConservacion : String</text>
+        <text x="0" y="126" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- estadoRevision : String</text>
+    </g>
+
+        <line x1="0" y1="190" x2="300" y2="190" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 204)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getIdDonacion() : int</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getEstadoRevision() : String</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ setEstadoRevision(String) : void</text>
+        <text x="0" y="54" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ aprobarDonacion() : void</text>
+        <text x="0" y="72" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ rechazarDonacion() : void</text>
+    </g>
+    </g>
+
+    <!-- Clase: Autor -->
+    <g transform="translate(880, 540)">
+        <rect width="280" height="164" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 276 0 C 278.2 0 280 1.8 280 4 L 280 36 L 0 36 Z" fill="#41719c"/>
+        <text x="140" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
+        <text x="140" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Autor</text>
+        
+        <line x1="0" y1="36" x2="280" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idAutor : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- nombre : String</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- nacionalidad : String</text>
+    </g>
+
+        <line x1="0" y1="100" x2="280" y2="100" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 114)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getIdAutor() : int</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getNombre() : String</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getNacionalidad() : String</text>
+    </g>
+    </g>
+
+    <!-- Clase: Categoria -->
+    <g transform="translate(1300, 540)">
+        <rect width="280" height="164" rx="4" fill="#ffffff" stroke="#2b579a" stroke-width="1.6"/>
+        <path d="M 0 4 C 0 1.8 1.8 0 4 0 L 276 0 C 278.2 0 280 1.8 280 4 L 280 36 L 0 36 Z" fill="#41719c"/>
+        <text x="140" y="14" fill="#e2e8f0" font-size="10" font-style="italic" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle">&#171;modelo.beans&#187;</text>
+        <text x="140" y="29" fill="#ffffff" font-size="13.5" font-weight="700" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" text-anchor="middle">Categoria</text>
+        
+        <line x1="0" y1="36" x2="280" y2="36" stroke="#2b579a" stroke-width="1.2"/>
+        <g transform="translate(10, 50)">
+            <text x="0" y="0" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- idCategoria : int</text>
+        <text x="0" y="18" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- nombre : String</text>
+        <text x="0" y="36" fill="#1e293b" font-size="11" font-family="'Segoe UI', Roboto, sans-serif">- descripcion : String</text>
+    </g>
+
+        <line x1="0" y1="100" x2="280" y2="100" stroke="#94a3b8" stroke-width="1.2"/>
+        <g transform="translate(10, 114)">
+                <text x="0" y="0" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getIdCategoria() : int</text>
+        <text x="0" y="18" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getNombre() : String</text>
+        <text x="0" y="36" fill="#0f766e" font-size="10.5" font-family="'Consolas', monospace">+ getDescripcion() : String</text>
+    </g>
+    </g>
+<path d="M 330 220 L 460 220" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="330,220 342.2861558664652,213.28804245954115 348.2,220 342.2861558664652,226.71195754045885" fill="#1e293b" stroke="#1e293b" stroke-width="1.5"/>
+<path d="450.78939005997114 223.8941834230865 L 460 220 L 450.78939005997114 216.1058165769135" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="344" y="200" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="354" y="211" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="414" y="200" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="432" y="211" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="362" y="202" width="66" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="395" y="212" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">solicita</text>
+<path d="M 605 425 L 605 520" fill="none" stroke="#1e293b" stroke-width="1.8" stroke-dasharray="6,4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="601.1058165769135 510.78939005997114 L 605 520 L 608.8941834230865 510.78939005997114" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="611" y="436" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="621" y="447" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="605" y="491" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="623" y="502" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="601.5" y="463.5" width="157" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="680" y="473.5" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">Entrega, recibe y mora</text>
+<path d="M 750 220 L 880 220" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
+<path d="870.7893900599712 223.8941834230865 L 880 220 L 870.7893900599712 216.1058165769135" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="764" y="200" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="774" y="211" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="834" y="200" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="852" y="211" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="752.75" y="202" width="124.5" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="815" y="212" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">ejemplar prestado</text>
+<path d="M 1180 220 L 1300 220" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
+<path d="1290.789390059971 223.8941834230865 L 1300 220 L 1290.789390059971 216.1058165769135" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="1194" y="200" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1204" y="211" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="1254" y="200" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1272" y="211" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="1184.25" y="202" width="111.5" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="1240" y="212" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">catálogo / ítem</text>
+<path d="M 1020 540 L 1020 461" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
+<path d="1023.8941834230865 470.21060994002886 L 1020 461 L 1016.1058165769135 470.21060994002886" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="1026" y="515" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1036" y="526" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="1020" y="468" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1038" y="479" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="1037.25" y="491.5" width="85.5" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="1080" y="501.5" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">escrito por</text>
+<path d="M 1300 580 L 1240 580 L 1240 320 L 1180 320" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
+<path d="1189.210609940029 316.10581657691347 L 1180 320 L 1189.210609940029 323.89418342308653" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="1266" y="560" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1276" y="571" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="1190" y="300" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1208" y="311" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="1187.5" y="441" width="105" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="1240" y="451" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">clasificado en</text>
+<path d="M 195 135 L 195 85 L 1450 85 L 1450 135" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
+<path d="1446.1058165769134 125.78939005997115 L 1450 135 L 1453.8941834230866 125.78939005997115" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="201" y="110" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="211" y="121" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="1450" y="106" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1468" y="117" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="700.5" y="66" width="79" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="740" y="76" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">dona libro</text>
+<path d="M 750 660 L 800 660 L 800 760 L 1640 760 L 1640 260 L 1600 260" fill="none" stroke="#1e293b" stroke-width="1.8"  stroke-linejoin="round" stroke-linecap="round"/>
+<path d="1609.210609940029 256.10581657691347 L 1600 260 L 1609.210609940029 263.89418342308653" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+<rect x="764" y="640" width="20" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="774" y="651" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="1610" y="240" width="36" height="15" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.1"/><text x="1628" y="251" fill="#0369a1" font-size="11" font-weight="800" font-family="'Consolas', monospace" text-anchor="middle" dominant-baseline="middle">1...*</text>
+<rect x="1164.25" y="741" width="111.5" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/><text x="1220" y="751" fill="#0f172a" font-size="10.5" font-weight="700" font-family="'Segoe UI', Roboto, sans-serif" text-anchor="middle" dominant-baseline="middle">valida donación</text>
 
     <!-- Herencia Lector -> Usuario -->
-    <path d="M 960 635 L 960 700 L 1050 700 L 1050 750" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    <line x1="195" y1="353" x2="195" y2="504" stroke="#1e293b" stroke-width="1.8"/>
+    <polygon points="195,520 187,504 203,504" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+    <rect x="151" y="426.5" width="88" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="195" y="436.5" fill="#1e293b" font-size="10.5" font-weight="700" font-family="'Segoe UI', sans-serif" text-anchor="middle" dominant-baseline="middle">&#171;hereda de&#187;</text>
+
     <!-- Herencia Bibliotecario -> Usuario -->
-    <path d="M 1315 635 L 1315 700 L 1150 700 L 1150 750" fill="none" stroke="#1e293b" stroke-width="1.8"/>
-    <!-- Triángulo de generalización UML apuntando a Usuario -->
-    <polygon points="1100,735 1110,750 1090,750" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
-    <text x="1100" y="725" fill="#4b5563" font-size="11" font-weight="600" font-family="'Segoe UI', sans-serif" text-anchor="middle">&#171;herencia&#187;</text>
+    <line x1="460" y1="570" x2="346" y2="570" stroke="#1e293b" stroke-width="1.8"/>
+    <polygon points="330,570 346,562 346,578" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+    <rect x="351" y="561" width="88" height="17" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="395" y="570" fill="#1e293b" font-size="10.5" font-weight="700" font-family="'Segoe UI', sans-serif" text-anchor="middle" dominant-baseline="middle">&#171;hereda de&#187;</text>
+
+    <!-- Dependencia Usuario -> Conexion -->
+    <line x1="195" y1="756" x2="195" y2="815" stroke="#1e293b" stroke-width="1.8" stroke-dasharray="6,4"/>
+    <path d="M 189 805 L 195 815 L 201 805" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+    <rect x="210" y="777.5" width="45" height="16" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="232" y="785.5" fill="#1e293b" font-size="10" font-weight="700" font-family="'Segoe UI', sans-serif" text-anchor="middle" dominant-baseline="middle">&#171;usa&#187;</text>
     
 </svg>
