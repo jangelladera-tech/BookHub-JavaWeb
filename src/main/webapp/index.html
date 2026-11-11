@@ -563,6 +563,112 @@
         margin-top: 14px;
     }
 
+    
+        /* EFECTO DE DESVANECIMIENTO AL HACER SCROLL */
+        .navbar-scroll-fade {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .navbar-scroll-fade.navbar-hidden {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: translateY(-10px);
+        }
+
+        /* BOTÓN DE 3 LÍNEAS (HAMBURGUESA) */
+        .btn-sidebar-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-sidebar-toggle:hover, .btn-sidebar-toggle:focus {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: #ffffff;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* VENTANA LATERAL (OFFCANVAS) */
+        .offcanvas-bookhub {
+            width: 320px !important;
+            background: #0f172a !important;
+            color: #f8fafc;
+            border-right: 1px solid #334155 !important;
+        }
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .sidebar-menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+        .sidebar-menu-item.active {
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+        .sidebar-menu-item .menu-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-subtitle {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* BOTÓN DE AUDIO ULTRA DETALLADO */
+        .btn-audio-detailed {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-audio-detailed:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
+            transform: translateY(-2px);
+            color: #ffffff !important;
+        }
+        .btn-audio-detailed:active {
+            transform: translateY(0);
+        }
+        .btn-audio-detailed i {
+            font-size: 0.95rem;
+        }
+
     </style>
 </head>
 
