@@ -4,12 +4,17 @@ const fs = require('fs');
 
 async function createPresentation() {
     const pres = new pptxgen();
-    pres.layout = 'LAYOUT_16x9';
+
+    // DEFINICIÓN EXACTA DE DIMENSIONES PANORÁMICAS 16:9 (Widescreen PowerPoint)
+    // 13.333 pulgadas de ancho x 7.5 pulgadas de alto
+    pres.defineLayout({ name: 'WIDE_16_9', width: 13.333, height: 7.5 });
+    pres.layout = 'WIDE_16_9';
+
     pres.author = 'Equipo BookHub';
     pres.company = 'BookHub';
-    pres.title = 'BookHub - Plataforma de Gestión y Acceso Bibliotecario';
+    pres.title = 'BookHub - Presentación Oficial';
 
-    // Colores corporativos de BookHub
+    // Paleta de Colores de la Marca BookHub
     const C_DARK_BG = '0B132B';
     const C_CARD_BG = '1C2541';
     const C_CARD_BORDER = '3A506B';
@@ -20,29 +25,40 @@ async function createPresentation() {
     const C_TEXT_LIGHT = 'E2E8F0';
     const C_TEXT_MUTED = '94A3B8';
 
-    // Helper: Fondo degradado sutil simulado con rectángulo oscuro
+    const logoPath = path.resolve(__dirname, 'favicon-180x180.png');
+    const hasLogo = fs.existsSync(logoPath);
+
+    // Plantilla base para cada diapositiva de contenido
     function applySlideBackground(slide, titleCategory) {
         slide.background = { color: C_DARK_BG };
         
-        // Barra decorativa superior
+        // Línea superior decorativa
         slide.addShape(pres.ShapeType.rect, {
-            x: 0, y: 0, w: '100%', h: 0.1,
+            x: 0, y: 0, w: 13.333, h: 0.08,
             fill: { color: C_CYAN }
         });
 
-        // Categoría / Breadcrumb superior
+        // Categoría / Breadcrumb
         if (titleCategory) {
             slide.addText(titleCategory.toUpperCase(), {
-                x: 0.8, y: 0.35, w: 8, h: 0.3,
+                x: 0.8, y: 0.28, w: 8, h: 0.28,
                 fontSize: 10, bold: true, color: C_CYAN,
-                fontFace: 'Arial'
+                fontFace: 'Arial', margin: 0
+            });
+        }
+
+        // Logo pequeño en esquina superior derecha
+        if (hasLogo) {
+            slide.addImage({
+                path: logoPath,
+                x: 12.15, y: 0.25, w: 0.45, h: 0.45
             });
         }
 
         // Pie de página
         slide.addText('BookHub • Sistema de Gestión y Acceso Bibliotecario', {
-            x: 0.8, y: 7.1, w: 6, h: 0.3,
-            fontSize: 9, color: C_TEXT_MUTED, fontFace: 'Arial'
+            x: 0.8, y: 7.05, w: 7, h: 0.3,
+            fontSize: 9, color: C_TEXT_MUTED, fontFace: 'Arial', margin: 0
         });
     }
 
@@ -53,56 +69,66 @@ async function createPresentation() {
         const s1 = pres.addSlide();
         s1.background = { color: C_DARK_BG };
 
-        // Acentos decorativos de fondo
+        // Marco contenedor de la portada (centrado y contenido)
         s1.addShape(pres.ShapeType.roundRect, {
-            x: 0.8, y: 0.8, w: 11.7, h: 5.9,
+            x: 0.8, y: 0.65, w: 11.73, h: 6.1,
             rectRadius: 0.2,
             fill: { color: C_CARD_BG },
             line: { color: C_CARD_BORDER, width: 1.5 }
         });
 
-        // Etiqueta superior
+        // Logo en la portada
+        if (hasLogo) {
+            s1.addImage({
+                path: logoPath,
+                x: 1.3, y: 1.05, w: 0.85, h: 0.85
+            });
+        }
+
+        const startX = hasLogo ? 2.35 : 1.3;
+
+        // Subtítulo superior
         s1.addText('PROPUESTA DE VALOR • IDENTIDAD INSTITUCIONAL', {
-            x: 1.4, y: 1.3, w: 10, h: 0.4,
-            fontSize: 12, bold: true, color: C_CYAN, fontFace: 'Arial', tracking: 2
+            x: startX, y: 1.1, w: 9.5, h: 0.35,
+            fontSize: 11, bold: true, color: C_CYAN, fontFace: 'Arial', margin: 0
         });
 
-        // Título principal
+        // Título BookHub
         s1.addText('BOOKHUB', {
-            x: 1.4, y: 1.8, w: 10, h: 1.1,
-            fontSize: 48, bold: true, color: C_WHITE, fontFace: 'Arial'
+            x: startX, y: 1.45, w: 9.5, h: 0.9,
+            fontSize: 44, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
         });
 
-        // Subtítulo
+        // Subtítulo descriptivo
         s1.addText('Ecosistema Digital Inteligente para la Gestión Bibliotecaria y el Acceso Democrático a la Lectura', {
-            x: 1.4, y: 3.0, w: 9.5, h: 0.8,
-            fontSize: 18, color: C_TEXT_LIGHT, fontFace: 'Arial'
+            x: 1.3, y: 2.6, w: 10.7, h: 0.7,
+            fontSize: 16, color: C_TEXT_LIGHT, fontFace: 'Arial', margin: 0
         });
 
-        // Tarjetas resumen en la portada
+        // 3 Tarjetas resumen inferiores
         const features = [
-            { t: '¿Quiénes Somos?', d: 'Plataforma integral que une lectores y biblioteca.' },
-            { t: 'Diferencial Clave', d: 'Búsqueda por voz, accesibilidad universal y control en vivo.' },
-            { t: 'Beneficio al Usuario', d: 'Ahorro de tiempo, préstamos ágiles y hábitos de lectura.' }
+            { t: '¿Quiénes Somos?', d: 'Plataforma web integral que une a lectores y administradores.' },
+            { t: 'Diferencial Clave', d: 'Búsqueda por voz, accesibilidad A11y e inventario en tiempo real.' },
+            { t: 'Beneficio al Usuario', d: 'Ahorro de tiempo, préstamos inmediatos y control de lecturas.' }
         ];
 
         features.forEach((f, idx) => {
-            const posX = 1.4 + idx * 3.4;
+            const posX = 1.3 + idx * 3.65;
             s1.addShape(pres.ShapeType.roundRect, {
-                x: posX, y: 4.2, w: 3.2, h: 1.8,
+                x: posX, y: 3.7, w: 3.4, h: 2.4,
                 rectRadius: 0.15,
                 fill: { color: '24324F' },
                 line: { color: C_CARD_BORDER, width: 1 }
             });
 
             s1.addText(f.t, {
-                x: posX + 0.2, y: 4.4, w: 2.8, h: 0.4,
-                fontSize: 14, bold: true, color: C_CYAN, fontFace: 'Arial'
+                x: posX + 0.25, y: 3.95, w: 2.9, h: 0.4,
+                fontSize: 14, bold: true, color: C_CYAN, fontFace: 'Arial', margin: 0
             });
 
             s1.addText(f.d, {
-                x: posX + 0.2, y: 4.9, w: 2.8, h: 0.9,
-                fontSize: 11, color: C_TEXT_LIGHT, fontFace: 'Arial'
+                x: posX + 0.25, y: 4.5, w: 2.9, h: 1.3,
+                fontSize: 11.5, color: C_TEXT_LIGHT, fontFace: 'Arial', margin: 0
             });
         });
     }
@@ -115,13 +141,13 @@ async function createPresentation() {
         applySlideBackground(s2, 'Identidad y Propósito');
 
         s2.addText('¿Quiénes Somos como Plataforma?', {
-            x: 0.8, y: 0.65, w: 11.5, h: 0.7,
-            fontSize: 28, bold: true, color: C_WHITE, fontFace: 'Arial'
+            x: 0.8, y: 0.55, w: 11.5, h: 0.65,
+            fontSize: 26, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
         });
 
-        // Bloque Introductorio
+        // Caja de definición
         s2.addShape(pres.ShapeType.roundRect, {
-            x: 0.8, y: 1.5, w: 11.7, h: 1.4,
+            x: 0.8, y: 1.35, w: 11.73, h: 1.25,
             rectRadius: 0.15,
             fill: { color: C_CARD_BG },
             line: { color: C_PRIMARY, width: 1.5 }
@@ -132,54 +158,54 @@ async function createPresentation() {
             { text: 'es una solución web integral diseñada para modernizar la experiencia bibliotecaria tanto para los ', options: { color: C_TEXT_LIGHT } },
             { text: 'lectores ', options: { bold: true, color: C_WHITE } },
             { text: '(estudiantes, investigadores y autodidactas) como para los ', options: { color: C_TEXT_LIGHT } },
-            { text: 'administradores bibliotecarios', options: { bold: true, color: C_WHITE } },
-            { text: '. Nacemos con el propósito de eliminar las barreras de acceso a los libros físicos y digitales, sustituyendo procesos manuales por una gestión ágil, transparente y moderna.', options: { color: C_TEXT_LIGHT } }
+            { text: 'administradores de biblioteca', options: { bold: true, color: C_WHITE } },
+            { text: '. Nacemos con el propósito de eliminar las barreras de acceso a los libros físicos y digitales, reemplazando procesos manuales por una gestión ágil, transparente y moderna.', options: { color: C_TEXT_LIGHT } }
         ], {
-            x: 1.1, y: 1.65, w: 11.1, h: 1.1,
-            fontSize: 14, fontFace: 'Arial'
+            x: 1.05, y: 1.5, w: 11.2, h: 0.95,
+            fontSize: 13, fontFace: 'Arial', margin: 0
         });
 
-        // 3 Pilares Fundamentales
+        // 3 Pilares
         const pilares = [
             {
                 num: '01',
                 titulo: 'Democratización Cultural',
-                desc: 'Permitimos que cualquier persona consulte el catálogo completo en tiempo real, conozca la disponibilidad de ejemplares y acceda a préstamos sin burocracia.'
+                desc: 'Permite que cualquier persona consulte el catálogo completo en tiempo real, conozca la disponibilidad de ejemplares y acceda a préstamos sin burocracia.'
             },
             {
                 num: '02',
                 titulo: 'Gestión Eficiente y Precisa',
-                desc: 'Automatizamos la trazabilidad de préstamos, el control riguroso de inventario, la alerta de ejemplares agotados y las devoluciones a tiempo.'
+                desc: 'Automatiza la trazabilidad de préstamos, el control de inventario físico, la alerta de ejemplares agotados y las devoluciones a tiempo.'
             },
             {
                 num: '03',
                 titulo: 'Comunidad y Sostenibilidad',
-                desc: 'Fomentamos la circulación colaborativa del conocimiento mediante un módulo transparente de donación y validación de nuevos libros.'
+                desc: 'Fomenta la circulación colaborativa del conocimiento mediante un módulo transparente de donación y validación de nuevos libros.'
             }
         ];
 
         pilares.forEach((p, idx) => {
-            const posX = 0.8 + idx * 4.0;
+            const posX = 0.8 + idx * 3.99;
             s2.addShape(pres.ShapeType.roundRect, {
-                x: posX, y: 3.2, w: 3.7, h: 3.5,
+                x: posX, y: 2.8, w: 3.75, h: 3.9,
                 rectRadius: 0.15,
                 fill: { color: C_CARD_BG },
                 line: { color: C_CARD_BORDER, width: 1 }
             });
 
             s2.addText(p.num, {
-                x: posX + 0.3, y: 3.4, w: 1.5, h: 0.5,
-                fontSize: 24, bold: true, color: C_CYAN, fontFace: 'Arial'
+                x: posX + 0.3, y: 3.05, w: 1.5, h: 0.45,
+                fontSize: 22, bold: true, color: C_CYAN, fontFace: 'Arial', margin: 0
             });
 
             s2.addText(p.titulo, {
-                x: posX + 0.3, y: 4.0, w: 3.1, h: 0.6,
-                fontSize: 16, bold: true, color: C_WHITE, fontFace: 'Arial'
+                x: posX + 0.3, y: 3.65, w: 3.15, h: 0.55,
+                fontSize: 15, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
             });
 
             s2.addText(p.desc, {
-                x: posX + 0.3, y: 4.7, w: 3.1, h: 1.8,
-                fontSize: 12, color: C_TEXT_LIGHT, fontFace: 'Arial'
+                x: posX + 0.3, y: 4.35, w: 3.15, h: 2.0,
+                fontSize: 12, color: C_TEXT_LIGHT, fontFace: 'Arial', margin: 0
             });
         });
     }
@@ -192,8 +218,8 @@ async function createPresentation() {
         applySlideBackground(s3, 'Ventaja Competitiva y Diferenciadores');
 
         s3.addText('¿Qué Diferencia a BookHub de las Demás Plataformas?', {
-            x: 0.8, y: 0.65, w: 11.5, h: 0.7,
-            fontSize: 28, bold: true, color: C_WHITE, fontFace: 'Arial'
+            x: 0.8, y: 0.55, w: 11.5, h: 0.65,
+            fontSize: 26, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
         });
 
         const diferenciales = [
@@ -209,7 +235,7 @@ async function createPresentation() {
             },
             {
                 titulo: 'Trazabilidad y Stock en Tiempo Real',
-                desc: 'Los lectores ven disponibilidad exacta de ejemplares; los administradores cuentan con semáforos de stock bajo, alertas de morosidad y cálculo automático de sanciones.',
+                desc: 'Los lectores ven la disponibilidad exacta de ejemplares; los administradores cuentan con semáforos de stock bajo, alertas de morosidad y cálculo automático de sanciones.',
                 color: '38BDF8'
             },
             {
@@ -222,24 +248,24 @@ async function createPresentation() {
         diferenciales.forEach((d, idx) => {
             const col = idx % 2;
             const row = Math.floor(idx / 2);
-            const posX = 0.8 + col * 5.95;
-            const posY = 1.6 + row * 2.6;
+            const posX = 0.8 + col * 5.98;
+            const posY = 1.4 + row * 2.55;
 
             s3.addShape(pres.ShapeType.roundRect, {
-                x: posX, y: posY, w: 5.75, h: 2.35,
+                x: posX, y: posY, w: 5.75, h: 2.3,
                 rectRadius: 0.15,
                 fill: { color: C_CARD_BG },
                 line: { color: d.color, width: 1.5 }
             });
 
             s3.addText(d.titulo, {
-                x: posX + 0.35, y: posY + 0.25, w: 5.0, h: 0.45,
-                fontSize: 16, bold: true, color: C_WHITE, fontFace: 'Arial'
+                x: posX + 0.35, y: posY + 0.25, w: 5.05, h: 0.45,
+                fontSize: 15, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
             });
 
             s3.addText(d.desc, {
-                x: posX + 0.35, y: posY + 0.8, w: 5.0, h: 1.35,
-                fontSize: 12, color: C_TEXT_LIGHT, fontFace: 'Arial'
+                x: posX + 0.35, y: posY + 0.8, w: 5.05, h: 1.3,
+                fontSize: 12, color: C_TEXT_LIGHT, fontFace: 'Arial', margin: 0
             });
         });
     }
@@ -252,67 +278,67 @@ async function createPresentation() {
         applySlideBackground(s4, 'Experiencia del Lector (User Journey)');
 
         s4.addText('¿Como Usuario Qué Haría al Ingresar a BookHub?', {
-            x: 0.8, y: 0.65, w: 11.5, h: 0.7,
-            fontSize: 28, bold: true, color: C_WHITE, fontFace: 'Arial'
+            x: 0.8, y: 0.55, w: 11.5, h: 0.65,
+            fontSize: 26, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
         });
 
         const pasos = [
             {
                 paso: 'PASO 1',
-                titulo: 'Explorar el Catálogo',
-                accion: 'El usuario accede y navega visualmente por portadas, categorías (Novelas, Programación, Historia, etc.) y recomendaciones destacadas.'
+                titulo: 'Explorar Catálogo',
+                accion: 'Accede y navega visualmente por portadas, categorías (Novelas, Programación, etc.) y libros destacados.'
             },
             {
                 paso: 'PASO 2',
-                titulo: 'Búsqueda Inteligente',
-                accion: 'Escribe palabras clave o pulsa el botón "Dictar" para buscar por voz con reconocimiento inmediato y sin fricciones.'
+                titulo: 'Búsqueda por Voz',
+                accion: 'Escribe palabras clave o pulsa el botón "Dictar" para buscar por voz con reconocimiento inmediato.'
             },
             {
                 paso: 'PASO 3',
-                titulo: 'Ficha y Disponibilidad',
-                accion: 'Abre el detalle del libro para leer la sinopsis, año, autor y verificar en vivo si hay ejemplares disponibles para préstamo inmediato.'
+                titulo: 'Ficha y Stock',
+                accion: 'Abre el detalle del libro para leer la sinopsis, año, autor y verificar en vivo si hay ejemplares en sala.'
             },
             {
                 paso: 'PASO 4',
                 titulo: 'Solicitar Préstamo',
-                accion: 'Con un solo clic solicita el ejemplar. El sistema registra las fechas de entrega y devolución esperada de manera automática.'
+                accion: 'Con un clic solicita el libro; el sistema calcula las fechas de entrega y devolución esperada de forma automática.'
             },
             {
                 paso: 'PASO 5',
-                titulo: 'Control y Donaciones',
-                accion: 'Supervisa en "Mis Préstamos" sus plazos y devoluciones, o ingresa al módulo de Donar para aportar nuevos libros a la comunidad.'
+                titulo: 'Control y Aportes',
+                accion: 'Supervisa en "Mis Préstamos" sus plazos, o ingresa al módulo de Donar para aportar nuevos libros a la comunidad.'
             }
         ];
 
         pasos.forEach((p, idx) => {
-            const posX = 0.8 + idx * 2.38;
+            const posX = 0.8 + idx * 2.39;
             s4.addShape(pres.ShapeType.roundRect, {
-                x: posX, y: 1.6, w: 2.22, h: 5.1,
+                x: posX, y: 1.45, w: 2.18, h: 5.2,
                 rectRadius: 0.15,
                 fill: { color: C_CARD_BG },
                 line: { color: C_CARD_BORDER, width: 1 }
             });
 
-            // Badge Paso
+            // Badge del paso
             s4.addShape(pres.ShapeType.roundRect, {
-                x: posX + 0.2, y: 1.85, w: 1.82, h: 0.35,
-                rectRadius: 0.1,
+                x: posX + 0.15, y: 1.7, w: 1.88, h: 0.35,
+                rectRadius: 0.08,
                 fill: { color: C_PRIMARY }
             });
 
             s4.addText(p.paso, {
-                x: posX + 0.2, y: 1.88, w: 1.82, h: 0.3,
-                fontSize: 10, bold: true, color: C_WHITE, fontFace: 'Arial', align: 'center'
+                x: posX + 0.15, y: 1.75, w: 1.88, h: 0.25,
+                fontSize: 10, bold: true, color: C_WHITE, fontFace: 'Arial', align: 'center', margin: 0
             });
 
             s4.addText(p.titulo, {
-                x: posX + 0.2, y: 2.35, w: 1.82, h: 0.65,
-                fontSize: 14, bold: true, color: C_CYAN, fontFace: 'Arial'
+                x: posX + 0.15, y: 2.25, w: 1.88, h: 0.6,
+                fontSize: 13.5, bold: true, color: C_CYAN, fontFace: 'Arial', margin: 0
             });
 
             s4.addText(p.accion, {
-                x: posX + 0.2, y: 3.1, w: 1.82, h: 3.4,
-                fontSize: 11, color: C_TEXT_LIGHT, fontFace: 'Arial'
+                x: posX + 0.15, y: 2.95, w: 1.88, h: 3.4,
+                fontSize: 11, color: C_TEXT_LIGHT, fontFace: 'Arial', margin: 0
             });
         });
     }
@@ -325,55 +351,55 @@ async function createPresentation() {
         applySlideBackground(s5, 'Beneficios y Valor para el Usuario');
 
         s5.addText('¿En Qué me Beneficia y Ayuda BookHub?', {
-            x: 0.8, y: 0.65, w: 11.5, h: 0.7,
-            fontSize: 28, bold: true, color: C_WHITE, fontFace: 'Arial'
+            x: 0.8, y: 0.55, w: 11.5, h: 0.65,
+            fontSize: 26, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
         });
 
         const beneficios = [
             {
                 icono: '⏱️',
                 titulo: 'Ahorro Radical de Tiempo',
-                detalle: 'No tienes que ir físicamente a la biblioteca a adivinar si el libro está en estantería. En segundos sabes si está disponible y puedes reservarlo de inmediato.'
+                detalle: 'No tienes que ir físicamente a la biblioteca a adivinar si el libro está en estantería. En segundos sabes si está disponible y lo reservas de inmediato.'
             },
             {
                 icono: '📅',
-                titulo: 'Cero Multas y Mejor Organización',
+                titulo: 'Cero Multas y Organización',
                 detalle: 'Desde "Mis Préstamos" supervisas tus fechas de vencimiento con estados claros (Prestado, Devuelto, Moroso), evitando sanciones por retrasos.'
             },
             {
                 icono: '👓',
-                titulo: 'Lectura Cómoda y Sin Barreras',
-                detalle: 'Si sufres de fatiga visual o dislexia, adaptas la interfaz al instante con fuentes especializadas, alto contraste o dictado por voz.'
+                titulo: 'Lectura Inclusiva y Cómoda',
+                detalle: 'Si sufres de fatiga visual o dislexia, adaptas la interfaz al instante con tipografías especializadas, alto contraste o dictado por voz.'
             },
             {
                 icono: '📚',
-                titulo: 'Acceso Centralizado al Conocimiento',
-                detalle: 'Todo tu acervo académico, profesional y literario en una sola plataforma disponible 24/7 desde cualquier computadora o dispositivo móvil.'
+                titulo: 'Acceso Centralizado 24/7',
+                detalle: 'Todo tu acervo académico, profesional y literario en una sola plataforma disponible las 24 horas desde cualquier computadora o teléfono.'
             }
         ];
 
         beneficios.forEach((b, idx) => {
-            const posX = 0.8 + idx * 3.0;
+            const posX = 0.8 + idx * 2.99;
             s5.addShape(pres.ShapeType.roundRect, {
-                x: posX, y: 1.6, w: 2.8, h: 5.1,
+                x: posX, y: 1.45, w: 2.78, h: 5.2,
                 rectRadius: 0.15,
                 fill: { color: C_CARD_BG },
                 line: { color: C_CARD_BORDER, width: 1 }
             });
 
             s5.addText(b.icono, {
-                x: posX + 0.2, y: 1.9, w: 2.4, h: 0.6,
-                fontSize: 28, align: 'center'
+                x: posX + 0.2, y: 1.75, w: 2.38, h: 0.6,
+                fontSize: 28, align: 'center', margin: 0
             });
 
             s5.addText(b.titulo, {
-                x: posX + 0.2, y: 2.6, w: 2.4, h: 0.8,
-                fontSize: 15, bold: true, color: C_WHITE, fontFace: 'Arial', align: 'center'
+                x: posX + 0.2, y: 2.5, w: 2.38, h: 0.75,
+                fontSize: 14.5, bold: true, color: C_WHITE, fontFace: 'Arial', align: 'center', margin: 0
             });
 
             s5.addText(b.detalle, {
-                x: posX + 0.2, y: 3.5, w: 2.4, h: 3.0,
-                fontSize: 11.5, color: C_TEXT_LIGHT, fontFace: 'Arial'
+                x: posX + 0.2, y: 3.4, w: 2.38, h: 2.9,
+                fontSize: 11.5, color: C_TEXT_LIGHT, fontFace: 'Arial', margin: 0
             });
         });
     }
@@ -386,45 +412,45 @@ async function createPresentation() {
         applySlideBackground(s6, 'Conclusión y Síntesis');
 
         s6.addText('El Puente Entre el Lector y el Conocimiento', {
-            x: 0.8, y: 0.65, w: 11.5, h: 0.7,
-            fontSize: 28, bold: true, color: C_WHITE, fontFace: 'Arial'
+            x: 0.8, y: 0.55, w: 11.5, h: 0.65,
+            fontSize: 26, bold: true, color: C_WHITE, fontFace: 'Arial', margin: 0
         });
 
-        // Contenedor principal de síntesis
+        // Contenedor principal
         s6.addShape(pres.ShapeType.roundRect, {
-            x: 0.8, y: 1.6, w: 11.7, h: 4.0,
+            x: 0.8, y: 1.4, w: 11.73, h: 3.8,
             rectRadius: 0.15,
             fill: { color: C_CARD_BG },
             line: { color: C_CYAN, width: 2 }
         });
 
         s6.addText('Síntesis de Propuesta de Valor', {
-            x: 1.2, y: 1.9, w: 10.9, h: 0.4,
-            fontSize: 18, bold: true, color: C_CYAN, fontFace: 'Arial'
+            x: 1.15, y: 1.65, w: 11.0, h: 0.4,
+            fontSize: 17, bold: true, color: C_CYAN, fontFace: 'Arial', margin: 0
         });
 
         const puntos = [
-            '• BookHub trasciende el concepto de una biblioteca tradicional convirtiéndola en un servicio digital ágil, interactivo y accesible.',
-            '• Resuelve los 3 principales dolores del usuario: pérdida de tiempo en búsquedas manuales, falta de trazabilidad en préstamos e inaccesibilidad.',
+            '• BookHub trasciende la biblioteca física tradicional, convirtiéndola en un servicio digital ágil, interactivo e inclusivo.',
+            '• Resuelve los tres dolores principales del usuario: pérdida de tiempo en búsquedas manuales, falta de trazabilidad en préstamos y barreras de accesibilidad.',
             '• Ofrece a la institución una arquitectura sólida en Java Web MVC (Jakarta EE + Maven) que garantiza escalabilidad y facilidad de mantenimiento.',
-            '• Es una plataforma humana: promueve la donación de libros, fomenta el hábito lector y no deja a nadie atrás gracias a sus herramientas inclusivas.'
+            '• Es una plataforma humana y colaborativa: promueve la donación de libros, fomenta el hábito lector y no deja a nadie atrás gracias a sus herramientas de accesibilidad.'
         ];
 
         s6.addText(puntos.join('\n\n'), {
-            x: 1.2, y: 2.5, w: 10.9, h: 2.8,
-            fontSize: 13, color: C_TEXT_LIGHT, fontFace: 'Arial'
+            x: 1.15, y: 2.25, w: 11.0, h: 2.7,
+            fontSize: 12.5, color: C_TEXT_LIGHT, fontFace: 'Arial', margin: 0
         });
 
         // Banner inferior de llamado
         s6.addShape(pres.ShapeType.roundRect, {
-            x: 0.8, y: 5.8, w: 11.7, h: 0.9,
+            x: 0.8, y: 5.45, w: 11.73, h: 1.1,
             rectRadius: 0.1,
             fill: { color: C_PRIMARY }
         });
 
         s6.addText('BookHub: Más que una biblioteca, tu punto de encuentro con la lectura.', {
-            x: 1.0, y: 6.0, w: 11.3, h: 0.5,
-            fontSize: 14, bold: true, color: C_WHITE, fontFace: 'Arial', align: 'center'
+            x: 1.0, y: 5.8, w: 11.33, h: 0.4,
+            fontSize: 14, bold: true, color: C_WHITE, fontFace: 'Arial', align: 'center', margin: 0
         });
     }
 
