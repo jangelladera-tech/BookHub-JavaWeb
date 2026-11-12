@@ -84,6 +84,32 @@ public class DonacionDAO {
                 + ")";
         try (Statement st = con.createStatement()) {
             st.executeUpdate(sql);
+
+            // Sembrar donaciones iniciales en MySQL si la tabla está vacía
+            try (ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM donaciones")) {
+                if (rs.next() && rs.getInt(1) == 0) {
+                    String insertSql = "INSERT INTO donaciones (id_donacion, titulo_libro, autor, categoria, anio, "
+                            + "estado_conservacion, nombre_donante, correo_donante, telefono_donante, "
+                            + "motivo_mensaje, fecha_solicitud, estado_revision) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    for (Donacion d : donacionesMemoria) {
+                        try (PreparedStatement ps = con.prepareStatement(insertSql)) {
+                            ps.setInt(1, d.getIdDonacion());
+                            ps.setString(2, d.getTituloLibro());
+                            ps.setString(3, d.getAutor());
+                            ps.setString(4, d.getCategoria());
+                            ps.setInt(5, d.getAnio());
+                            ps.setString(6, d.getEstadoConservacion());
+                            ps.setString(7, d.getNombreDonante());
+                            ps.setString(8, d.getCorreoDonante());
+                            ps.setString(9, d.getTelefonoDonante());
+                            ps.setString(10, d.getMotivoMensaje());
+                            ps.setString(11, d.getFechaSolicitud());
+                            ps.setString(12, d.getEstadoRevision());
+                            ps.executeUpdate();
+                        }
+                    }
+                }
+            }
         } catch (SQLException ignored) {
         }
     }
@@ -124,7 +150,37 @@ public class DonacionDAO {
     }
 
     public Donacion obtenerPorId(int id) {
-        for (Donacion d : listar()) {
+        String sql = "SELECT * FROM donaciones WHERE id_donacion = ?";
+        try (Connection con = Conexion.conectar()) {
+            if (con != null) {
+                asegurarTabla(con);
+                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                    ps.setInt(1, id);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            return new Donacion(
+                                    rs.getInt("id_donacion"),
+                                    rs.getString("titulo_libro"),
+                                    rs.getString("autor"),
+                                    rs.getString("categoria"),
+                                    rs.getInt("anio"),
+                                    rs.getString("estado_conservacion"),
+                                    rs.getString("nombre_donante"),
+                                    rs.getString("correo_donante"),
+                                    rs.getString("telefono_donante"),
+                                    rs.getString("motivo_mensaje"),
+                                    rs.getString("fecha_solicitud"),
+                                    rs.getString("estado_revision")
+                            );
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error en DonacionDAO.obtenerPorId: " + e.getMessage());
+        }
+
+        for (Donacion d : donacionesMemoria) {
             if (d.getIdDonacion() == id) {
                 return d;
             }
@@ -183,6 +239,7 @@ public class DonacionDAO {
         String sql = "UPDATE donaciones SET estado_revision = ? WHERE id_donacion = ?";
         try (Connection con = Conexion.conectar()) {
             if (con != null) {
+                asegurarTabla(con);
                 try (PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setString(1, nuevoEstado);
                     ps.setInt(2, idDonacion);
