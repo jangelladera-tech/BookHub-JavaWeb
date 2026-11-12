@@ -288,6 +288,7 @@
             <form action="PrestamoServlet" method="POST">
                 <% if (editar) { %>
                     <input type="hidden" name="accion" value="actualizar">
+                    <input type="hidden" name="id" value="<%= prestamoEditar.getIdPrestamo() %>">
                     <input type="hidden" name="idPrestamo" value="<%= prestamoEditar.getIdPrestamo() %>">
                 <% } else { %>
                     <input type="hidden" name="accion" value="insertar">
@@ -400,7 +401,7 @@
                                 </td>
                                 <td>
                                     <div class="fw-semibold"><%= l != null ? l.getTitulo() : "Libro #" + prestamo.getIdLibro() %></div>
-                                    <small class="text-muted"><%= l != null ? l.getCategoria() : "" %></small>
+                                    <small class="text-muted"><%= l != null ? l.getNombreCategoria() : "" %></small>
                                 </td>
                                 <td><i class="bi bi-calendar-event text-secondary"></i> <%= prestamo.getFechaPrestamo() %></td>
                                 <td><i class="bi bi-calendar-check text-secondary"></i> <%= prestamo.getFechaDevolucion() %></td>

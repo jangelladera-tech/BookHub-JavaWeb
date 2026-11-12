@@ -278,6 +278,7 @@
             <form action="UsuarioServlet" method="POST">
                 <% if (editando) { %>
                     <input type="hidden" name="accion" value="actualizar">
+                    <input type="hidden" name="id" value="<%= usuarioEditar.getIdUsuario() %>">
                     <input type="hidden" name="idUsuario" value="<%= usuarioEditar.getIdUsuario() %>">
                 <% } else { %>
                     <input type="hidden" name="accion" value="insertar">

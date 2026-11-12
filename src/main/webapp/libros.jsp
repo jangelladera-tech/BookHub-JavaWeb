@@ -333,6 +333,10 @@
                                name="id"
                                value="<%= libroEditar.getIdLibro()%>">
 
+                        <input type="hidden"
+                               name="idLibro"
+                               value="<%= libroEditar.getIdLibro()%>">
+
                         <% }%>
 
 

@@ -35,7 +35,9 @@ public class DonacionServlet extends HttpServlet {
         }
 
         if ("aprobar".equalsIgnoreCase(accion)) {
-            String idStr = request.getParameter("id");
+            String idStr = request.getParameter("id") != null
+                    ? request.getParameter("id")
+                    : request.getParameter("idDonacion");
             if (idStr != null) {
                 try {
                     int id = Integer.parseInt(idStr.trim());
@@ -47,7 +49,9 @@ public class DonacionServlet extends HttpServlet {
             response.sendRedirect("DonacionesServlet?exito=aprobado");
             return;
         } else if ("rechazar".equalsIgnoreCase(accion) || "desestimar".equalsIgnoreCase(accion)) {
-            String idStr = request.getParameter("id");
+            String idStr = request.getParameter("id") != null
+                    ? request.getParameter("id")
+                    : request.getParameter("idDonacion");
             if (idStr != null) {
                 try {
                     int id = Integer.parseInt(idStr.trim());

@@ -19,7 +19,9 @@ public class DetalleLibroServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        String parametroId = request.getParameter("id");
+        String parametroId = request.getParameter("id") != null
+                ? request.getParameter("id")
+                : request.getParameter("idLibro");
 
         if (parametroId == null) {
             response.sendRedirect("CatalogoServlet");

@@ -28,7 +28,9 @@ public class SancionesServlet extends HttpServlet {
 
         String accion = request.getParameter("accion");
         if ("regularizar".equals(accion)) {
-            String idStr = request.getParameter("id");
+            String idStr = request.getParameter("id") != null
+                    ? request.getParameter("id")
+                    : request.getParameter("idPrestamo");
             if (idStr != null && !idStr.trim().isEmpty()) {
                 try {
                     int idPrestamo = Integer.parseInt(idStr.trim());

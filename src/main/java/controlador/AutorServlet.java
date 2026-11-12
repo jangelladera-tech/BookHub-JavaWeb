@@ -20,32 +20,40 @@ public class AutorServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String accion = request.getParameter("accion");
-
         if (accion == null) {
             accion = "listar";
         }
 
-        if (accion.equals("eliminar")) {
+        String idStr = request.getParameter("id") != null ? request.getParameter("id") : request.getParameter("idAutor");
 
-            int id = Integer.parseInt(request.getParameter("id"));
-            autorDAO.eliminar(id);
+        if ("eliminar".equalsIgnoreCase(accion)) {
+            if (idStr != null) {
+                try {
+                    int id = Integer.parseInt(idStr.trim());
+                    autorDAO.eliminar(id);
+                } catch (NumberFormatException ignored) {}
+            }
             response.sendRedirect("AutorServlet");
+            return;
 
-        } else if (accion.equals("editar")) {
-
-            int id = Integer.parseInt(request.getParameter("id"));
-            Autor autorEditar = autorDAO.obtenerPorId(id);
+        } else if ("editar".equalsIgnoreCase(accion)) {
+            Autor autorEditar = null;
+            if (idStr != null) {
+                try {
+                    int id = Integer.parseInt(idStr.trim());
+                    autorEditar = autorDAO.obtenerPorId(id);
+                } catch (NumberFormatException ignored) {}
+            }
 
             request.setAttribute("autorEditar", autorEditar);
             request.setAttribute("autores", autorDAO.listar());
 
             request.getRequestDispatcher("autores.jsp")
                     .forward(request, response);
+            return;
 
         } else {
-
             request.setAttribute("autores", autorDAO.listar());
-
             request.getRequestDispatcher("autores.jsp")
                     .forward(request, response);
         }
@@ -63,13 +71,19 @@ public class AutorServlet extends HttpServlet {
         String nacionalidad = request.getParameter("nacionalidad");
 
         Autor autor = new Autor();
-        autor.setNombre(nombre);
-        autor.setNacionalidad(nacionalidad);
+        autor.setNombre(nombre != null ? nombre.trim() : "");
+        autor.setNacionalidad(nacionalidad != null ? nacionalidad.trim() : "");
 
-        if ("actualizar".equals(accion)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            autor.setIdAutor(id);
-            autorDAO.actualizar(autor);
+        String idStr = request.getParameter("id") != null ? request.getParameter("id") : request.getParameter("idAutor");
+
+        if ("actualizar".equalsIgnoreCase(accion)) {
+            if (idStr != null && !idStr.trim().isEmpty()) {
+                try {
+                    int id = Integer.parseInt(idStr.trim());
+                    autor.setIdAutor(id);
+                    autorDAO.actualizar(autor);
+                } catch (NumberFormatException ignored) {}
+            }
         } else {
             autorDAO.agregar(autor);
         }

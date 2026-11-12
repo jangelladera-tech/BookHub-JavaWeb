@@ -268,6 +268,7 @@
             <form action="CategoriaServlet" method="POST">
                 <% if (editando) { %>
                     <input type="hidden" name="accion" value="actualizar">
+                    <input type="hidden" name="id" value="<%= categoriaEditar.getIdCategoria() %>">
                     <input type="hidden" name="idCategoria" value="<%= categoriaEditar.getIdCategoria() %>">
                 <% } else { %>
                     <input type="hidden" name="accion" value="insertar">

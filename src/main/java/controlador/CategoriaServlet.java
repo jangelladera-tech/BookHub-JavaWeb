@@ -20,32 +20,40 @@ public class CategoriaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String accion = request.getParameter("accion");
-
         if (accion == null) {
             accion = "listar";
         }
 
-        if (accion.equals("eliminar")) {
+        String idStr = request.getParameter("id") != null ? request.getParameter("id") : request.getParameter("idCategoria");
 
-            int id = Integer.parseInt(request.getParameter("id"));
-            categoriaDAO.eliminar(id);
+        if ("eliminar".equalsIgnoreCase(accion)) {
+            if (idStr != null) {
+                try {
+                    int id = Integer.parseInt(idStr.trim());
+                    categoriaDAO.eliminar(id);
+                } catch (NumberFormatException ignored) {}
+            }
             response.sendRedirect("CategoriaServlet");
+            return;
 
-        } else if (accion.equals("editar")) {
-
-            int id = Integer.parseInt(request.getParameter("id"));
-            Categoria categoriaEditar = categoriaDAO.obtenerPorId(id);
+        } else if ("editar".equalsIgnoreCase(accion)) {
+            Categoria categoriaEditar = null;
+            if (idStr != null) {
+                try {
+                    int id = Integer.parseInt(idStr.trim());
+                    categoriaEditar = categoriaDAO.obtenerPorId(id);
+                } catch (NumberFormatException ignored) {}
+            }
 
             request.setAttribute("categoriaEditar", categoriaEditar);
             request.setAttribute("categorias", categoriaDAO.listar());
 
             request.getRequestDispatcher("categorias.jsp")
                     .forward(request, response);
+            return;
 
         } else {
-
             request.setAttribute("categorias", categoriaDAO.listar());
-
             request.getRequestDispatcher("categorias.jsp")
                     .forward(request, response);
         }
@@ -63,13 +71,19 @@ public class CategoriaServlet extends HttpServlet {
         String descripcion = request.getParameter("descripcion");
 
         Categoria categoria = new Categoria();
-        categoria.setNombre(nombre);
-        categoria.setDescripcion(descripcion);
+        categoria.setNombre(nombre != null ? nombre.trim() : "");
+        categoria.setDescripcion(descripcion != null ? descripcion.trim() : "");
 
-        if ("actualizar".equals(accion)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            categoria.setIdCategoria(id);
-            categoriaDAO.actualizar(categoria);
+        String idStr = request.getParameter("id") != null ? request.getParameter("id") : request.getParameter("idCategoria");
+
+        if ("actualizar".equalsIgnoreCase(accion)) {
+            if (idStr != null && !idStr.trim().isEmpty()) {
+                try {
+                    int id = Integer.parseInt(idStr.trim());
+                    categoria.setIdCategoria(id);
+                    categoriaDAO.actualizar(categoria);
+                } catch (NumberFormatException ignored) {}
+            }
         } else {
             categoriaDAO.agregar(categoria);
         }

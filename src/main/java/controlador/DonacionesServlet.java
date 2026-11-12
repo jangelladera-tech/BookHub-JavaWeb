@@ -28,7 +28,9 @@ public class DonacionesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
-        String idStr = request.getParameter("id");
+        String idStr = request.getParameter("id") != null
+                ? request.getParameter("id")
+                : request.getParameter("idDonacion");
 
         if (accion != null && idStr != null) {
             try {

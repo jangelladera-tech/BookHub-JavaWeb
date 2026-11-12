@@ -47,7 +47,9 @@ public class SolicitarPrestamoServlet extends HttpServlet {
         // OBTENER ID DEL LIBRO
         // ==========================================
 
-        String parametroId = request.getParameter("idLibro");
+        String parametroId = request.getParameter("idLibro") != null
+                ? request.getParameter("idLibro")
+                : request.getParameter("id");
 
         if (parametroId == null) {
             response.sendRedirect("CatalogoServlet");
